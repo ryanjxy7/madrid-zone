@@ -1,25 +1,84 @@
-# CODING AGENTS: READ THIS FIRST
+# Madrid Zone
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+An independent Real Madrid news site — News, Transfers, Matches, Stats, Analysis and Squad — built with Next.js 15 (App Router), TypeScript and Tailwind CSS.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+Implemented from the Claude Design handoff bundle in `design/` (see `design/HANDOFF.md` and `design/chats/` for the original design brief and iteration history).
 
-## What you should do — IMPORTANT
+## Stack
 
-**Read the chat transcripts first.** There are 2 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+- **Next.js 15** (App Router, React 19, TypeScript, strict mode)
+- **Tailwind CSS v4** — design tokens (colors, fonts, shadows) defined as CSS variables in `src/app/globals.css`, themeable for the dark/light toggle
+- Zero required external services — the site runs entirely on placeholder data out of the box
 
-**Read `project/Madrid Zone Site.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Getting started
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+```bash
+npm install
+npm run dev
+```
 
-## About the design files
+Open [http://localhost:3000](http://localhost:3000).
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+Other scripts: `npm run build`, `npm run start`, `npm run lint`, `npm run typecheck`.
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+## Project structure
 
-## Bundle contents
+```
+src/
+  app/                 Routes (App Router). One folder per page/segment.
+  components/
+    layout/            Header, Footer, Ticker, mobile nav, theme provider
+    article/           Article/story cards, article body renderer
+    home/               Homepage-only widgets (sidebar cards, sponsors strip, newsletter)
+    transfers/ matches/ squad/ stats/ legal/    Section-specific components
+    ui/                 Small generic primitives (Container, Card, Tag, SectionHeading)
+  lib/
+    data/               Data-access layer — every page/component fetches through here
+    cms/sanity/         Sanity integration scaffold (client, GROQ queries, schema reference)
+    sports-api/api-football/   API-Football integration scaffold (client, typed endpoints)
+    seo/                Site constants, JSON-LD helpers
+    utils/              Formatting, image URLs, small style helpers
+  data/placeholder/     Static placeholder content (the current data source)
+  types/                Shared TypeScript domain types (Article, Player, Fixture, ...)
+design/                 Original Claude Design handoff bundle (reference only, not built)
+```
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `The Madrid Zone redesign` project files (HTML prototypes, assets, components)
+## Content architecture — why nothing is hardcoded
+
+Every page reads content through `src/lib/data/*.ts` (e.g. `getAllArticles()`, `getSquad()`, `getStandings()`). Each of those functions currently returns data from `src/data/placeholder/`, but is already written to prefer a live source when one is configured:
+
+- **Editorial content** (articles, sponsors) checks `isSanityConfigured` and runs a GROQ query from `src/lib/cms/sanity/queries.ts` against your Sanity project first, falling back to placeholder data.
+- **Football data** (fixtures, results, standings, scorers) checks `isApiFootballConfigured` and calls API-Football (`src/lib/sports-api/api-football`) first, falling back to placeholder data.
+
+This means connecting a real CMS or live sports data is additive — set the environment variables below, and the relevant pages switch from placeholder to live data automatically. No component or page needs to change.
+
+### Connecting Sanity CMS
+
+1. Create a project at [sanity.io/manage](https://www.sanity.io/manage) and set up schema types matching `src/lib/cms/sanity/schema-reference.md` (`article`, `author`, `sponsor`, `wireItem`).
+2. Copy `.env.example` to `.env.local` and fill in `SANITY_PROJECT_ID` / `SANITY_DATASET`.
+3. Restart the dev server — the homepage, `/analysis`, `/news/[slug]` etc. now read from Sanity.
+
+### Connecting API-Football
+
+1. Get a key at [api-football.com](https://www.api-football.com) (free tier: 100 requests/day).
+2. Set `API_FOOTBALL_KEY` in `.env.local` (team/league IDs default to Real Madrid / LaLiga — override if needed).
+3. `/matches` and `/stats` now read live fixtures, results, standings and top scorers.
+
+Transfer-market data (`/transfers`) stays editorial by design — verified newsroom content, not an API feed — so it's intended to move to Sanity rather than API-Football when that's ready.
+
+## SEO
+
+- Per-page `generateMetadata` / static `metadata` exports, with Open Graph and Twitter card data
+- Dynamic OG image (`src/app/opengraph-image.tsx`) and favicon/apple-touch-icon (`icon.tsx`, `apple-icon.tsx`), all generated with `next/og` — no static image assets to keep in sync
+- `sitemap.xml` and `robots.txt` generated from the same data layer as the pages (`src/app/sitemap.ts`, `src/app/robots.ts`) — new articles appear automatically
+- `rss.xml` route (`src/app/rss.xml/route.ts`)
+- `NewsArticle` JSON-LD on article pages (`src/lib/seo/jsonld.ts`)
+- Web app manifest (`src/app/manifest.ts`)
+
+## Images
+
+Placeholder imagery is generated locally and deterministically by `src/app/api/placeholder/[seed]/route.tsx` (via `next/og`) — there is no dependency on a third-party image host, so the site works fully offline and never breaks behind a restrictive network policy. Swap `src/lib/utils/images.ts` for real licensed photography or Sanity-hosted assets before launch, and add your CDN hostname to `images.remotePatterns` in `next.config.ts`.
+
+## Theming
+
+Dark is the default theme; the header toggle switches to a light "day mode" and persists the choice in `localStorage` (`src/components/layout/ThemeProvider.tsx`). An inline script in the root layout applies the stored theme before hydration to avoid a flash of the wrong theme. The ticker and footer intentionally stay on fixed dark colors in both themes ("broadcast chrome"), matching the original design.

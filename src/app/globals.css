@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Dark is the default theme (no class needed); adding
+ * `.light` to <html> (see src/components/layout/ThemeProvider.tsx) swaps
+ * the palette. The ticker and footer intentionally stay on the fixed
+ * `--ink-900` values in both themes ("broadcast chrome").
+ */
+:root {
+  --surface: #0e1017;
+  --card: #161923;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --ink: #e8eaf0;
+  --heading: #ffffff;
+  --muted: #8b90a0;
+  --subtle: #a9adbd;
+  --body-text: #c9ccd8;
+  --accent: #ff4d64;
+  --track: rgba(255, 255, 255, 0.07);
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.28);
+  --shadow-card-hover: 0 12px 26px rgba(0, 0, 0, 0.45);
+
+  --ink-900: #07080c;
+  --brand: #e0243e;
+  --positive: #7fd49a;
+  --warning: #e9c258;
+  --negative: #ff4d64;
+  --neutral: #9aa5cc;
+}
+
+html.light {
+  --surface: #f2f3f6;
+  --card: #ffffff;
+  --border: rgba(12, 16, 30, 0.1);
+  --border-strong: rgba(12, 16, 30, 0.14);
+  --border-soft: rgba(12, 16, 30, 0.07);
+  --ink: #15181f;
+  --heading: #0d1017;
+  --muted: #666c7c;
+  --subtle: #494f60;
+  --body-text: #31364a;
+  --accent: #c8102e;
+  --track: rgba(12, 16, 30, 0.08);
+  --shadow-card: 0 4px 14px rgba(15, 20, 40, 0.08);
+  --shadow-card-hover: 0 14px 30px rgba(15, 20, 40, 0.16);
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-soft: var(--border-soft);
+  --color-ink: var(--ink);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-body: var(--body-text);
+  --color-accent: var(--accent);
+  --color-track: var(--track);
+  --color-ink-900: var(--ink-900);
+  --color-brand: var(--brand);
+  --color-positive: var(--positive);
+  --color-warning: var(--warning);
+  --color-negative: var(--negative);
+  --color-neutral: var(--neutral);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+
+  --font-display: var(--font-oswald);
+  --font-body: var(--font-source-sans);
+}
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+* {
+  border-color: var(--border);
+}

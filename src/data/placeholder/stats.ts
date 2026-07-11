@@ -1,0 +1,35 @@
+import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
+
+export const placeholderStatTiles: StatTile[] = [
+  { value: "58", label: "Matches played", sub: "All competitions" },
+  { value: "131", label: "Goals scored", sub: "2.26 per match" },
+  { value: "68%", label: "Win rate", sub: "39W · 11D · 8L" },
+  { value: "2", label: "Trophies", sub: "LaLiga · Supercopa" },
+];
+
+export const placeholderScorers: ScorerStat[] = [
+  { rank: 1, name: "K. Mbappé", goals: 38, barPercent: 100 },
+  { rank: 2, name: "Vinícius Jr", goals: 24, barPercent: 63 },
+  { rank: 3, name: "J. Bellingham", goals: 17, barPercent: 45 },
+  { rank: 4, name: "Rodrygo", goals: 13, barPercent: 34 },
+  { rank: 5, name: "F. Valverde", goals: 8, barPercent: 21 },
+];
+
+export const placeholderAssists: AssistStat[] = [
+  { rank: 1, name: "Vinícius Jr", assists: 15 },
+  { rank: 2, name: "J. Bellingham", assists: 12 },
+  { rank: 3, name: "K. Mbappé", assists: 10 },
+  { rank: 4, name: "A. Güler", assists: 9 },
+];
+
+export const placeholderGoalkeeping: GoalkeepingStat[] = [
+  { label: "Clean sheets — T. Courtois", value: "19" },
+  { label: "Save percentage", value: "78%" },
+];
+
+export const placeholderHomeStats: { label: string; value: string }[] = [
+  { label: "Most assists", value: "Vinícius Jr · 15" },
+  { label: "Clean sheets", value: "Courtois · 19" },
+  { label: "Most minutes", value: "Valverde · 4,410" },
+  { label: "Top rated", value: "Mbappé · 7.9" },
+];
