@@ -53,7 +53,7 @@ function mapWireItem(doc: SanityWireItem): WireItem {
 export async function getAllArticles(): Promise<Article[]> {
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityArticle[]>(allArticlesQuery, allArticlesQueryParams);
-    if (result) return result.map(mapArticle);
+    if (result && result.length > 0) return result.map(mapArticle);
   }
   return placeholderArticles;
 }
@@ -75,7 +75,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
 export async function getRelatedArticles(slug: string, count = 3): Promise<Article[]> {
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityArticle[]>(relatedArticlesQuery, { slug });
-    if (result) return result.map(mapArticle);
+    if (result && result.length > 0) return result.map(mapArticle);
   }
   return placeholderArticles.filter((article) => article.slug !== slug).slice(0, count);
 }
@@ -83,7 +83,7 @@ export async function getRelatedArticles(slug: string, count = 3): Promise<Artic
 export async function getAnalysisArticles(): Promise<Article[]> {
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityArticle[]>(allAnalysisArticlesQuery, allAnalysisArticlesQueryParams);
-    if (result) return result.map(mapArticle);
+    if (result && result.length > 0) return result.map(mapArticle);
   }
   return placeholderAnalysisArticles;
 }
@@ -91,7 +91,7 @@ export async function getAnalysisArticles(): Promise<Article[]> {
 export async function getWireItems(): Promise<WireItem[]> {
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityWireItem[]>(wireItemsQuery);
-    if (result) return result.map(mapWireItem);
+    if (result && result.length > 0) return result.map(mapWireItem);
   }
   return placeholderWire;
 }
