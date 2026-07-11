@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0e1017;font-family:'Source Sans 3',sans-serif}
+a{color:inherit;text-decoration:none}a:hover{opacity:.85}
+</style>
+</helmet>
+
+<div style="{{ themeVars }}"><div style="min-height:100vh;background:var(--bg,#0e1017);color:var(--tx,#e8eaf0);display:flex;flex-direction:column">
+
+<!-- ============ LIVE TICKER ============ -->
+<sc-if value="{{ showTicker }}" hint-placeholder-val="{{ true }}">
+<div style="background:#07080c;display:flex;align-items:center;height:38px;overflow:hidden">
+  <div style="background:#e0243e;color:#fff;font:700 11px 'Oswald',sans-serif;letter-spacing:.1em;padding:0 14px;display:flex;align-items:center;height:100%;flex:none">LIVE NEWS</div>
+  <div style="display:flex;gap:34px;padding:0 20px;font:500 12px 'Source Sans 3',sans-serif;color:#8b90a0;white-space:nowrap;overflow:hidden">
+    <span><b style="color:#fff;margin-right:8px">21:40</b> Medical scheduled for Friday morning</span>
+    <span><b style="color:#fff;margin-right:8px">20:15</b> Alonso press conference confirmed for Monday</span>
+    <span><b style="color:#fff;margin-right:8px">18:02</b> US tour squad list expected this week</span>
+    <span><b style="color:#fff;margin-right:8px">16:44</b> Pitch renovation finishes two weeks early</span>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ HEADER ============ -->
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));flex-wrap:wrap;gap:12px">
+  <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
+    <div style="font:700 34px 'Oswald',sans-serif;letter-spacing:.02em;line-height:1;color:var(--hd,#fff)">MZ</div>
+    <div style="display:flex;flex-direction:column"><div style="font:700 20px 'Oswald',sans-serif;letter-spacing:.05em">MADRID ZONE</div><div style="font:500 10px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0);letter-spacing:.14em">YOUR HUB FOR EVERYTHING</div></div>
+  </div>
+  <div style="display:flex;gap:24px;font:600 13px 'Source Sans 3',sans-serif;letter-spacing:.03em">
+    <a onClick="{{ goHome }}" style="cursor:pointer;color:{{ cHome }}">News</a>
+    <a onClick="{{ goTransfers }}" style="cursor:pointer;color:{{ cTransfers }}">Transfers</a>
+    <a onClick="{{ goMatches }}" style="cursor:pointer;color:{{ cMatches }}">Matches</a>
+    <a onClick="{{ goStats }}" style="cursor:pointer;color:{{ cStats }}">Stats</a>
+    <a onClick="{{ goAnalysis }}" style="cursor:pointer;color:{{ cAnalysis }}">Analysis</a>
+    <a onClick="{{ goSquad }}" style="cursor:pointer;color:{{ cSquad }}">Squad</a>
+    <a onClick="{{ goAbout }}" style="cursor:pointer;color:{{ cAbout }}">About</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div style="font:500 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Fri 11 Jul 2026</div>
+    <a onClick="{{ toggleTheme }}" style="cursor:pointer;border:1px solid var(--bd2,rgba(255,255,255,.1));color:var(--mut,#8b90a0);font:600 11px 'Source Sans 3',sans-serif;letter-spacing:.06em;padding:7px 13px;border-radius:99px">{{ themeLabel }}</a>
+    <a onClick="{{ goAbout }}" style="cursor:pointer;background:#e0243e;color:#fff;font:700 12px 'Source Sans 3',sans-serif;padding:8px 16px;border-radius:4px">FOLLOW · 2.1M</a>
+  </div>
+</div>
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Home" style="display:flex;flex-direction:column;flex:1">
+  <div style="display:grid;grid-template-columns:250px 1fr 280px;gap:20px;padding:20px 32px 8px">
+    <!-- wire -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-self:start">
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">LATEST NEWS</div>
+      <sc-for list="{{ wire }}" as="w" hint-placeholder-count="4">
+        <div style="padding:12px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;flex-direction:column;gap:3px">
+          <div style="font:600 10.5px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ w.time }}</div>
+          <div style="font:500 13px/1.35 'Source Sans 3',sans-serif">{{ w.text }}</div>
+        </div>
+      </sc-for>
+      <a onClick="{{ goTransfers }}" style="cursor:pointer;margin-top:10px;font:600 12px 'Source Sans 3',sans-serif;color:var(--acc,#ff4d64)">All news →</a>
+    </div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">TOP GOALSCORERS</div>
+      <sc-for list="{{ scorers }}" as="hs" hint-placeholder-count="5">
+        <div style="padding:10px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="font:700 12px 'Oswald',sans-serif;color:var(--mut,#8b90a0)">{{ hs.rank }}</span><span style="font:600 13px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ hs.name }}</span></div>
+            <span style="font:700 14px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">{{ hs.goals }}</span>
+          </div>
+          <div style="height:4px;background:var(--track,rgba(255,255,255,.07));border-radius:2px;overflow:hidden"><div style="height:100%;background:#e0243e;border-radius:2px;width:{{ hs.bar }}"></div></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">PLAYER STATS</div>
+      <sc-for list="{{ homeStats }}" as="hst" hint-placeholder-count="3">
+        <div style="padding:10px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between;gap:8px"><span style="font:400 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ hst.k }}</span><span style="font:600 12.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ hst.v }}</span></div>
+      </sc-for>
+      <a onClick="{{ goStats }}" style="cursor:pointer;margin-top:10px;font:600 12px 'Source Sans 3',sans-serif;color:var(--acc,#ff4d64)">All stats →</a>
+    </div>
+    </div>
+    <!-- hero + grid -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div onClick="{{ goArticle }}" style="cursor:pointer;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-top:3px solid #e0243e;border-radius:8px;overflow:hidden;box-shadow:var(--shadow,0 8px 22px rgba(0,0,0,.35));transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-3px);box-shadow:var(--shadowHov,0 16px 34px rgba(0,0,0,.5))">
+        <img src="https://loremflickr.com/1100/550/football,stadium?lock=21" alt="Santiago Bernabéu under lights" style="width:100%;aspect-ratio:16/8;object-fit:cover;display:block">
+        <div style="padding:18px 22px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:8px;align-items:center"><span style="background:#e0243e;color:#fff;font:700 10px 'Oswald',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px">EXCLUSIVE</span><span style="font:600 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">TRANSFERS</span></div>
+          <div style="font:700 28px/1.15 'Oswald',sans-serif;color:var(--hd,#fff);text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR AS PRE-SEASON OPENS</div>
+          <div style="font:400 13.5px/1.5 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad. Read the full story.</div>
+          <div style="font:500 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">2h · 6 min read</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <sc-for list="{{ stories }}" as="s" hint-placeholder-count="4">
+          <div onClick="{{ goArticle }}" style="cursor:pointer;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-top:3px solid #e0243e;border-radius:8px;padding:13px 15px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow,0 4px 14px rgba(0,0,0,.28));transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease" style-hover="transform:translateY(-2px);box-shadow:var(--shadowHov,0 12px 26px rgba(0,0,0,.45));border-color:rgba(224,36,62,.55);border-top-color:#e0243e">
+            <img src="{{ s.img }}" alt="" style="width:96px;height:68px;flex:none;object-fit:cover;border-radius:6px;display:block;box-shadow:0 2px 8px rgba(0,0,0,.35)">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="font:600 15px/1.3 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ s.title }}</div>
+              <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(224,36,62,.16);color:var(--acc,#ff4d64);font:700 10px 'Oswald',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:3px;text-transform:uppercase">{{ s.tag }}</span><span style="font:600 10.5px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ s.time }}</span></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <!-- right rail -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">FIXTURES</div>
+        <sc-for list="{{ fixtures }}" as="f" hint-placeholder-count="3">
+          <div style="padding:11px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Source Sans 3',sans-serif">{{ f.opp }}</div><div style="font:600 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ f.date }}</div></div>
+        </sc-for>
+        <a onClick="{{ goMatches }}" style="cursor:pointer;margin-top:10px;font:600 12px 'Source Sans 3',sans-serif;color:var(--acc,#ff4d64)">All matches →</a>
+      </div>
+      <sc-if value="{{ showAds }}" hint-placeholder-val="{{ true }}">
+      <div style="width:100%;height:250px;border-radius:6px;border:1px dashed var(--bd2,rgba(255,255,255,.2));display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#1b1d24 0 12px,#22242d 12px 24px);color:#6b6f7e;font:500 11px ui-monospace,Menlo,monospace">[ ad slot 300×250 ]</div>
+      </sc-if>
+      <div style="background:#e0243e;border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:9px">
+        <div style="font:700 15px 'Oswald',sans-serif;color:#fff;letter-spacing:.06em">THE MZ BRIEFING</div>
+        <div style="font:400 12px/1.5 'Source Sans 3',sans-serif;color:#ffd9de">Daily email. Every Madrid story that matters.</div>
+        <div style="display:flex;gap:8px"><div style="flex:1;background:#fff;border-radius:4px;padding:8px 10px;font:400 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">your@email.com</div><div style="background:#07080c;color:var(--hd,#fff);border-radius:4px;padding:8px 12px;font:600 12px 'Source Sans 3',sans-serif;cursor:pointer">Join</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- sponsors strip -->
+  <div style="padding:20px 32px 28px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:8px"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--mut,#8b90a0)">OUR SPONSORS</div><a onClick="{{ goAbout }}" style="cursor:pointer;font:600 11px 'Source Sans 3',sans-serif;color:var(--acc,#ff4d64)">Partner with us →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <sc-for list="{{ sponsors }}" as="sp" hint-placeholder-count="4">
+        <div style="height:76px;border-radius:8px;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));box-shadow:var(--shadow,0 4px 14px rgba(0,0,0,.25));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+          <div style="font:700 18px 'Oswald',sans-serif;letter-spacing:.2em;color:var(--hd,#fff)">{{ sp.name }}</div>
+          <div style="font:600 8.5px 'Source Sans 3',sans-serif;letter-spacing:.32em;color:var(--mut,#8b90a0)">{{ sp.tag }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ TRANSFERS ============ -->
+<sc-if value="{{ isTransfers }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Transfers" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">TRANSFER CENTRE</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Every deal, rumour and medical — verified before we publish.</div></div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:10px 16px;font:600 13px 'Source Sans 3',sans-serif"><span style="color:var(--mut,#8b90a0)">Window closes in</span> <span style="color:var(--acc,#ff4d64)">53 days</span></div>
+  </div>
+  <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 2.4fr;gap:12px;padding:12px 22px;border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));font:700 11px 'Oswald',sans-serif;letter-spacing:.12em;color:var(--mut,#8b90a0)">
+      <div>PLAYER / POSITION</div><div>DIRECTION</div><div>STATUS</div><div>FEE</div><div>LATEST</div>
+    </div>
+    <sc-for list="{{ deals }}" as="d" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 2.4fr;gap:12px;padding:14px 22px;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));align-items:center">
+        <div style="display:flex;flex-direction:column;gap:2px"><div style="font:600 14.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ d.player }}</div><div style="font:500 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ d.pos }}</div></div>
+        <div style="font:600 12px 'Source Sans 3',sans-serif;color:{{ d.dirColor }}">{{ d.dir }}</div>
+        <div><span style="background:{{ d.statusBg }};color:{{ d.statusColor }};font:700 10px 'Oswald',sans-serif;letter-spacing:.08em;padding:4px 9px;border-radius:3px">{{ d.status }}</span></div>
+        <div style="font:600 13px 'Source Sans 3',sans-serif">{{ d.fee }}</div>
+        <div style="font:400 12.5px/1.4 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">{{ d.latest }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--mut,#8b90a0);border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:8px">RUMOUR MILL</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <sc-for list="{{ rumours }}" as="r" hint-placeholder-count="3">
+        <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:700 10px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--mut,#8b90a0)">{{ r.source }}</span><span style="background:rgba(255,77,100,.14);color:var(--acc,#ff4d64);font:700 10px 'Oswald',sans-serif;letter-spacing:.08em;padding:3px 8px;border-radius:3px">{{ r.tier }}</span></div>
+          <div style="font:600 15px/1.35 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ r.text }}</div>
+          <div style="font:400 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ r.time }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ MATCHES ============ -->
+<sc-if value="{{ isMatches }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Matches" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">MATCHES</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Fixtures, results and how to watch.</div></div>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--card,#161923);border:1px solid #e0243e;border-radius:6px;padding:22px 26px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:700 12px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--acc,#ff4d64)">NEXT MATCH · PRE-SEASON</div><div style="font:500 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Sat 26 Jul · 02:30 CET</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-around">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:56px;height:56px;border-radius:50%;background:#e0243e;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Oswald',sans-serif;letter-spacing:.04em">RMA</div><div style="font:600 15px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">Real Madrid</div></div>
+          <div style="font:700 26px 'Oswald',sans-serif;color:var(--mut,#8b90a0)">VS</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:56px;height:56px;border-radius:50%;background:#565d73;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Oswald',sans-serif;letter-spacing:.04em">OPP</div><div style="font:600 15px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">Opponent A</div></div>
+        </div>
+        <div style="text-align:center;font:400 12.5px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Soldier Field, Chicago · US Summer Tour · Broadcast: TBC</div>
+      </div>
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">UPCOMING</div>
+        <sc-for list="{{ upcoming }}" as="u" hint-placeholder-count="4">
+          <div style="padding:13px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:2px"><div style="font:600 14px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ u.opp }}</div><div style="font:400 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ u.comp }}</div></div>
+            <div style="font:600 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ u.date }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">RECENT RESULTS</div>
+        <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+          <div style="padding:13px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:2px"><div style="font:600 14px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ r.match }}</div><div style="font:400 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ r.comp }}</div></div>
+            <div style="font:700 15px 'Oswald',sans-serif;color:{{ r.color }}">{{ r.score }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff)">LALIGA 2025–26 · FINAL</div></div>
+        <sc-for list="{{ table }}" as="t" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06))">
+            <div style="font:600 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0);width:16px">{{ t.pos }}</div>
+            <div style="flex:1;font:600 13.5px 'Source Sans 3',sans-serif;color:{{ t.color }}">{{ t.team }}</div>
+            <div style="font:600 13px 'Source Sans 3',sans-serif;color:{{ t.color }}">{{ t.pts }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ SQUAD ============ -->
+<sc-if value="{{ isSquad }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Squad" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">FIRST-TEAM SQUAD</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">2026–27 season · profiles, numbers and roles.</div></div>
+  <sc-for list="{{ squadGroups }}" as="g" hint-placeholder-count="2">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--acc,#ff4d64);border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:8px">{{ g.label }}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <sc-for list="{{ g.players }}" as="p" hint-placeholder-count="4">
+          <div style="position:relative;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:8px;overflow:hidden;cursor:pointer" style-hover="border:1px solid rgba(255,77,100,.55)">
+            <img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block">
+            <div style="position:absolute;top:10px;left:14px;font:700 46px 'Oswald',sans-serif;color:rgba(255,255,255,.9);text-shadow:0 2px 10px rgba(0,0,0,.65)">{{ p.num }}</div>
+            <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(7,8,12,.96) 72%);padding:48px 16px 14px;display:flex;flex-direction:column;gap:2px">
+              <div style="font:700 19px 'Oswald',sans-serif;color:#fff;letter-spacing:.05em;text-transform:uppercase">{{ p.name }}</div>
+              <div style="font:600 10.5px 'Source Sans 3',sans-serif;color:#ff8b9c;letter-spacing:.12em;text-transform:uppercase">{{ p.role }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<!-- ============ ARTICLE ============ -->
+<sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Article" style="padding:24px 32px 32px;display:flex;justify-content:center;flex:1">
+  <div style="max-width:780px;display:flex;flex-direction:column;gap:16px">
+    <a onClick="{{ goHome }}" style="cursor:pointer;font:600 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">← Back to news</a>
+    <div style="display:flex;gap:8px;align-items:center"><span style="background:#e0243e;color:#fff;font:700 10px 'Oswald',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px">EXCLUSIVE</span><span style="font:600 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">TRANSFERS</span></div>
+    <div style="font:700 42px/1.08 'Oswald',sans-serif;color:var(--hd,#fff);text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR AS PRE-SEASON OPENS</div>
+    <div style="border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:16px;font:500 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">10 Jul 2026, 21:05 · 6 min read</div>
+    <img src="https://loremflickr.com/1100/620/football,training?lock=28" alt="Training ground" style="width:100%;aspect-ratio:16/9;border-radius:6px;object-fit:cover;display:block">
+    <div style="font:400 16px/1.75 'Source Sans 3',sans-serif;color:var(--body,#c9ccd8);display:flex;flex-direction:column;gap:18px">
+      <p style="margin:0"><b style="color:var(--hd,#fff);margin-right:8px">MADRID</b> — Negotiations over the club's primary midfield target accelerated sharply this week, with sources on both sides describing a deal as "close" for the first time since contact opened in May.</p>
+      <p style="margin:0">The fee under discussion is €80m plus performance-related add-ons, structured over four instalments. Personal terms are not expected to be an obstacle: the player agreed the framework of a five-year contract last month.</p>
+      <div style="border-left:3px solid #e0243e;padding:4px 0 4px 20px;font:600 22px/1.4 'Oswald',sans-serif;color:var(--hd,#fff)">"The club wants this closed before the plane leaves for Chicago. Everyone is aligned."</div>
+      <p style="margin:0">Internally, the recruitment team views the signing as the final structural piece of the summer. A medical is provisionally pencilled in for Friday morning, subject to the clubs formalising documentation.</p>
+      <p style="margin:0">The US tour squad list, expected this week, may yet include the new arrival — a decision that rests with Xabi Alonso and the performance staff after the medical.</p>
+    </div>
+    <div style="display:flex;gap:8px;border-top:1px solid var(--bd2,rgba(255,255,255,.1));padding-top:16px">
+      <span style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));color:var(--sub,#a9adbd);font:600 11px 'Source Sans 3',sans-serif;padding:5px 12px;border-radius:99px">Transfers</span>
+      <span style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));color:var(--sub,#a9adbd);font:600 11px 'Source Sans 3',sans-serif;padding:5px 12px;border-radius:99px">Midfield</span>
+      <span style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));color:var(--sub,#a9adbd);font:600 11px 'Source Sans 3',sans-serif;padding:5px 12px;border-radius:99px">Pre-season</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--mut,#8b90a0);border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:8px">RELATED</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <sc-for list="{{ related }}" as="rel" hint-placeholder-count="3">
+          <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:border-color .18s ease" style-hover="border-color:rgba(224,36,62,.55)">
+            <div style="font:600 13.5px/1.35 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ rel.title }}</div>
+            <div style="font:400 10.5px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ rel.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ ABOUT + SPONSORS ============ -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="About" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:24px;flex:1">
+  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">ABOUT MADRID ZONE</div>
+      <div style="font:400 15px/1.7 'Source Sans 3',sans-serif;color:var(--body,#c9ccd8)">Madrid Zone is an independent Real Madrid news outlet trusted by over <b style="color:var(--hd,#fff);margin-right:8px">2.1 million followers</b> across social media. We cover transfers, matches and club news with one rule: verified before published.</div>
+      <div style="font:400 15px/1.7 'Source Sans 3',sans-serif;color:var(--body,#c9ccd8)">Founded by fans, run like a newsroom — our team works sources in Madrid daily to bring you the story before it breaks, and the context after it does.</div>
+      <div style="display:flex;gap:12px;margin-top:4px">
+        <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:14px 20px;display:flex;flex-direction:column;gap:2px"><div style="font:700 24px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">2.1M</div><div style="font:500 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Followers</div></div>
+        <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:14px 20px;display:flex;flex-direction:column;gap:2px"><div style="font:700 24px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">40M+</div><div style="font:500 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Monthly reach</div></div>
+        <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:14px 20px;display:flex;flex-direction:column;gap:2px"><div style="font:700 24px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">24/7</div><div style="font:500 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Coverage</div></div>
+      </div>
+    </div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:22px 24px;display:flex;flex-direction:column;gap:12px">
+      <div style="font:700 15px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff)">WORK WITH US</div>
+      <div style="font:400 13px/1.6 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">Reach one of football's most engaged audiences. Sponsorships, branded content and display placements available.</div>
+      <div style="background:#e0243e;color:#fff;font:700 13px 'Source Sans 3',sans-serif;padding:11px 0;border-radius:4px;text-align:center;cursor:pointer">PARTNER WITH US</div>
+      <div style="font:400 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0);text-align:center">partners@themadridzone.com</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.14em;color:var(--mut,#8b90a0);border-bottom:1px solid var(--bd2,rgba(255,255,255,.1));padding-bottom:8px">OUR SPONSORS</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <sc-for list="{{ sponsors }}" as="sp2" hint-placeholder-count="4">
+        <div style="height:110px;border-radius:8px;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));box-shadow:var(--shadow,0 4px 14px rgba(0,0,0,.25));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+          <div style="font:700 24px 'Oswald',sans-serif;letter-spacing:.2em;color:var(--hd,#fff)">{{ sp2.name }}</div>
+          <div style="font:600 9.5px 'Source Sans 3',sans-serif;letter-spacing:.34em;color:var(--mut,#8b90a0)">{{ sp2.tag }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ STATS ============ -->
+<sc-if value="{{ isStats }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Stats" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">STATS</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">The 2025–26 season in numbers · all competitions.</div></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <sc-for list="{{ statTiles }}" as="st" hint-placeholder-count="4">
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:4px">
+        <div style="font:700 32px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">{{ st.value }}</div>
+        <div style="font:600 12px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ st.label }}</div>
+        <div style="font:400 11px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ st.sub }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">TOP SCORERS</div>
+      <sc-for list="{{ scorers }}" as="sc" hint-placeholder-count="5">
+        <div style="padding:12px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;align-items:center;gap:14px">
+          <div style="font:700 15px 'Oswald',sans-serif;color:var(--mut,#8b90a0);width:18px">{{ sc.rank }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;justify-content:space-between"><div style="font:600 13.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ sc.name }}</div><div style="font:700 14px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">{{ sc.goals }}</div></div>
+            <div style="height:4px;background:var(--track,rgba(255,255,255,.07));border-radius:2px;overflow:hidden"><div style="height:100%;background:#e0243e;border-radius:2px;width:{{ sc.bar }}"></div></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">MOST ASSISTS</div>
+        <sc-for list="{{ assists }}" as="as" hint-placeholder-count="4">
+          <div style="padding:11px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:14px;align-items:center"><div style="font:700 14px 'Oswald',sans-serif;color:var(--mut,#8b90a0);width:18px">{{ as.rank }}</div><div style="font:600 13.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ as.name }}</div></div>
+            <div style="font:700 14px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">{{ as.count }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:16px 22px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--hd,#fff);padding-bottom:10px;border-bottom:1px solid var(--bd,rgba(255,255,255,.08))">GOALKEEPING</div>
+        <div style="padding:11px 0;border-bottom:1px solid var(--bd3,rgba(255,255,255,.06));display:flex;justify-content:space-between"><div style="font:600 13.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">Clean sheets — T. Courtois</div><div style="font:700 14px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">19</div></div>
+        <div style="padding:11px 0;display:flex;justify-content:space-between"><div style="font:600 13.5px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">Save percentage</div><div style="font:700 14px 'Oswald',sans-serif;color:var(--acc,#ff4d64)">78%</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ ANALYSIS ============ -->
+<sc-if value="{{ isAnalysis }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Analysis" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">ANALYSIS</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Long reads: tactics, finance, data and the academy.</div></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+    <sc-for list="{{ analysisPosts }}" as="ap" hint-placeholder-count="6">
+      <div onClick="{{ goArticle }}" style="cursor:pointer;background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-top:3px solid #e0243e;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow,0 6px 18px rgba(0,0,0,.3));transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-3px);box-shadow:var(--shadowHov,0 14px 30px rgba(0,0,0,.48))">
+        <img src="{{ ap.img }}" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+          <span style="background:rgba(255,77,100,.14);color:var(--acc,#ff4d64);font:700 10px 'Oswald',sans-serif;letter-spacing:.1em;padding:3px 9px;border-radius:3px;width:fit-content">{{ ap.tag }}</span>
+          <div style="font:600 16px/1.3 'Source Sans 3',sans-serif;color:var(--hd,#fff)">{{ ap.title }}</div>
+          <div style="font:400 12.5px/1.5 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">{{ ap.dek }}</div>
+          <div style="font:400 10.5px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">{{ ap.meta }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ CONTACT / RSS ============ -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Contact" style="padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;flex:1;max-width:900px">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">CONTACT</div><div style="font:400 13px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Tips, corrections, partnerships and feeds.</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:18px 22px;display:flex;flex-direction:column;gap:6px"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64)">EDITORIAL &amp; TIPS</div><div style="font:400 13px/1.6 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">Story tips and corrections. Sources always protected.</div><div style="font:600 13px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">editorial@themadridzone.com</div></div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:18px 22px;display:flex;flex-direction:column;gap:6px"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64)">PARTNERSHIPS</div><div style="font:400 13px/1.6 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">Sponsorships, branded content and display advertising.</div><div style="font:600 13px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">partners@themadridzone.com</div></div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:18px 22px;display:flex;flex-direction:column;gap:6px"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64)">PRESS &amp; LEGAL</div><div style="font:400 13px/1.6 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">Media enquiries, licensing and legal notices.</div><div style="font:600 13px 'Source Sans 3',sans-serif;color:var(--hd,#fff)">press@themadridzone.com</div></div>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:18px 22px;display:flex;flex-direction:column;gap:6px"><div style="font:700 13px 'Oswald',sans-serif;letter-spacing:.1em;color:var(--acc,#ff4d64)">RSS FEED</div><div style="font:400 13px/1.6 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">Follow every story in your reader of choice.</div><div style="font:600 13px ui-monospace,Menlo,monospace;color:var(--hd,#fff)">themadridzone.com/rss.xml</div></div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ LEGAL (Privacy / Terms / Cookies) ============ -->
+<sc-if value="{{ isLegal }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Legal" style="padding:24px 32px 40px;display:flex;justify-content:center;flex:1">
+  <div style="max-width:760px;display:flex;flex-direction:column;gap:18px">
+    <div style="font:700 34px 'Oswald',sans-serif;color:var(--hd,#fff);letter-spacing:.02em">{{ legalTitle }}</div>
+    <div style="font:400 12px 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Last updated: 10 July 2026</div>
+    <sc-for list="{{ legalSections }}" as="ls" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--bd,rgba(255,255,255,.08));padding-top:16px">
+        <div style="font:700 17px 'Oswald',sans-serif;letter-spacing:.04em;color:var(--hd,#fff)">{{ ls.h }}</div>
+        <div style="font:400 14px/1.7 'Source Sans 3',sans-serif;color:var(--sub,#a9adbd)">{{ ls.body }}</div>
+      </div>
+    </sc-for>
+    <div style="background:var(--card,#161923);border:1px solid var(--bd,rgba(255,255,255,.08));border-radius:6px;padding:14px 18px;font:400 12.5px/1.6 'Source Sans 3',sans-serif;color:var(--mut,#8b90a0)">Questions about this policy? Contact <span style="color:var(--hd,#fff)">press@themadridzone.com</span>.</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ FOOTER ============ -->
+<div style="background:#07080c;border-top:1px solid rgba(255,255,255,.08);padding:28px 32px;display:flex;flex-direction:column;gap:20px;margin-top:auto">
+  <div style="display:flex;justify-content:center;gap:90px;flex-wrap:wrap;text-align:center">
+    <div style="display:contents">
+      <div style="display:flex;flex-direction:column;gap:8px;font:500 12.5px 'Source Sans 3',sans-serif;color:#a9adbd">
+        <div style="font:700 11px 'Oswald',sans-serif;letter-spacing:.14em;color:#8b90a0">SECTIONS</div>
+        <a onClick="{{ goHome }}" style="cursor:pointer">News</a><a onClick="{{ goTransfers }}" style="cursor:pointer">Transfers</a><a onClick="{{ goMatches }}" style="cursor:pointer">Matches</a><a onClick="{{ goStats }}" style="cursor:pointer">Stats</a><a onClick="{{ goAnalysis }}" style="cursor:pointer">Analysis</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;font:500 12.5px 'Source Sans 3',sans-serif;color:#a9adbd">
+        <div style="font:700 11px 'Oswald',sans-serif;letter-spacing:.14em;color:#8b90a0">CLUB</div>
+        <a onClick="{{ goSquad }}" style="cursor:pointer">Squad</a><a onClick="{{ goAbout }}" style="cursor:pointer">About us</a><a onClick="{{ goAbout }}" style="cursor:pointer">Sponsors</a><a onClick="{{ goAbout }}" style="cursor:pointer">Partner with us</a><a onClick="{{ goContact }}" style="cursor:pointer">Contact</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;font:500 12.5px 'Source Sans 3',sans-serif;color:#a9adbd">
+        <div style="font:700 11px 'Oswald',sans-serif;letter-spacing:.14em;color:#8b90a0">FOLLOW</div>
+        <a href="#" style="cursor:pointer">X / Twitter</a><a href="#" style="cursor:pointer">Facebook</a><a href="#" style="cursor:pointer">Instagram</a><a href="#" style="cursor:pointer">YouTube</a><a href="#" style="cursor:pointer">TikTok</a><a onClick="{{ goContact }}" style="cursor:pointer;color:#ff4d64">RSS Feed</a>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:20px;display:flex;flex-direction:column;align-items:center;gap:7px">
+    <div style="font:700 28px 'Oswald',sans-serif;letter-spacing:.02em;line-height:1;color:#fff">MZ</div>
+    <div style="font:700 17px 'Oswald',sans-serif;letter-spacing:.08em">MADRID ZONE</div>
+    <div style="font:400 12px/1.6 'Source Sans 3',sans-serif;color:#8b90a0">Independent Real Madrid coverage. Not affiliated with Real Madrid C.F.</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;font:400 11px 'Source Sans 3',sans-serif;color:#6b6f7e;text-align:center">
+    <div>© 2026 Madrid Zone. All rights reserved.</div>
+    <div style="display:flex;gap:14px"><a onClick="{{ goPrivacy }}" style="cursor:pointer">Privacy Policy</a><a onClick="{{ goTerms }}" style="cursor:pointer">Terms of Use</a><a onClick="{{ goCookies }}" style="cursor:pointer">Cookie Policy</a><a onClick="{{ goContact }}" style="cursor:pointer">Contact</a></div>
+  </div>
+</div>
+
+</div>
+
+</div></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;showTicker&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; },
+  &quot;showAds&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; }
+}">
+class Component extends DCLogic {
+  state = { page: 'home', theme: localStorage.getItem('mz-theme') || 'dark' };
+
+  renderVals() {
+    const p = this.state.page;
+    const go = (page) => () => { this.setState({ page }); window.scrollTo(0, 0); };
+    const light = this.state.theme === 'light';
+    const active = light ? '#c8102e' : '#ff4d64', idle = light ? '#494f60' : '#b9bdcb';
+    return {
+      themeVars: light ? { '--bg': '#f2f3f6', '--card': '#ffffff', '--bd': 'rgba(12,16,30,.1)', '--bd2': 'rgba(12,16,30,.14)', '--bd3': 'rgba(12,16,30,.07)', '--tx': '#15181f', '--hd': '#0d1017', '--mut': '#666c7c', '--sub': '#494f60', '--body': '#31364a', '--acc': '#c8102e', '--track': 'rgba(12,16,30,.08)', '--shadow': '0 4px 14px rgba(15,20,40,.08)', '--shadowHov': '0 14px 30px rgba(15,20,40,.16)' } : {},
+      themeLabel: light ? 'NIGHT MODE' : 'DAY MODE',
+      toggleTheme: () => { const t = light ? 'dark' : 'light'; localStorage.setItem('mz-theme', t); this.setState({ theme: t }); },
+      showTicker: this.props.showTicker ?? true,
+      showAds: this.props.showAds ?? true,
+      isHome: p === 'home',
+      isTransfers: p === 'transfers',
+      isMatches: p === 'matches',
+      isSquad: p === 'squad',
+      isArticle: p === 'article',
+      isAbout: p === 'about',
+      isStats: p === 'stats',
+      isAnalysis: p === 'analysis',
+      isContact: p === 'contact',
+      isLegal: p === 'privacy' || p === 'terms' || p === 'cookies',
+      goHome: go('home'), goTransfers: go('transfers'), goMatches: go('matches'),
+      goSquad: go('squad'), goArticle: go('article'), goAbout: go('about'),
+      goStats: go('stats'), goAnalysis: go('analysis'), goContact: go('contact'),
+      goPrivacy: go('privacy'), goTerms: go('terms'), goCookies: go('cookies'),
+      cHome: (p === 'home' || p === 'article') ? active : idle,
+      cTransfers: p === 'transfers' ? active : idle,
+      cMatches: p === 'matches' ? active : idle,
+      cSquad: p === 'squad' ? active : idle,
+      cAbout: p === 'about' ? active : idle,
+      cStats: p === 'stats' ? active : idle,
+      cAnalysis: p === 'analysis' ? active : idle,
+
+      statTiles: [
+        { value: '58', label: 'Matches played', sub: 'All competitions' },
+        { value: '131', label: 'Goals scored', sub: '2.26 per match' },
+        { value: '68%', label: 'Win rate', sub: '39W · 11D · 8L' },
+        { value: '2', label: 'Trophies', sub: 'LaLiga · Supercopa' },
+      ],
+      scorers: [
+        { rank: '1', name: 'K. Mbappé', goals: '38', bar: '100%' },
+        { rank: '2', name: 'Vinícius Jr', goals: '24', bar: '63%' },
+        { rank: '3', name: 'J. Bellingham', goals: '17', bar: '45%' },
+        { rank: '4', name: 'Rodrygo', goals: '13', bar: '34%' },
+        { rank: '5', name: 'F. Valverde', goals: '8', bar: '21%' },
+      ],
+      assists: [
+        { rank: '1', name: 'Vinícius Jr', count: '15' },
+        { rank: '2', name: 'J. Bellingham', count: '12' },
+        { rank: '3', name: 'K. Mbappé', count: '10' },
+        { rank: '4', name: 'A. Güler', count: '9' },
+      ],
+      analysisPosts: [
+        { tag: 'TACTICS', title: 'How Alonso\u2019s 3-2-5 build-up changed Madrid\u2019s midfield', dek: 'The structural tweak behind the spring winning run, in six pictures.', meta: '2d · 9 min', img: 'https://loremflickr.com/640/360/football,tactics?lock=31' },
+        { tag: 'FINANCE', title: 'Inside the wage structure: what Madrid can actually spend', dek: 'The salary pyramid, amortisation, and the room left this window.', meta: '3d · 7 min', img: 'https://loremflickr.com/640/360/stadium,football?lock=32' },
+        { tag: 'DATA', title: 'Mbappé\u2019s shot map: the numbers behind 38 goals', dek: 'Expected goals, shot zones and what changed after January.', meta: '4d · 6 min', img: 'https://loremflickr.com/640/360/soccer,goal?lock=33' },
+        { tag: 'ACADEMY', title: 'Castilla\u2019s pipeline: who makes the leap this season', dek: 'Five names, their pathways, and what the coaches say.', meta: '5d · 8 min', img: 'https://loremflickr.com/640/360/soccer,youth?lock=34' },
+        { tag: 'TACTICS', title: 'Defending the counter: Madrid\u2019s rest-defence problem', dek: 'Why the champions still concede on transitions — and the fix.', meta: '6d · 10 min', img: 'https://loremflickr.com/640/360/football,match?lock=35' },
+        { tag: 'OPINION', title: 'The captaincy question was never about the armband', dek: 'What the decision tells us about the dressing-room hierarchy.', meta: '1w · 5 min', img: 'https://loremflickr.com/640/360/football,captain?lock=36' },
+      ],
+
+      legalTitle: p === 'privacy' ? 'PRIVACY POLICY' : p === 'terms' ? 'TERMS OF USE' : 'COOKIE POLICY',
+      legalSections: p === 'privacy' ? [
+        { h: '1. WHO WE ARE', body: 'Madrid Zone ("we", "us") operates themadridzone.com, an independent Real Madrid news publication. This policy explains what personal data we collect, why, and your rights over it.' },
+        { h: '2. DATA WE COLLECT', body: 'Email address if you join our newsletter; anonymous usage analytics (pages viewed, device type, approximate region); and technical logs required to keep the site secure. We do not sell personal data.' },
+        { h: '3. HOW WE USE IT', body: 'To deliver the newsletter you asked for, measure what readers value, keep the site fast and secure, and — where you consent — show relevant advertising that funds our free journalism.' },
+        { h: '4. YOUR RIGHTS', body: 'You may request access, correction, deletion or export of your data at any time, and unsubscribe from any email with one click. EU/EEA readers have rights under GDPR; contact us to exercise them.' },
+      ] : p === 'terms' ? [
+        { h: '1. ACCEPTANCE', body: 'By accessing themadridzone.com you agree to these terms. If you do not agree, please do not use the site.' },
+        { h: '2. CONTENT & OWNERSHIP', body: 'All articles, graphics and branding are the property of Madrid Zone unless credited otherwise. You may share links and short quotes with attribution; republishing full articles requires written permission.' },
+        { h: '3. INDEPENDENCE', body: 'Madrid Zone is an independent publication and is not affiliated with, endorsed by, or connected to Real Madrid C.F. Club names and marks belong to their respective owners.' },
+        { h: '4. LIABILITY', body: 'News, especially transfer news, evolves quickly. We verify before publishing but provide content "as is" without warranties; we are not liable for decisions made on the basis of our reporting.' },
+      ] : [
+        { h: '1. WHAT COOKIES WE USE', body: 'Essential cookies that make the site work; analytics cookies that tell us which stories readers value; and — only with your consent — advertising cookies used by our ad partners.' },
+        { h: '2. MANAGING CONSENT', body: 'On your first visit we ask for consent for non-essential cookies. You can change or withdraw consent at any time via the "Cookie settings" link in the footer, or through your browser settings.' },
+        { h: '3. THIRD PARTIES', body: 'Our advertising and analytics partners may set their own cookies, governed by their own policies. We list current partners on request via press@themadridzone.com.' },
+        { h: '4. RETENTION', body: 'Essential cookies expire with your session or within 12 months. Analytics identifiers are anonymised and retained no longer than 14 months.' },
+      ],
+
+      wire: [
+        { time: '21:40', text: 'Medical scheduled for Friday morning' },
+        { time: '20:15', text: 'Alonso presser confirmed for Monday' },
+        { time: '18:02', text: 'US tour squad list expected this week' },
+        { time: '16:44', text: 'Pitch renovation finishes two weeks early' },
+      ],
+      stories: [
+        { title: 'Alonso confirms captaincy decision ahead of tour', tag: 'NEWS', time: '4h', img: 'https://loremflickr.com/300/210/football,coach?lock=22' },
+        { title: 'Rodrygo: three clubs circling this summer', tag: 'TRANSFERS', time: '5h', img: 'https://loremflickr.com/300/210/soccer,player?lock=23' },
+        { title: 'Wage structure: what Madrid can actually spend', tag: 'FINANCE', time: '12h', img: 'https://loremflickr.com/300/210/stadium,football?lock=24' },
+        { title: 'Castilla: five names to watch on tour', tag: 'ACADEMY', time: '1d', img: 'https://loremflickr.com/300/210/soccer,training?lock=25' },
+        { title: 'Bernabéu pitch works finish two weeks early', tag: 'CLUB', time: '1d', img: 'https://loremflickr.com/300/210/stadium,grass?lock=26' },
+        { title: 'US tour: full schedule and how to watch', tag: 'MATCHES', time: '1d', img: 'https://loremflickr.com/300/210/football,fans?lock=27' },
+      ],
+      fixtures: [
+        { opp: 'vs Opponent A', date: 'Jul 26' },
+        { opp: 'vs Opponent B', date: 'Jul 30' },
+        { opp: 'vs Opponent C', date: 'Aug 3' },
+      ],
+      sponsors: [
+        { name: 'VOLTA', tag: 'ENERGY DRINK' },
+        { name: 'AURUM', tag: 'TIMEPIECES' },
+        { name: 'NORDBANK', tag: 'BANKING' },
+        { name: 'CIMA', tag: 'SPORTSWEAR' },
+      ],
+
+      deals: [
+        { player: 'Goalkeeper — Free agent', pos: 'GK · 28', dir: 'IN', dirColor: '#7fd49a', status: 'CONFIRMED', statusBg: 'rgba(127,212,154,.14)', statusColor: '#7fd49a', fee: 'Free', latest: 'Announced Tuesday. Presentation at Valdebebas complete.' },
+        { player: 'Midfield anchor', pos: 'CM · 24', dir: 'IN', dirColor: '#7fd49a', status: 'ADVANCED', statusBg: 'rgba(233,194,88,.14)', statusColor: '#e9c258', fee: '€80m + add-ons', latest: 'Medical pencilled for Friday. Five-year framework agreed.' },
+        { player: 'Teenage winger', pos: 'RW · 18', dir: 'IN', dirColor: '#7fd49a', status: 'MEDICAL', statusBg: 'rgba(233,194,88,.14)', statusColor: '#e9c258', fee: '€34m', latest: 'Arrives in Madrid tonight ahead of Friday unveiling.' },
+        { player: 'Right winger', pos: 'RW · 25', dir: 'OUT', dirColor: '#ff4d64', status: 'TALKS', statusBg: 'rgba(255,77,100,.14)', statusColor: '#ff4d64', fee: 'Loan + option', latest: 'Two Premier League clubs in contact. Player undecided.' },
+        { player: 'Backup left-back', pos: 'LB · 30', dir: 'OUT', dirColor: '#ff4d64', status: 'AGREED', statusBg: 'rgba(255,77,100,.14)', statusColor: '#ff4d64', fee: '€12m', latest: 'Personal terms done. Announcement expected this weekend.' },
+        { player: 'Castilla striker', pos: 'ST · 20', dir: 'LOAN', dirColor: '#9aa5cc', status: 'RUMOUR', statusBg: 'rgba(154,165,204,.14)', statusColor: '#9aa5cc', fee: '—', latest: 'Several LaLiga sides monitoring. Club prefers development loan.' },
+      ],
+      rumours: [
+        { source: 'MZ SOURCES', tier: 'TIER 1', text: 'Left-back scouting shortlist narrowed to two names', time: '3h ago' },
+        { source: 'SPANISH PRESS', tier: 'TIER 2', text: 'Interest in Serie A centre-back is "real but early"', time: '7h ago' },
+        { source: 'AGGREGATED', tier: 'TIER 3', text: 'Striker exit talk dismissed by player camp', time: '1d ago' },
+      ],
+
+      upcoming: [
+        { opp: 'Real Madrid vs Opponent A', comp: 'US Tour · Chicago', date: 'Jul 26' },
+        { opp: 'Real Madrid vs Opponent B', comp: 'US Tour · Miami', date: 'Jul 30' },
+        { opp: 'Real Madrid vs Opponent C', comp: 'US Tour · New York', date: 'Aug 3' },
+        { opp: 'LaLiga Matchday 1', comp: 'Opponent TBC · Bernabéu', date: 'Aug 16' },
+      ],
+      results: [
+        { match: 'Real Madrid 3–1 Opponent', comp: 'CWC Semi-final', score: 'W', color: '#7fd49a' },
+        { match: 'Real Madrid 2–0 Opponent', comp: 'CWC Quarter-final', score: 'W', color: '#7fd49a' },
+        { match: 'Opponent 1–1 Real Madrid', comp: 'CWC Group', score: 'D', color: '#e9c258' },
+        { match: 'Real Madrid 4–0 Opponent', comp: 'CWC Group', score: 'W', color: '#7fd49a' },
+      ],
+      table: [
+        { pos: '1', team: 'Real Madrid', pts: '88', color: 'var(--hd,#fff)' },
+        { pos: '2', team: 'Barcelona', pts: '85', color: 'var(--sub,#a9adbd)' },
+        { pos: '3', team: 'Atlético', pts: '76', color: 'var(--sub,#a9adbd)' },
+        { pos: '4', team: 'Athletic Club', pts: '71', color: 'var(--sub,#a9adbd)' },
+      ],
+      homeStats: [
+        { k: 'Most assists', v: 'Vinícius Jr · 15' },
+        { k: 'Clean sheets', v: 'Courtois · 19' },
+        { k: 'Most minutes', v: 'Valverde · 4,410' },
+        { k: 'Top rated', v: 'Mbappé · 7.9' },
+      ],
+
+      squadGroups: [
+        { label: 'GOALKEEPERS', players: [
+          { num: '1', name: 'T. Courtois', role: 'Goalkeeper', img: 'https://loremflickr.com/450/600/goalkeeper,football?lock=41' },
+          { num: '13', name: 'A. Lunin', role: 'Goalkeeper', img: 'https://loremflickr.com/450/600/goalkeeper,soccer?lock=42' },
+        ]},
+        { label: 'DEFENDERS', players: [
+          { num: '2', name: 'D. Carvajal', role: 'Right-back', img: 'https://loremflickr.com/450/600/footballer,player?lock=43' },
+          { num: '3', name: 'É. Militão', role: 'Centre-back', img: 'https://loremflickr.com/450/600/soccer,defender?lock=44' },
+          { num: '22', name: 'A. Rüdiger', role: 'Centre-back', img: 'https://loremflickr.com/450/600/football,player?lock=45' },
+          { num: '17', name: 'F. García', role: 'Left-back', img: 'https://loremflickr.com/450/600/soccer,player?lock=46' },
+        ]},
+        { label: 'MIDFIELDERS', players: [
+          { num: '14', name: 'A. Tchouaméni', role: 'Defensive midfield', img: 'https://loremflickr.com/450/600/football,midfielder?lock=47' },
+          { num: '8', name: 'F. Valverde', role: 'Central midfield', img: 'https://loremflickr.com/450/600/soccer,football?lock=48' },
+          { num: '6', name: 'E. Camavinga', role: 'Central midfield', img: 'https://loremflickr.com/450/600/footballer,soccer?lock=49' },
+          { num: '5', name: 'J. Bellingham', role: 'Attacking midfield', img: 'https://loremflickr.com/450/600/football,soccer?lock=50' },
+        ]},
+        { label: 'FORWARDS', players: [
+          { num: '7', name: 'Vinícius Jr', role: 'Left wing', img: 'https://loremflickr.com/450/600/soccer,winger?lock=51' },
+          { num: '9', name: 'K. Mbappé', role: 'Striker', img: 'https://loremflickr.com/450/600/football,striker?lock=52' },
+          { num: '11', name: 'Rodrygo', role: 'Right wing', img: 'https://loremflickr.com/450/600/soccer,forward?lock=53' },
+          { num: '16', name: 'Endrick', role: 'Striker', img: 'https://loremflickr.com/450/600/football,goal?lock=54' },
+        ]},
+      ],
+
+      related: [
+        { title: 'Wage structure: what Madrid can actually spend', tag: 'FINANCE', time: '12h' },
+        { title: 'Alonso confirms captaincy decision ahead of tour', tag: 'NEWS', time: '4h' },
+        { title: 'US tour: full schedule and how to watch', tag: 'MATCHES', time: '1d' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

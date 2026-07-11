@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=Archivo:wght@500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}
+a{color:inherit;text-decoration:none}a:hover{opacity:.8}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+.ph{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#e6e3dc 0 12px,#efede7 12px 24px);color:#8a857b;font:500 11px ui-monospace,Menlo,monospace}
+.phd{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#1b1d24 0 12px,#22242d 12px 24px);color:#6b6f7e;font:500 11px ui-monospace,Menlo,monospace}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t3" data-screen-label="Turn 3 — font options + mobile">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Anton&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@600;700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Font pairings for the black newsroom (<a class="dv-oid" href="#2a">2a</a>) + mobile home</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a" data-screen-label="3a Oswald">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Oswald + Source Sans 3 — classic sports-media condensed</div>
+<div class="dv-card" style="width:430px;background:#0e1017;color:#e8eaf0;font-family:'Source Sans 3',sans-serif">
+  <div style="display:flex;align-items:center;height:32px;background:#07080c"><div style="background:#e0243e;color:#fff;font:600 10px 'Oswald',sans-serif;letter-spacing:.12em;padding:0 12px;display:flex;align-items:center;height:100%">LIVE WIRE</div><div style="padding:0 14px;font:400 11.5px 'Source Sans 3',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff;margin-right:8px">21:40</b>Medical scheduled for Friday</div></div>
+  <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column"><div style="font:600 21px 'Oswald',sans-serif;letter-spacing:.05em">MADRID ZONE</div><div style="font:400 10px 'Source Sans 3',sans-serif;color:#8b90a0;letter-spacing:.16em">YOUR HUB FOR EVERYTHING</div></div>
+  <div style="padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+    <span style="background:#e0243e;color:#fff;font:600 10px 'Oswald',sans-serif;letter-spacing:.1em;padding:3px 9px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+    <div style="font:600 27px/1.15 'Oswald',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+    <div style="font:400 13.5px/1.55 'Source Sans 3',sans-serif;color:#a9adbd">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:12px;font:600 15px/1.3 'Source Sans 3',sans-serif">Alonso confirms captaincy decision ahead of tour <span style="font:400 11px 'Source Sans 3',sans-serif;color:#8b90a0">· 4h</span></div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="3b" data-screen-label="3b Anton">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Anton + Work Sans — loudest, poster-style headlines</div>
+<div class="dv-card" style="width:430px;background:#0e1017;color:#e8eaf0;font-family:'Work Sans',sans-serif">
+  <div style="display:flex;align-items:center;height:32px;background:#07080c"><div style="background:#e0243e;color:#fff;font:400 10px 'Anton',sans-serif;letter-spacing:.12em;padding:0 12px;display:flex;align-items:center;height:100%">LIVE WIRE</div><div style="padding:0 14px;font:400 11.5px 'Work Sans',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff;margin-right:8px">21:40</b>Medical scheduled for Friday</div></div>
+  <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column"><div style="font:400 20px 'Anton',sans-serif;letter-spacing:.06em">MADRID ZONE</div><div style="font:400 10px 'Work Sans',sans-serif;color:#8b90a0;letter-spacing:.16em">YOUR HUB FOR EVERYTHING</div></div>
+  <div style="padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+    <span style="background:#e0243e;color:#fff;font:400 10px 'Anton',sans-serif;letter-spacing:.1em;padding:3px 9px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+    <div style="font:400 26px/1.18 'Anton',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+    <div style="font:400 13px/1.55 'Work Sans',sans-serif;color:#a9adbd">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:12px;font:600 14.5px/1.3 'Work Sans',sans-serif">Alonso confirms captaincy decision ahead of tour <span style="font:400 11px 'Work Sans',sans-serif;color:#8b90a0">· 4h</span></div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="3c" data-screen-label="3c IBM Plex">
+<div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>IBM Plex Sans Condensed + IBM Plex Sans — technical, data-newsroom</div>
+<div class="dv-card" style="width:430px;background:#0e1017;color:#e8eaf0;font-family:'IBM Plex Sans',sans-serif">
+  <div style="display:flex;align-items:center;height:32px;background:#07080c"><div style="background:#e0243e;color:#fff;font:600 10px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.12em;padding:0 12px;display:flex;align-items:center;height:100%">LIVE WIRE</div><div style="padding:0 14px;font:400 11.5px 'IBM Plex Sans',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff;margin-right:8px">21:40</b>Medical scheduled for Friday</div></div>
+  <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column"><div style="font:700 20px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.05em">MADRID ZONE</div><div style="font:400 10px 'IBM Plex Sans',sans-serif;color:#8b90a0;letter-spacing:.16em">YOUR HUB FOR EVERYTHING</div></div>
+  <div style="padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+    <span style="background:#e0243e;color:#fff;font:600 10px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.1em;padding:3px 9px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+    <div style="font:700 26px/1.18 'IBM Plex Sans Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+    <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:#a9adbd">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:12px;font:600 14.5px/1.3 'IBM Plex Sans',sans-serif">Alonso confirms captaincy decision ahead of tour <span style="font:400 11px 'IBM Plex Sans',sans-serif;color:#8b90a0">· 4h</span></div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="3d" data-screen-label="3d Saira">
+<div class="dv-olabel"><a class="dv-oid" href="#3d">3d</a>Saira Condensed + Saira — athletic, modern kit-typography feel</div>
+<div class="dv-card" style="width:430px;background:#0e1017;color:#e8eaf0;font-family:'Saira',sans-serif">
+  <div style="display:flex;align-items:center;height:32px;background:#07080c"><div style="background:#e0243e;color:#fff;font:700 10px 'Saira Condensed',sans-serif;letter-spacing:.12em;padding:0 12px;display:flex;align-items:center;height:100%">LIVE WIRE</div><div style="padding:0 14px;font:400 11.5px 'Saira',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff;margin-right:8px">21:40</b>Medical scheduled for Friday</div></div>
+  <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column"><div style="font:700 20px 'Saira Condensed',sans-serif;letter-spacing:.06em">MADRID ZONE</div><div style="font:400 10px 'Saira',sans-serif;color:#8b90a0;letter-spacing:.16em">YOUR HUB FOR EVERYTHING</div></div>
+  <div style="padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+    <span style="background:#e0243e;color:#fff;font:700 10px 'Saira Condensed',sans-serif;letter-spacing:.1em;padding:3px 9px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+    <div style="font:700 27px/1.12 'Saira Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+    <div style="font:400 13px/1.6 'Saira',sans-serif;color:#a9adbd">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:12px;font:600 14.5px/1.3 'Saira',sans-serif">Alonso confirms captaincy decision ahead of tour <span style="font:400 11px 'Saira',sans-serif;color:#8b90a0">· 4h</span></div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="3e" data-screen-label="3e Mobile home">
+<div class="dv-olabel"><a class="dv-oid" href="#3e">3e</a>Mobile home — the live site (<a class="dv-oid" href="#2a">2a</a>) at 375px, with imagery</div>
+<div class="dv-card" style="width:375px;background:#0e1017;font-family:'Barlow',sans-serif;color:#e8eaf0">
+  <div style="background:#07080c;display:flex;align-items:center;height:32px;overflow:hidden">
+    <div style="background:#e0243e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:0 10px;display:flex;align-items:center;height:100%;flex:none">LIVE</div>
+    <div style="padding:0 12px;font:500 11px 'Barlow',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff;margin-right:8px">21:40</b>Medical scheduled for Friday morning</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div style="display:flex;align-items:center;gap:9px"><img src="image_6483441-removebg-preview-mrevbyg3.png" alt="MZ" style="height:30px"><div style="display:flex;flex-direction:column"><div style="font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.05em">MADRID ZONE</div><div style="font:500 8px 'Barlow',sans-serif;color:#8b90a0;letter-spacing:.14em">YOUR HUB FOR EVERYTHING</div></div></div>
+    <div style="font:700 18px 'Barlow',sans-serif;color:#8b90a0">≡</div>
+  </div>
+  <div style="display:flex;gap:16px;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.08);font:600 11.5px 'Barlow',sans-serif;color:#b9bdcb;overflow:hidden;white-space:nowrap">
+    <span style="color:#ff4d64">News</span><span>Transfers</span><span>Matches</span><span>Stats</span><span>Analysis</span><span>Squad</span>
+  </div>
+  <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden">
+      <img src="https://loremflickr.com/750/420/football,stadium?lock=21" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+        <span style="background:#e0243e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+        <div style="font:700 20px/1.15 'Barlow Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+        <div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">Marco Delgado · 2h</div>
+      </div>
+    </div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;gap:11px"><img src="https://loremflickr.com/300/210/football,coach?lock=22" alt="" style="width:86px;height:58px;flex:none;object-fit:cover;border-radius:4px"><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">News · 4h</div></div></div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;gap:11px"><img src="https://loremflickr.com/300/210/soccer,player?lock=23" alt="" style="width:86px;height:58px;flex:none;object-fit:cover;border-radius:4px"><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">Transfers · 5h</div></div></div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><div style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#ff4d64">FIXTURES</div><div style="font:500 12px 'Barlow',sans-serif">vs Opponent A · Jul 26 →</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,.1);padding:10px 0 14px;font:700 10px 'Barlow Condensed',sans-serif;color:#8b90a0;letter-spacing:.06em">
+    <div style="color:#ff4d64;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:15px">●</span>HOME</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:15px">○</span>TRANSFERS</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:15px">○</span>MATCHES</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:15px">○</span>SQUAD</div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Pick a pairing (<a class="dv-oid" href="#3a">3a</a>–<a class="dv-oid" href="#3d">3d</a>) and I'll apply it across the whole site.</p>
+</section>
+
+<section class="dv-turn" id="t2" data-screen-label="Turn 2 — dark newsroom directions">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Dark riffs on <a class="dv-oid" href="#1c">1c</a> + <a class="dv-oid" href="#1d">1d</a></span></div>
+<div class="dv-opts">
+
+<!-- ============ 2a THE WIRE — BLACK ============ -->
+<div class="dv-opt" id="2a" data-screen-label="2a The Wire Black">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>The Wire — Black. Same newsroom density as <a class="dv-oid" href="#1d">1d</a>, dark theme, red live accent</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#0e1017;font-family:'Barlow',sans-serif;color:#e8eaf0">
+  <div style="background:#07080c;display:flex;align-items:center;height:38px;overflow:hidden">
+    <div style="background:#e0243e;color:#fff;font:700 11px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:0 14px;display:flex;align-items:center;height:100%;flex:none">LIVE WIRE</div>
+    <div style="display:flex;gap:34px;padding:0 20px;font:500 12px 'Barlow',sans-serif;color:#8b90a0;white-space:nowrap">
+      <span><b style="color:#fff">21:40</b> Medical scheduled for Friday morning</span>
+      <span><b style="color:#fff">20:15</b> Alonso press conference confirmed for Monday</span>
+      <span><b style="color:#fff">18:02</b> US tour squad list expected this week</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:38px"><div style="display:flex;flex-direction:column"><div style="font:700 20px 'Barlow Condensed',sans-serif;letter-spacing:.05em">THE MADRID ZONE</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0;letter-spacing:.14em">NEWS · TRANSFERS · DATA</div></div></div>
+    <div style="display:flex;gap:24px;font:600 13px 'Barlow',sans-serif;letter-spacing:.03em;color:#b9bdcb">
+      <a href="#2a" style="color:#ff4d64">News</a><a href="#2a">Transfers</a><a href="#2a">Matches</a><a href="#2a">Squad</a><a href="#2a">Table</a><a href="#2a">About</a>
+    </div>
+    <div style="font:500 12px 'Barlow',sans-serif;color:#8b90a0">Thu 10 Jul 2026</div>
+  </div>
+  <div style="display:grid;grid-template-columns:250px 1fr 280px;gap:20px;padding:20px 32px 28px">
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#ff4d64;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)">LATEST WIRE</div>
+      <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">21:40</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Medical scheduled for Friday morning</div></div>
+      <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">20:15</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Alonso presser confirmed for Monday</div></div>
+      <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">18:02</div><div style="font:500 13px/1.35 'Barlow',sans-serif">US tour squad list expected this week</div></div>
+      <div style="padding:12px 0;display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">16:44</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Pitch renovation finishes two weeks early</div></div>
+      <a href="#2a" style="margin-top:8px;font:600 12px 'Barlow',sans-serif;color:#ff4d64">Full wire →</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden">
+        <div class="phd" style="width:100%;aspect-ratio:16/8">[ hero photo — training ground ]</div>
+        <div style="padding:18px 22px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:8px"><span style="background:#e0243e;color:#fff;font:700 10px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px">EXCLUSIVE</span><span style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">TRANSFERS</span></div>
+          <div style="font:700 28px/1.15 'Barlow Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR AS PRE-SEASON OPENS</div>
+          <div style="font:400 13.5px/1.5 'Barlow',sans-serif;color:#a9adbd">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+          <div style="font:500 11px 'Barlow',sans-serif;color:#8b90a0">Marco Delgado · 2h</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">4h</div></div></div>
+        <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">5h</div></div></div>
+        <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Wage structure: what Madrid can actually spend</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">12h</div></div></div>
+        <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Castilla: five names to watch on tour</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">1d</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+        <div style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#fff;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)">FIXTURES</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent A</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Jul 26</div></div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent B</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Jul 30</div></div>
+        <div style="padding:11px 0;display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent C</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Aug 3</div></div>
+      </div>
+      <div class="phd" style="width:100%;height:250px;border-radius:6px;border:1px dashed rgba(255,255,255,.2)">[ ad slot 300×250 ]</div>
+      <div style="background:#e0243e;border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:9px">
+        <div style="font:700 15px 'Barlow Condensed',sans-serif;color:#fff;letter-spacing:.06em">THE MZ BRIEFING</div>
+        <div style="font:400 12px/1.5 'Barlow',sans-serif;color:#ffd9de">Daily email. Every Madrid story that matters.</div>
+        <div style="background:#fff;color:#0e1017;font:600 12px 'Barlow',sans-serif;padding:9px 0;border-radius:4px;text-align:center">Sign up free</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dv-card" style="width:375px;background:#0e1017;font-family:'Barlow',sans-serif;color:#e8eaf0">
+  <div style="background:#07080c;display:flex;align-items:center;height:32px;overflow:hidden">
+    <div style="background:#e0243e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:0 10px;display:flex;align-items:center;height:100%;flex:none">LIVE</div>
+    <div style="padding:0 12px;font:500 11px 'Barlow',sans-serif;color:#8b90a0;white-space:nowrap"><b style="color:#fff">21:40</b> Medical scheduled for Friday morning</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:30px"><div style="font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.05em">THE MADRID ZONE</div></div>
+    <div style="font:700 18px 'Barlow',sans-serif;color:#8b90a0">≡</div>
+  </div>
+  <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden">
+      <div class="phd" style="width:100%;aspect-ratio:16/9">[ hero photo ]</div>
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+        <span style="background:#e0243e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+        <div style="font:700 20px/1.15 'Barlow Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+        <div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">Marco Delgado · 2h</div>
+      </div>
+    </div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;gap:11px"><div class="phd" style="width:86px;height:58px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">4h</div></div></div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;gap:11px"><div class="phd" style="width:86px;height:58px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">5h</div></div></div>
+    <div style="background:#161923;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><div style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#ff4d64">FIXTURES</div><div style="font:500 12px 'Barlow',sans-serif">vs Opponent A · Jul 26 →</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 2b CINEMATIC WIRE ============ -->
+<div class="dv-opt" id="2b" data-screen-label="2b Cinematic Wire">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Cinematic Wire — <a class="dv-oid" href="#1c">1c</a>'s glassy dark look with <a class="dv-oid" href="#1d">1d</a>'s ticker + data rail</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#0b0c11;font-family:'Space Grotesk',sans-serif;color:#eceef2">
+  <div style="display:flex;align-items:center;height:36px;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="color:#d4af5e;font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.16em;padding:0 18px;display:flex;align-items:center;gap:8px;height:100%;flex:none;border-right:1px solid rgba(255,255,255,.08)"><span style="width:7px;height:7px;border-radius:50%;background:#d4af5e"></span>LIVE</div>
+    <div style="display:flex;gap:36px;padding:0 20px;font:400 12px 'Space Grotesk',sans-serif;color:#9a9fae;white-space:nowrap">
+      <span><b style="color:#eceef2;font-weight:600">21:40</b> Medical scheduled for Friday morning</span>
+      <span><b style="color:#eceef2;font-weight:600">20:15</b> Alonso press conference confirmed for Monday</span>
+      <span><b style="color:#eceef2;font-weight:600">18:02</b> US tour squad list expected this week</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 36px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:36px"><div style="font:600 16px 'Space Grotesk',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div></div>
+    <div style="display:flex;gap:28px;font:500 13px 'Space Grotesk',sans-serif;color:#9a9fae">
+      <a href="#2b" style="color:#d4af5e">News</a><a href="#2b">Transfers</a><a href="#2b">Matches</a><a href="#2b">Squad</a><a href="#2b">Table</a><a href="#2b">About</a>
+    </div>
+    <a href="#2b" style="border:1px solid #d4af5e;color:#d4af5e;font:600 12px 'Space Grotesk',sans-serif;padding:8px 18px;border-radius:99px">Get the briefing</a>
+  </div>
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:20px;padding:24px 36px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="position:relative;border-radius:14px;overflow:hidden;height:420px;background:#14161e">
+        <div class="phd" style="position:absolute;inset:0">[ hero photo — night match ]</div>
+        <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(6,7,11,.96) 75%);padding:110px 28px 26px;display:flex;flex-direction:column;gap:12px">
+          <div style="font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:#d4af5e">EXCLUSIVE — TRANSFERS</div>
+          <div style="font:600 33px/1.15 'Space Grotesk',sans-serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor as pre-season opens</div>
+          <div style="font:400 13px 'Space Grotesk',sans-serif;color:#9a9fae">Marco Delgado · 2h · 6 min read</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:90px;height:62px;flex:none;border-radius:8px">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:500 14px/1.3 'Space Grotesk',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:#9a9fae">4h</div></div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:90px;height:62px;flex:none;border-radius:8px">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:500 14px/1.3 'Space Grotesk',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:#9a9fae">5h</div></div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:90px;height:62px;flex:none;border-radius:8px">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:500 14px/1.3 'Space Grotesk',sans-serif">Wage structure: what Madrid can actually spend</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:#9a9fae">12h</div></div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;display:flex;gap:12px"><div class="phd" style="width:90px;height:62px;flex:none;border-radius:8px">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:500 14px/1.3 'Space Grotesk',sans-serif">Castilla: five names to watch on tour</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:#9a9fae">1d</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column">
+        <div style="font:600 11.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:#d4af5e;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)">LATEST WIRE</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">21:40</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">Medical scheduled for Friday morning</div></div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">20:15</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">Alonso presser confirmed for Monday</div></div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">18:02</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">US tour squad list expected this week</div></div>
+        <div style="padding:11px 0;display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">16:44</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">Pitch renovation finishes two weeks early</div></div>
+      </div>
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:600 11.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:#d4af5e">NEXT MATCH</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae">Jul 26</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="phd" style="width:40px;height:40px;border-radius:50%">RM</div><div style="font:600 11.5px 'Space Grotesk',sans-serif">Real Madrid</div></div>
+          <div style="font:600 17px 'Space Grotesk',sans-serif;color:#9a9fae">VS</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="phd" style="width:40px;height:40px;border-radius:50%">[ ]</div><div style="font:600 11.5px 'Space Grotesk',sans-serif">Opponent</div></div>
+        </div>
+      </div>
+      <div class="phd" style="width:100%;height:170px;border-radius:14px;border:1px dashed rgba(255,255,255,.2)">[ ad slot 300×250 ]</div>
+    </div>
+  </div>
+</div>
+<div class="dv-card" style="width:375px;background:#0b0c11;font-family:'Space Grotesk',sans-serif;color:#eceef2">
+  <div style="display:flex;align-items:center;height:30px;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="color:#d4af5e;font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.14em;padding:0 12px;display:flex;align-items:center;gap:6px;flex:none"><span style="width:6px;height:6px;border-radius:50%;background:#d4af5e"></span>LIVE</div>
+    <div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae;white-space:nowrap"><b style="color:#eceef2;font-weight:600">21:40</b> Medical scheduled Friday</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:29px"><div style="font:600 13px 'Space Grotesk',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div></div>
+    <div style="font:600 18px 'Space Grotesk',sans-serif;color:#9a9fae">≡</div>
+  </div>
+  <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+    <div style="position:relative;border-radius:14px;overflow:hidden;height:290px;background:#14161e">
+      <div class="phd" style="position:absolute;inset:0">[ hero photo ]</div>
+      <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(6,7,11,.96) 75%);padding:80px 18px 18px;display:flex;flex-direction:column;gap:8px">
+        <div style="font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:#d4af5e">EXCLUSIVE — TRANSFERS</div>
+        <div style="font:600 20px/1.2 'Space Grotesk',sans-serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px;display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">21:40</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">Medical scheduled for Friday morning</div></div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px;display:flex;gap:12px"><div style="font:600 11px 'Space Grotesk',sans-serif;color:#9a9fae;flex:none;padding-top:2px">20:15</div><div style="font:400 13px/1.4 'Space Grotesk',sans-serif">Alonso presser confirmed for Monday</div></div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between"><div style="font:600 10.5px 'Space Grotesk',sans-serif;letter-spacing:.12em;color:#d4af5e">NEXT MATCH</div><div style="font:500 12px 'Space Grotesk',sans-serif">RM vs Opponent · Jul 26</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 2c GOLD STANDARD ============ -->
+<div class="dv-opt" id="2c" data-screen-label="2c Gold Standard">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Gold Standard — near-black newsroom, gold accents, condensed headlines, league table</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#101014;font-family:'Barlow',sans-serif;color:#ecebe6">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 36px;border-bottom:2px solid #c9a24b">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:40px"><div style="display:flex;flex-direction:column"><div style="font:700 21px 'Barlow Condensed',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div><div style="font:500 9.5px 'Barlow',sans-serif;color:#c9a24b;letter-spacing:.22em">EST. 2019 · 2.1M FOLLOWERS</div></div></div>
+    <div style="display:flex;gap:26px;font:600 13px 'Barlow',sans-serif;color:#a9a79e;letter-spacing:.03em">
+      <a href="#2c" style="color:#c9a24b">News</a><a href="#2c">Transfers</a><a href="#2c">Matches</a><a href="#2c">Squad</a><a href="#2c">Table</a><a href="#2c">About</a>
+    </div>
+    <a href="#2c" style="background:#c9a24b;color:#101014;font:700 12px 'Barlow',sans-serif;padding:9px 18px;border-radius:3px">SUBSCRIBE</a>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;padding:26px 36px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:4px">[ hero photo — training ground ]</div>
+          <div style="font:600 10.5px 'Barlow',sans-serif;letter-spacing:.2em;color:#c9a24b">EXCLUSIVE · TRANSFERS</div>
+          <div style="font:700 34px/1.08 'Barlow Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+          <div style="font:400 13.5px/1.55 'Barlow',sans-serif;color:#a9a79e">A deal could be sealed before the US tour begins — the fee, the timeline, and what it means for the squad.</div>
+          <div style="font:500 11px 'Barlow',sans-serif;color:#77756c">Marco Delgado · 2h · 6 min read</div>
+        </div>
+        <div style="display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.1);padding-left:20px">
+          <div style="font:700 12.5px 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:#c9a24b;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)">TOP STORIES</div>
+          <div style="padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:4px"><div style="font:600 16px/1.25 'Barlow Condensed',sans-serif;color:#fff">ALONSO CONFIRMS CAPTAINCY DECISION AHEAD OF TOUR</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#77756c">4h ago</div></div>
+          <div style="padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:4px"><div style="font:600 16px/1.25 'Barlow Condensed',sans-serif;color:#fff">MEDICAL BOOKED: WINGER SET FOR FRIDAY UNVEILING</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#77756c">6h ago</div></div>
+          <div style="padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:4px"><div style="font:600 16px/1.25 'Barlow Condensed',sans-serif;color:#fff">SQUAD REPORT: WHO STAYS, WHO GOES THIS SUMMER</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#77756c">9h ago</div></div>
+          <div style="padding:14px 0;display:flex;flex-direction:column;gap:4px"><div style="font:600 16px/1.25 'Barlow Condensed',sans-serif;color:#fff">BERNABÉU PITCH WORKS FINISH TWO WEEKS EARLY</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#77756c">1d ago</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:baseline;gap:14px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px"><div style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:#c9a24b">TRANSFER WINDOW</div><a href="#2c" style="font:500 11px 'Barlow',sans-serif;color:#a9a79e">View tracker →</a></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:13px 15px;display:flex;flex-direction:column;gap:4px"><span style="font:700 9.5px 'Barlow',sans-serif;color:#7fd49a;letter-spacing:.1em">IN · CONFIRMED</span><span style="font:600 13.5px 'Barlow',sans-serif;color:#fff">GK — Free transfer</span></div>
+          <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:13px 15px;display:flex;flex-direction:column;gap:4px"><span style="font:700 9.5px 'Barlow',sans-serif;color:#c9a24b;letter-spacing:.1em">IN · ADVANCED</span><span style="font:600 13.5px 'Barlow',sans-serif;color:#fff">CM — €80m + add-ons</span></div>
+          <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:13px 15px;display:flex;flex-direction:column;gap:4px"><span style="font:700 9.5px 'Barlow',sans-serif;color:#f08f8f;letter-spacing:.1em">OUT · TALKS</span><span style="font:600 13.5px 'Barlow',sans-serif;color:#fff">RW — loan with option</span></div>
+          <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:13px 15px;display:flex;flex-direction:column;gap:4px"><span style="font:700 9.5px 'Barlow',sans-serif;color:#9aa5cc;letter-spacing:.1em">RUMOUR</span><span style="font:600 13.5px 'Barlow',sans-serif;color:#fff">LB — scouting stage</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)"><div style="font:700 12.5px 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:#c9a24b">LALIGA TABLE</div><div style="font:400 10px 'Barlow',sans-serif;color:#77756c">2025–26 final</div></div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="font:600 11px 'Barlow',sans-serif;color:#77756c;width:14px">1</div><div style="flex:1;font:600 13px 'Barlow',sans-serif;color:#fff">Real Madrid</div><div style="font:600 12px 'Barlow',sans-serif;color:#c9a24b">88</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="font:600 11px 'Barlow',sans-serif;color:#77756c;width:14px">2</div><div style="flex:1;font:500 13px 'Barlow',sans-serif;color:#a9a79e">Barcelona</div><div style="font:500 12px 'Barlow',sans-serif;color:#a9a79e">85</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="font:600 11px 'Barlow',sans-serif;color:#77756c;width:14px">3</div><div style="flex:1;font:500 13px 'Barlow',sans-serif;color:#a9a79e">Atlético</div><div style="font:500 12px 'Barlow',sans-serif;color:#a9a79e">76</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 0"><div style="font:600 11px 'Barlow',sans-serif;color:#77756c;width:14px">4</div><div style="flex:1;font:500 13px 'Barlow',sans-serif;color:#a9a79e">Athletic Club</div><div style="font:500 12px 'Barlow',sans-serif;color:#a9a79e">71</div></div>
+        </div>
+      </div>
+      <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:11px">
+        <div style="font:700 12.5px 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:#c9a24b">OUR SPONSORS</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="phd" style="height:56px;border-radius:4px">[ sponsor ]</div>
+          <div class="phd" style="height:56px;border-radius:4px">[ sponsor ]</div>
+        </div>
+        <a href="#2c" style="font:500 11px 'Barlow',sans-serif;color:#a9a79e">Partner with us →</a>
+      </div>
+      <div style="border:1px solid #c9a24b;border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:9px">
+        <div style="font:700 15px 'Barlow Condensed',sans-serif;color:#c9a24b;letter-spacing:.08em">THE MZ BRIEFING</div>
+        <div style="font:400 12px/1.5 'Barlow',sans-serif;color:#a9a79e">Daily email. Every Madrid story that matters.</div>
+        <div style="background:#c9a24b;color:#101014;font:700 12px 'Barlow',sans-serif;padding:9px 0;border-radius:3px;text-align:center">SIGN UP FREE</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dv-card" style="width:375px;background:#101014;font-family:'Barlow',sans-serif;color:#ecebe6">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:2px solid #c9a24b">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:31px"><div style="font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div></div>
+    <div style="font:700 18px 'Barlow',sans-serif;color:#a9a79e">≡</div>
+  </div>
+  <div style="padding:16px 14px;display:flex;flex-direction:column;gap:12px">
+    <div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:4px">[ hero photo ]</div>
+    <div style="font:600 10px 'Barlow',sans-serif;letter-spacing:.2em;color:#c9a24b">EXCLUSIVE · TRANSFERS</div>
+    <div style="font:700 25px/1.08 'Barlow Condensed',sans-serif;color:#fff;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+    <div style="font:500 10.5px 'Barlow',sans-serif;color:#77756c">Marco Delgado · 2h</div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:flex;flex-direction:column;gap:0">
+      <div style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.14em;color:#c9a24b;padding-bottom:8px">TOP STORIES</div>
+      <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);font:600 15px/1.25 'Barlow Condensed',sans-serif;color:#fff">ALONSO CONFIRMS CAPTAINCY DECISION AHEAD OF TOUR</div>
+      <div style="padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);font:600 15px/1.25 'Barlow Condensed',sans-serif;color:#fff">MEDICAL BOOKED: WINGER SET FOR FRIDAY UNVEILING</div>
+      <div style="padding:11px 0;font:600 15px/1.25 'Barlow Condensed',sans-serif;color:#fff">SQUAD REPORT: WHO STAYS, WHO GOES THIS SUMMER</div>
+    </div>
+    <div style="background:#191920;border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><div style="font:700 11.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#c9a24b">LALIGA TABLE</div><div style="font:500 12px 'Barlow',sans-serif">1. Real Madrid · 88 →</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 2d BROADCAST NAVY ============ -->
+<div class="dv-opt" id="2d" data-screen-label="2d Broadcast Navy">
+<div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Broadcast Navy — deep navy, TV-graphics feel, match strip + big condensed hero</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#081029;font-family:'Barlow',sans-serif;color:#e9ecf7">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 36px;background:#050a1c;border-bottom:1px solid rgba(233,194,88,.35)">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:38px"><div style="font:700 20px 'Barlow Condensed',sans-serif;letter-spacing:.08em">THE MADRID ZONE</div></div>
+    <div style="display:flex;gap:26px;font:600 13px 'Barlow',sans-serif;color:#9fa9cc;letter-spacing:.03em">
+      <a href="#2d" style="color:#e9c258">News</a><a href="#2d">Transfers</a><a href="#2d">Matches</a><a href="#2d">Squad</a><a href="#2d">About</a>
+    </div>
+    <a href="#2d" style="background:#e9c258;color:#081029;font:700 12px 'Barlow',sans-serif;padding:9px 18px;border-radius:3px">FOLLOW · 2.1M</a>
+  </div>
+  <!-- match strip -->
+  <div style="display:flex;gap:14px;padding:14px 36px;border-bottom:1px solid rgba(255,255,255,.08);background:#0a1330">
+    <div style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between"><div style="font:600 12px 'Barlow',sans-serif;color:#9fa9cc">LAST · CWC SF</div><div style="font:700 15px 'Barlow Condensed',sans-serif;color:#fff">RMA 3 – 1 OPP</div></div>
+    <div style="flex:1;background:rgba(233,194,88,.1);border:1px solid rgba(233,194,88,.4);border-radius:6px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between"><div style="font:600 12px 'Barlow',sans-serif;color:#e9c258">NEXT · PRE-SEASON</div><div style="font:700 15px 'Barlow Condensed',sans-serif;color:#fff">RMA vs OPP · JUL 26</div></div>
+    <div style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between"><div style="font:600 12px 'Barlow',sans-serif;color:#9fa9cc">THEN</div><div style="font:700 15px 'Barlow Condensed',sans-serif;color:#fff">RMA vs OPP · JUL 30</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:0;min-height:470px">
+    <div style="position:relative;background:#0c1020;overflow:hidden">
+      <div class="phd" style="position:absolute;inset:0">[ full-bleed hero photo — Bernabéu night ]</div>
+      <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(4,7,20,.97) 78%);padding:130px 34px 30px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:8px"><span style="background:#e9c258;color:#081029;font:700 10.5px 'Barlow Condensed',sans-serif;letter-spacing:.12em;padding:4px 10px;border-radius:2px">EXCLUSIVE</span><span style="background:rgba(255,255,255,.14);color:#fff;font:600 10.5px 'Barlow Condensed',sans-serif;letter-spacing:.12em;padding:4px 10px;border-radius:2px">TRANSFERS</span></div>
+        <div style="font:700 44px/1.02 'Barlow Condensed',sans-serif;color:#fff;text-transform:uppercase;text-wrap:pretty">€80m midfield anchor: deal close as pre-season opens</div>
+        <div style="font:500 13px 'Barlow',sans-serif;color:#9fa9cc">Marco Delgado · 2 hours ago</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.08)">
+      <div style="padding:18px 24px 10px;font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.16em;color:#e9c258">TOP STORIES</div>
+      <div style="padding:14px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:14px;align-items:center"><div style="font:700 24px 'Barlow Condensed',sans-serif;color:#e9c258;flex:none;width:26px">1</div><div style="display:flex;flex-direction:column;gap:3px"><div style="font:600 15.5px/1.3 'Barlow',sans-serif;color:#fff">Alonso confirms captaincy decision ahead of the tour</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">4h ago</div></div></div>
+      <div style="padding:14px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:14px;align-items:center"><div style="font:700 24px 'Barlow Condensed',sans-serif;color:#e9c258;flex:none;width:26px">2</div><div style="display:flex;flex-direction:column;gap:3px"><div style="font:600 15.5px/1.3 'Barlow',sans-serif;color:#fff">Medical booked: winger set for Friday unveiling</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">6h ago</div></div></div>
+      <div style="padding:14px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:14px;align-items:center"><div style="font:700 24px 'Barlow Condensed',sans-serif;color:#e9c258;flex:none;width:26px">3</div><div style="display:flex;flex-direction:column;gap:3px"><div style="font:600 15.5px/1.3 'Barlow',sans-serif;color:#fff">Squad report: who stays, who goes this summer</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">9h ago</div></div></div>
+      <div style="padding:14px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:14px;align-items:center"><div style="font:700 24px 'Barlow Condensed',sans-serif;color:#e9c258;flex:none;width:26px">4</div><div style="display:flex;flex-direction:column;gap:3px"><div style="font:600 15.5px/1.3 'Barlow',sans-serif;color:#fff">Bernabéu pitch works finish two weeks early</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">1d ago</div></div></div>
+      <div style="margin:auto 24px 22px;background:rgba(233,194,88,.1);border:1px solid rgba(233,194,88,.4);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        <div style="font:700 13px 'Barlow Condensed',sans-serif;color:#e9c258;letter-spacing:.1em">THE MZ BRIEFING</div>
+        <div style="font:400 11.5px/1.5 'Barlow',sans-serif;color:#9fa9cc">Daily email. Every Madrid story that matters.</div>
+        <div style="background:#e9c258;color:#081029;font:700 11.5px 'Barlow',sans-serif;padding:8px 0;border-radius:3px;text-align:center">SIGN UP FREE</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:24px 36px 30px;border-top:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;flex-direction:column;gap:9px"><div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:5px">[ photo ]</div><div style="font:600 15px/1.3 'Barlow',sans-serif;color:#fff">Rodrygo: the clubs circling and the asking price</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">Analysis · 5h</div></div>
+    <div style="display:flex;flex-direction:column;gap:9px"><div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:5px">[ photo ]</div><div style="font:600 15px/1.3 'Barlow',sans-serif;color:#fff">Wage structure: what Madrid can actually spend</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">Finance · 12h</div></div>
+    <div style="display:flex;flex-direction:column;gap:9px"><div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:5px">[ photo ]</div><div style="font:600 15px/1.3 'Barlow',sans-serif;color:#fff">Five Castilla names to watch on the tour</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">Academy · 1d</div></div>
+    <div style="display:flex;flex-direction:column;gap:9px"><div class="phd" style="width:100%;aspect-ratio:16/10;border-radius:5px">[ photo ]</div><div style="font:600 15px/1.3 'Barlow',sans-serif;color:#fff">US tour: full schedule and how to watch</div><div style="font:400 10.5px 'Barlow',sans-serif;color:#9fa9cc">Matches · 1d</div></div>
+  </div>
+</div>
+<div class="dv-card" style="width:375px;background:#081029;font-family:'Barlow',sans-serif;color:#e9ecf7">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#050a1c;border-bottom:1px solid rgba(233,194,88,.35)">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:30px"><div style="font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em">THE MADRID ZONE</div></div>
+    <div style="font:700 18px 'Barlow',sans-serif;color:#9fa9cc">≡</div>
+  </div>
+  <div style="display:flex;gap:8px;padding:10px 14px;background:#0a1330;border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden">
+    <div style="flex:none;background:rgba(233,194,88,.1);border:1px solid rgba(233,194,88,.4);border-radius:5px;padding:7px 12px;font:700 12px 'Barlow Condensed',sans-serif;color:#fff">NEXT · RMA vs OPP · JUL 26</div>
+    <div style="flex:none;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:5px;padding:7px 12px;font:700 12px 'Barlow Condensed',sans-serif;color:#9fa9cc">LAST · RMA 3–1</div>
+  </div>
+  <div style="position:relative;height:320px;background:#0c1020;overflow:hidden">
+    <div class="phd" style="position:absolute;inset:0">[ hero photo ]</div>
+    <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(4,7,20,.97) 75%);padding:80px 16px 18px;display:flex;flex-direction:column;gap:9px">
+      <span style="background:#e9c258;color:#081029;font:700 10px 'Barlow Condensed',sans-serif;letter-spacing:.12em;padding:3px 9px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+      <div style="font:700 26px/1.05 'Barlow Condensed',sans-serif;color:#fff;text-transform:uppercase;text-wrap:pretty">€80m midfield anchor: deal close as pre-season opens</div>
+    </div>
+  </div>
+  <div style="padding:14px;display:flex;flex-direction:column">
+    <div style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.16em;color:#e9c258;padding-bottom:6px">TOP STORIES</div>
+    <div style="padding:12px 0;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:12px;align-items:center"><div style="font:700 20px 'Barlow Condensed',sans-serif;color:#e9c258;width:22px;flex:none">1</div><div style="font:600 14px/1.3 'Barlow',sans-serif;color:#fff">Alonso confirms captaincy decision ahead of the tour</div></div>
+    <div style="padding:12px 0;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:12px;align-items:center"><div style="font:700 20px 'Barlow Condensed',sans-serif;color:#e9c258;width:22px;flex:none">2</div><div style="font:600 14px/1.3 'Barlow',sans-serif;color:#fff">Medical booked: winger set for Friday unveiling</div></div>
+    <div style="padding:12px 0;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:12px;align-items:center"><div style="font:700 20px 'Barlow Condensed',sans-serif;color:#e9c258;width:22px;flex:none">3</div><div style="font:600 14px/1.3 'Barlow',sans-serif;color:#fff">Squad report: who stays, who goes this summer</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build out <a class="dv-oid" href="#2a">2a</a> with transfers hub + squad pages" · "use <a class="dv-oid" href="#2c">2c</a>'s gold on <a class="dv-oid" href="#2b">2b</a>'s layout" · "show an article page in the winning style"</p>
+</section>
+
+<section class="dv-turn" id="t1" data-screen-label="Turn 1 — four homepage directions">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">The Madrid Zone — four homepage directions, desktop + mobile</span></div>
+<div class="dv-opts">
+
+<!-- ============ 1a THE EDITORIAL ============ -->
+<div class="dv-opt" id="1a" data-screen-label="1a The Editorial">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>The Editorial — premium journalism, serif headlines, cream + gold</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#faf9f6;font-family:'Public Sans',sans-serif;color:#15130f">
+  <!-- masthead -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 36px;border-bottom:1px solid #e3dfd6">
+    <div style="display:flex;gap:18px;font:600 11px 'Public Sans',sans-serif;letter-spacing:.12em;color:#6d675c">
+      <span>THURSDAY, JULY 10 2026</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="uploads/logo-1783679866641.png" alt="MZ" style="height:42px;filter:invert(1)">
+      <div style="font:700 22px 'Source Serif 4',serif;letter-spacing:.01em">The Madrid Zone</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="#1a" style="font:600 12px 'Public Sans',sans-serif;color:#6d675c">Sign in</a>
+      <a href="#1a" style="font:600 12px 'Public Sans',sans-serif;background:#a8842c;color:#fff;padding:8px 16px;border-radius:3px">Subscribe</a>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;gap:34px;padding:12px 36px;border-bottom:2px solid #15130f;font:600 12.5px 'Public Sans',sans-serif;letter-spacing:.08em">
+    <a href="#1a" style="color:#a8842c">NEWS</a><a href="#1a">TRANSFERS</a><a href="#1a">MATCHES</a><a href="#1a">SQUAD</a><a href="#1a">OPINION</a><a href="#1a">ABOUT</a>
+  </div>
+  <!-- hero -->
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:36px;padding:32px 36px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="ph" style="width:100%;aspect-ratio:16/9;border-radius:2px">[ hero photo — training ground ]</div>
+      <div style="font:600 11px 'Public Sans',sans-serif;letter-spacing:.14em;color:#a8842c">EXCLUSIVE · TRANSFERS</div>
+      <div style="font:700 40px/1.15 'Source Serif 4',serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor as pre-season opens</div>
+      <div style="font:400 16px/1.6 'Public Sans',sans-serif;color:#4c463b;max-width:640px">Sources close to the club say a deal could be sealed before the US tour begins — here is everything we know about the negotiations, the fee structure, and what it means for the squad.</div>
+      <div style="font:500 12px 'Public Sans',sans-serif;color:#8a8272">By Marco Delgado · 2 hours ago · 6 min read</div>
+    </div>
+    <div style="display:flex;flex-direction:column;border-left:1px solid #e3dfd6;padding-left:28px">
+      <div style="font:700 13px 'Public Sans',sans-serif;letter-spacing:.1em;padding-bottom:14px;border-bottom:2px solid #15130f">THE LATEST</div>
+      <div style="display:flex;flex-direction:column">
+        <div style="padding:16px 0;border-bottom:1px solid #e3dfd6;display:flex;flex-direction:column;gap:6px"><div style="font:600 17px/1.3 'Source Serif 4',serif">Alonso confirms captaincy decision ahead of the tour</div><div style="font:400 11.5px 'Public Sans',sans-serif;color:#8a8272">4h ago</div></div>
+        <div style="padding:16px 0;border-bottom:1px solid #e3dfd6;display:flex;flex-direction:column;gap:6px"><div style="font:600 17px/1.3 'Source Serif 4',serif">Medical booked: teenage winger set for Friday unveiling</div><div style="font:400 11.5px 'Public Sans',sans-serif;color:#8a8272">6h ago</div></div>
+        <div style="padding:16px 0;border-bottom:1px solid #e3dfd6;display:flex;flex-direction:column;gap:6px"><div style="font:600 17px/1.3 'Source Serif 4',serif">Squad report: who stays and who goes this summer</div><div style="font:400 11.5px 'Public Sans',sans-serif;color:#8a8272">9h ago</div></div>
+        <div style="padding:16px 0;display:flex;flex-direction:column;gap:6px"><div style="font:600 17px/1.3 'Source Serif 4',serif">Bernabéu pitch works finish two weeks early</div><div style="font:400 11.5px 'Public Sans',sans-serif;color:#8a8272">1d ago</div></div>
+      </div>
+      <div style="margin-top:18px;background:#15130f;color:#f5f2ea;padding:20px;border-radius:3px;display:flex;flex-direction:column;gap:10px">
+        <div style="font:700 16px 'Source Serif 4',serif">The MZ Briefing</div>
+        <div style="font:400 12.5px/1.5 'Public Sans',sans-serif;color:#c9c3b6">One email every morning. Every Madrid story that matters.</div>
+        <div style="display:flex;gap:8px"><div style="flex:1;background:#fff;border-radius:3px;padding:9px 12px;font:400 12px 'Public Sans',sans-serif;color:#8a8272">your@email.com</div><div style="background:#a8842c;color:#fff;border-radius:3px;padding:9px 14px;font:600 12px 'Public Sans',sans-serif">Join</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- secondary row -->
+  <div style="padding:8px 36px 36px;display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid #15130f;padding-bottom:10px"><div style="font:700 13px 'Public Sans',sans-serif;letter-spacing:.1em">TRANSFER WINDOW</div><a href="#1a" style="font:600 11px 'Public Sans',sans-serif;color:#a8842c">View tracker →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+      <div style="display:flex;flex-direction:column;gap:10px"><div class="ph" style="width:100%;aspect-ratio:3/2">[ player photo ]</div><div style="font:600 19px/1.3 'Source Serif 4',serif">Rodrygo's future: the three clubs circling and Madrid's asking price</div><div style="font:500 11.5px 'Public Sans',sans-serif;color:#8a8272">Analysis · 5h ago</div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><div class="ph" style="width:100%;aspect-ratio:3/2">[ stadium photo ]</div><div style="font:600 19px/1.3 'Source Serif 4',serif">How the new wage structure changes what Madrid can spend</div><div style="font:500 11.5px 'Public Sans',sans-serif;color:#8a8272">Finance · 12h ago</div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><div class="ph" style="width:100%;aspect-ratio:3/2">[ academy photo ]</div><div style="font:600 19px/1.3 'Source Serif 4',serif">Five Castilla names to watch on the pre-season tour</div><div style="font:500 11.5px 'Public Sans',sans-serif;color:#8a8272">Academy · 1d ago</div></div>
+    </div>
+  </div>
+</div>
+<!-- 1a mobile -->
+<div class="dv-card" style="width:375px;background:#faf9f6;font-family:'Public Sans',sans-serif;color:#15130f">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:2px solid #15130f">
+    <div style="font:700 20px 'Public Sans',sans-serif;color:#6d675c">≡</div>
+    <div style="display:flex;align-items:center;gap:8px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:30px;filter:invert(1)"><div style="font:700 17px 'Source Serif 4',serif">The Madrid Zone</div></div>
+    <a href="#1a" style="font:600 10.5px 'Public Sans',sans-serif;background:#a8842c;color:#fff;padding:6px 10px;border-radius:3px">Subscribe</a>
+  </div>
+  <div style="display:flex;gap:18px;padding:10px 16px;border-bottom:1px solid #e3dfd6;font:600 11px 'Public Sans',sans-serif;letter-spacing:.06em;overflow:hidden">
+    <a href="#1a" style="color:#a8842c">NEWS</a><a href="#1a">TRANSFERS</a><a href="#1a">MATCHES</a><a href="#1a">SQUAD</a><a href="#1a">OPINION</a>
+  </div>
+  <div style="padding:18px 16px;display:flex;flex-direction:column;gap:12px">
+    <div class="ph" style="width:100%;aspect-ratio:16/10;border-radius:2px">[ hero photo ]</div>
+    <div style="font:600 10.5px 'Public Sans',sans-serif;letter-spacing:.14em;color:#a8842c">EXCLUSIVE · TRANSFERS</div>
+    <div style="font:700 25px/1.2 'Source Serif 4',serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor as pre-season opens</div>
+    <div style="font:500 11px 'Public Sans',sans-serif;color:#8a8272">By Marco Delgado · 2h · 6 min read</div>
+  </div>
+  <div style="padding:0 16px 20px;display:flex;flex-direction:column">
+    <div style="font:700 12px 'Public Sans',sans-serif;letter-spacing:.1em;border-bottom:2px solid #15130f;padding-bottom:8px">THE LATEST</div>
+    <div style="padding:14px 0;border-bottom:1px solid #e3dfd6;display:flex;gap:12px;align-items:center"><div style="flex:1;font:600 15px/1.35 'Source Serif 4',serif">Alonso confirms captaincy decision ahead of the tour</div><div class="ph" style="width:84px;height:60px;flex:none">[ img ]</div></div>
+    <div style="padding:14px 0;border-bottom:1px solid #e3dfd6;display:flex;gap:12px;align-items:center"><div style="flex:1;font:600 15px/1.35 'Source Serif 4',serif">Medical booked: teenage winger set for Friday unveiling</div><div class="ph" style="width:84px;height:60px;flex:none">[ img ]</div></div>
+    <div style="padding:14px 0;display:flex;gap:12px;align-items:center"><div style="flex:1;font:600 15px/1.35 'Source Serif 4',serif">Squad report: who stays and who goes this summer</div><div class="ph" style="width:84px;height:60px;flex:none">[ img ]</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 1b THE ULTRA ============ -->
+<div class="dv-opt" id="1b" data-screen-label="1b The Ultra">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>The Ultra — bold fan media, huge type, navy + gold energy</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#fff;font-family:'Archivo',sans-serif;color:#0b1230">
+  <div style="background:#0b1f56;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:40px"><div style="font:800 19px 'Archivo',sans-serif;color:#fff;letter-spacing:.04em">THE MADRID ZONE</div></div>
+    <div style="display:flex;gap:26px;font:700 13px 'Archivo',sans-serif;color:#c6cded;letter-spacing:.06em">
+      <a href="#1b" style="color:#e9c258">NEWS</a><a href="#1b">TRANSFERS</a><a href="#1b">MATCHES</a><a href="#1b">SQUAD</a><a href="#1b">ABOUT</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="font:700 12px 'Archivo',sans-serif;color:#c6cded">2.1M followers</div><a href="#1b" style="background:#e9c258;color:#0b1f56;font:800 12px 'Archivo',sans-serif;padding:9px 16px;border-radius:4px;letter-spacing:.04em">FOLLOW US</a></div>
+  </div>
+  <!-- breaking bar -->
+  <div style="display:flex;align-items:center;gap:14px;background:#e9c258;padding:8px 32px">
+    <div style="background:#0b1f56;color:#fff;font:800 11px 'Archivo',sans-serif;padding:4px 9px;border-radius:3px;letter-spacing:.08em">BREAKING</div>
+    <div style="font:700 13px 'Archivo',sans-serif;color:#0b1230">Medical booked — teenage winger arrives in Madrid tonight ahead of Friday unveiling</div>
+  </div>
+  <!-- hero -->
+  <div style="position:relative;height:520px;background:#0c1020;overflow:hidden">
+    <div class="phd" style="position:absolute;inset:0">[ full-bleed match photo — Bernabéu under lights ]</div>
+    <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(6,9,24,.94) 70%);padding:120px 40px 36px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:8px"><span style="background:#e9c258;color:#0b1f56;font:800 11px 'Archivo',sans-serif;padding:5px 10px;border-radius:3px;letter-spacing:.08em">EXCLUSIVE</span><span style="background:rgba(255,255,255,.14);color:#fff;font:700 11px 'Archivo',sans-serif;padding:5px 10px;border-radius:3px;letter-spacing:.08em">TRANSFERS</span></div>
+      <div style="font:900 56px/1.02 'Archivo',sans-serif;color:#fff;letter-spacing:-.01em;text-transform:uppercase;max-width:900px;text-wrap:pretty">€80m midfield anchor: deal close as pre-season opens</div>
+      <div style="font:500 15px 'Archivo',sans-serif;color:#b9c1dd">Marco Delgado · 2 hours ago</div>
+    </div>
+  </div>
+  <!-- story grid -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:28px 32px">
+    <div style="display:flex;flex-direction:column;gap:10px;border-top:4px solid #e9c258;padding-top:12px"><div class="ph" style="width:100%;aspect-ratio:16/10">[ photo ]</div><div style="font:800 17px/1.25 'Archivo',sans-serif;text-transform:uppercase">Alonso confirms captaincy decision</div><div style="font:500 11px 'Archivo',sans-serif;color:#7c84a3">4H AGO</div></div>
+    <div style="display:flex;flex-direction:column;gap:10px;border-top:4px solid #e9c258;padding-top:12px"><div class="ph" style="width:100%;aspect-ratio:16/10">[ photo ]</div><div style="font:800 17px/1.25 'Archivo',sans-serif;text-transform:uppercase">Rodrygo: three clubs circling</div><div style="font:500 11px 'Archivo',sans-serif;color:#7c84a3">5H AGO</div></div>
+    <div style="display:flex;flex-direction:column;gap:10px;border-top:4px solid #e9c258;padding-top:12px"><div class="ph" style="width:100%;aspect-ratio:16/10">[ photo ]</div><div style="font:800 17px/1.25 'Archivo',sans-serif;text-transform:uppercase">US tour: full schedule announced</div><div style="font:500 11px 'Archivo',sans-serif;color:#7c84a3">8H AGO</div></div>
+    <div style="display:flex;flex-direction:column;gap:10px;border-top:4px solid #e9c258;padding-top:12px"><div class="ph" style="width:100%;aspect-ratio:16/10">[ photo ]</div><div style="font:800 17px/1.25 'Archivo',sans-serif;text-transform:uppercase">Castilla: five names to watch</div><div style="font:500 11px 'Archivo',sans-serif;color:#7c84a3">1D AGO</div></div>
+  </div>
+  <!-- transfer tracker strip -->
+  <div style="margin:4px 32px 32px;background:#0b1f56;border-radius:6px;padding:20px 24px;display:flex;align-items:center;gap:22px">
+    <div style="font:800 15px 'Archivo',sans-serif;color:#e9c258;letter-spacing:.06em;flex:none">TRANSFER<br>TRACKER</div>
+    <div style="width:1px;align-self:stretch;background:rgba(255,255,255,.16)"></div>
+    <div style="display:flex;gap:14px;flex:1">
+      <div style="flex:1;background:rgba(255,255,255,.07);border-radius:5px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span style="font:800 10px 'Archivo',sans-serif;color:#7fd49a">IN · CONFIRMED</span><span style="font:700 14px 'Archivo',sans-serif;color:#fff">GK — Free transfer</span></div>
+      <div style="flex:1;background:rgba(255,255,255,.07);border-radius:5px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span style="font:800 10px 'Archivo',sans-serif;color:#e9c258">IN · ADVANCED</span><span style="font:700 14px 'Archivo',sans-serif;color:#fff">CM — €80m + add-ons</span></div>
+      <div style="flex:1;background:rgba(255,255,255,.07);border-radius:5px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span style="font:800 10px 'Archivo',sans-serif;color:#f08f8f">OUT · TALKS</span><span style="font:700 14px 'Archivo',sans-serif;color:#fff">RW — loan with option</span></div>
+      <div style="flex:1;background:rgba(255,255,255,.07);border-radius:5px;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span style="font:800 10px 'Archivo',sans-serif;color:#9aa5cc">RUMOUR</span><span style="font:700 14px 'Archivo',sans-serif;color:#fff">LB — scouting stage</span></div>
+    </div>
+  </div>
+</div>
+<!-- 1b mobile -->
+<div class="dv-card" style="width:375px;background:#fff;font-family:'Archivo',sans-serif;color:#0b1230">
+  <div style="background:#0b1f56;display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:54px">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:32px"><div style="font:800 14px 'Archivo',sans-serif;color:#fff;letter-spacing:.04em">THE MADRID ZONE</div></div>
+    <div style="color:#fff;font:700 20px 'Archivo',sans-serif">≡</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;background:#e9c258;padding:7px 14px"><div style="background:#0b1f56;color:#fff;font:800 9.5px 'Archivo',sans-serif;padding:3px 7px;border-radius:3px">BREAKING</div><div style="font:700 11px/1.3 'Archivo',sans-serif">Winger arrives tonight ahead of unveiling</div></div>
+  <div style="position:relative;height:330px;background:#0c1020;overflow:hidden">
+    <div class="phd" style="position:absolute;inset:0">[ match photo ]</div>
+    <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(6,9,24,.95) 72%);padding:80px 16px 20px;display:flex;flex-direction:column;gap:10px">
+      <span style="background:#e9c258;color:#0b1f56;font:800 10px 'Archivo',sans-serif;padding:4px 8px;border-radius:3px;width:fit-content;letter-spacing:.08em">EXCLUSIVE</span>
+      <div style="font:900 27px/1.05 'Archivo',sans-serif;color:#fff;text-transform:uppercase;text-wrap:pretty">€80m midfield anchor: deal close as pre-season opens</div>
+    </div>
+  </div>
+  <div style="padding:16px 14px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;gap:12px;border-top:4px solid #e9c258;padding-top:10px"><div class="ph" style="width:110px;height:72px;flex:none">[ photo ]</div><div style="display:flex;flex-direction:column;gap:5px"><div style="font:800 14px/1.25 'Archivo',sans-serif;text-transform:uppercase">Alonso confirms captaincy decision</div><div style="font:500 10px 'Archivo',sans-serif;color:#7c84a3">4H AGO</div></div></div>
+    <div style="display:flex;gap:12px;border-top:1px solid #e6e8f0;padding-top:12px"><div class="ph" style="width:110px;height:72px;flex:none">[ photo ]</div><div style="display:flex;flex-direction:column;gap:5px"><div style="font:800 14px/1.25 'Archivo',sans-serif;text-transform:uppercase">Rodrygo: three clubs circling</div><div style="font:500 10px 'Archivo',sans-serif;color:#7c84a3">5H AGO</div></div></div>
+    <div style="display:flex;gap:12px;border-top:1px solid #e6e8f0;padding-top:12px"><div class="ph" style="width:110px;height:72px;flex:none">[ photo ]</div><div style="display:flex;flex-direction:column;gap:5px"><div style="font:800 14px/1.25 'Archivo',sans-serif;text-transform:uppercase">US tour: full schedule announced</div><div style="font:500 10px 'Archivo',sans-serif;color:#7c84a3">8H AGO</div></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-around;border-top:1px solid #e6e8f0;padding:10px 0 14px;font:700 10px 'Archivo',sans-serif;color:#7c84a3;letter-spacing:.04em">
+    <div style="color:#0b1f56;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">●</span>HOME</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">○</span>TRANSFERS</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">○</span>MATCHES</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">○</span>SQUAD</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 1c MIDNIGHT BERNABÉU ============ -->
+<div class="dv-opt" id="1c" data-screen-label="1c Midnight Bernabéu">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Midnight Bernabéu — dark cinematic, gold accents, glassy cards</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#0c0d12;font-family:'Space Grotesk',sans-serif;color:#eceef2">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 36px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:38px"><div style="font:600 17px 'Space Grotesk',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div></div>
+    <div style="display:flex;gap:28px;font:500 13px 'Space Grotesk',sans-serif;color:#9a9fae">
+      <a href="#1c" style="color:#d4af5e">News</a><a href="#1c">Transfers</a><a href="#1c">Matches</a><a href="#1c">Squad</a><a href="#1c">About</a>
+    </div>
+    <a href="#1c" style="border:1px solid #d4af5e;color:#d4af5e;font:600 12px 'Space Grotesk',sans-serif;padding:8px 18px;border-radius:99px">Get the briefing</a>
+  </div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:22px;padding:28px 36px">
+    <!-- hero card -->
+    <div style="position:relative;border-radius:14px;overflow:hidden;height:460px;background:#14161e">
+      <div class="phd" style="position:absolute;inset:0">[ hero photo — night match ]</div>
+      <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(8,9,14,.96) 75%);padding:110px 28px 26px;display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:#d4af5e">EXCLUSIVE — TRANSFERS</div>
+        <div style="font:600 34px/1.15 'Space Grotesk',sans-serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor as pre-season opens</div>
+        <div style="font:400 13px 'Space Grotesk',sans-serif;color:#9a9fae">Marco Delgado · 2h · 6 min read</div>
+      </div>
+    </div>
+    <!-- right rail -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.14em;color:#d4af5e">NEXT MATCH</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae">Pre-season · Jul 26</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="phd" style="width:44px;height:44px;border-radius:50%">RM</div><div style="font:600 12px 'Space Grotesk',sans-serif">Real Madrid</div></div>
+          <div style="font:600 20px 'Space Grotesk',sans-serif;color:#9a9fae">VS</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="phd" style="width:44px;height:44px;border-radius:50%">[ ]</div><div style="font:600 12px 'Space Grotesk',sans-serif">Opponent</div></div>
+        </div>
+        <div style="text-align:center;font:400 11.5px 'Space Grotesk',sans-serif;color:#9a9fae">Soldier Field, Chicago · 02:30 CET</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:center"><div style="font:600 22px 'Space Grotesk',sans-serif;color:#d4af5e">01</div><div style="font:500 14px/1.35 'Space Grotesk',sans-serif">Alonso confirms captaincy decision ahead of the tour</div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:center"><div style="font:600 22px 'Space Grotesk',sans-serif;color:#d4af5e">02</div><div style="font:500 14px/1.35 'Space Grotesk',sans-serif">Medical booked: winger set for Friday unveiling</div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:center"><div style="font:600 22px 'Space Grotesk',sans-serif;color:#d4af5e">03</div><div style="font:500 14px/1.35 'Space Grotesk',sans-serif">Squad report: who stays, who goes this summer</div></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:center"><div style="font:600 22px 'Space Grotesk',sans-serif;color:#d4af5e">04</div><div style="font:500 14px/1.35 'Space Grotesk',sans-serif">Bernabéu pitch works finish two weeks early</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 36px 32px;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between"><div style="font:600 13px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:#d4af5e">MORE COVERAGE</div><a href="#1c" style="font:500 12px 'Space Grotesk',sans-serif;color:#9a9fae">All stories →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden"><div class="phd" style="width:100%;aspect-ratio:16/9">[ photo ]</div><div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="font:500 16px/1.3 'Space Grotesk',sans-serif">Rodrygo's future: the clubs circling and the asking price</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae">Analysis · 5h</div></div></div>
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden"><div class="phd" style="width:100%;aspect-ratio:16/9">[ photo ]</div><div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="font:500 16px/1.3 'Space Grotesk',sans-serif">How the new wage structure changes what Madrid can spend</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae">Finance · 12h</div></div></div>
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden"><div class="phd" style="width:100%;aspect-ratio:16/9">[ photo ]</div><div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="font:500 16px/1.3 'Space Grotesk',sans-serif">Five Castilla names to watch on the pre-season tour</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:#9a9fae">Academy · 1d</div></div></div>
+    </div>
+  </div>
+</div>
+<!-- 1c mobile -->
+<div class="dv-card" style="width:375px;background:#0c0d12;font-family:'Space Grotesk',sans-serif;color:#eceef2">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:30px"><div style="font:600 13px 'Space Grotesk',sans-serif;letter-spacing:.06em">THE MADRID ZONE</div></div>
+    <div style="font:600 18px 'Space Grotesk',sans-serif;color:#9a9fae">≡</div>
+  </div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+    <div style="position:relative;border-radius:14px;overflow:hidden;height:300px;background:#14161e">
+      <div class="phd" style="position:absolute;inset:0">[ hero photo ]</div>
+      <div style="position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(8,9,14,.96) 75%);padding:80px 18px 18px;display:flex;flex-direction:column;gap:8px">
+        <div style="font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:#d4af5e">EXCLUSIVE — TRANSFERS</div>
+        <div style="font:600 21px/1.2 'Space Grotesk',sans-serif;text-wrap:pretty">Madrid accelerate talks over €80m midfield anchor</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font:600 10.5px 'Space Grotesk',sans-serif;letter-spacing:.12em;color:#d4af5e">NEXT MATCH</div>
+      <div style="font:500 12px 'Space Grotesk',sans-serif">RM vs Opponent · Jul 26</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px;display:flex;gap:12px;align-items:center"><div style="font:600 19px 'Space Grotesk',sans-serif;color:#d4af5e">01</div><div style="font:500 13.5px/1.35 'Space Grotesk',sans-serif">Alonso confirms captaincy decision ahead of the tour</div></div>
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px;display:flex;gap:12px;align-items:center"><div style="font:600 19px 'Space Grotesk',sans-serif;color:#d4af5e">02</div><div style="font:500 13.5px/1.35 'Space Grotesk',sans-serif">Medical booked: winger set for Friday unveiling</div></div>
+      <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px;display:flex;gap:12px;align-items:center"><div style="font:600 19px 'Space Grotesk',sans-serif;color:#d4af5e">03</div><div style="font:500 13.5px/1.35 'Space Grotesk',sans-serif">Squad report: who stays, who goes this summer</div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ 1d THE WIRE ============ -->
+<div class="dv-opt" id="1d" data-screen-label="1d The Wire">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>The Wire — data-dense newsroom, live ticker, scores + table</div>
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+<div class="dv-card" style="width:1180px;background:#f4f5f7;font-family:'Barlow',sans-serif;color:#101523">
+  <!-- ticker -->
+  <div style="background:#101523;display:flex;align-items:center;gap:0;height:38px;overflow:hidden">
+    <div style="background:#c8102e;color:#fff;font:700 11px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:0 14px;display:flex;align-items:center;height:100%;flex:none">LIVE WIRE</div>
+    <div style="display:flex;gap:34px;padding:0 20px;font:500 12px 'Barlow',sans-serif;color:#c3c8d6;white-space:nowrap">
+      <span><b style="color:#fff">21:40</b> Medical scheduled for Friday morning</span>
+      <span><b style="color:#fff">20:15</b> Alonso press conference confirmed for Monday</span>
+      <span><b style="color:#fff">18:02</b> US tour squad list expected this week</span>
+    </div>
+  </div>
+  <div style="background:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;border-bottom:3px solid #101523">
+    <div style="display:flex;align-items:center;gap:12px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:38px"><div style="display:flex;flex-direction:column"><div style="font:700 20px 'Barlow Condensed',sans-serif;letter-spacing:.05em">THE MADRID ZONE</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0;letter-spacing:.14em">NEWS · TRANSFERS · DATA</div></div></div>
+    <div style="display:flex;gap:24px;font:600 13px 'Barlow',sans-serif;letter-spacing:.03em">
+      <a href="#1d" style="color:#c8102e">News</a><a href="#1d">Transfers</a><a href="#1d">Matches</a><a href="#1d">Squad</a><a href="#1d">Table</a><a href="#1d">About</a>
+    </div>
+    <div style="font:500 12px 'Barlow',sans-serif;color:#8b90a0">Thu 10 Jul 2026</div>
+  </div>
+  <!-- 3col -->
+  <div style="display:grid;grid-template-columns:250px 1fr 280px;gap:20px;padding:20px 32px 28px">
+    <!-- left: latest wire -->
+    <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column">
+      <div style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#c8102e;padding-bottom:10px;border-bottom:1px solid #e2e4ea">LATEST WIRE</div>
+      <div style="padding:12px 0;border-bottom:1px solid #eef0f4;display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">21:40</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Medical scheduled for Friday morning</div></div>
+      <div style="padding:12px 0;border-bottom:1px solid #eef0f4;display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">20:15</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Alonso presser confirmed for Monday</div></div>
+      <div style="padding:12px 0;border-bottom:1px solid #eef0f4;display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">18:02</div><div style="font:500 13px/1.35 'Barlow',sans-serif">US tour squad list expected this week</div></div>
+      <div style="padding:12px 0;display:flex;flex-direction:column;gap:3px"><div style="font:600 10.5px 'Barlow',sans-serif;color:#8b90a0">16:44</div><div style="font:500 13px/1.35 'Barlow',sans-serif">Pitch renovation finishes two weeks early</div></div>
+      <a href="#1d" style="margin-top:8px;font:600 12px 'Barlow',sans-serif;color:#c8102e">Full wire →</a>
+    </div>
+    <!-- center: hero -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;overflow:hidden">
+        <div class="ph" style="width:100%;aspect-ratio:16/8">[ hero photo — training ground ]</div>
+        <div style="padding:18px 22px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:8px"><span style="background:#c8102e;color:#fff;font:700 10px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px">EXCLUSIVE</span><span style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">TRANSFERS</span></div>
+          <div style="font:700 28px/1.15 'Barlow Condensed',sans-serif;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR AS PRE-SEASON OPENS</div>
+          <div style="font:400 13.5px/1.5 'Barlow',sans-serif;color:#4a4f60">A deal could be sealed before the US tour begins — the fee structure, the timeline, and what it means for the squad.</div>
+          <div style="font:500 11px 'Barlow',sans-serif;color:#8b90a0">Marco Delgado · 2h</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="ph" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">4h</div></div></div>
+        <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="ph" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">5h</div></div></div>
+        <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="ph" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Wage structure: what Madrid can actually spend</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">12h</div></div></div>
+        <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:14px 16px;display:flex;gap:12px"><div class="ph" style="width:92px;height:64px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 14.5px/1.3 'Barlow',sans-serif">Castilla: five names to watch on tour</div><div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">1d</div></div></div>
+      </div>
+    </div>
+    <!-- right: fixtures + ad -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:0">
+        <div style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#101523;padding-bottom:10px;border-bottom:1px solid #e2e4ea">FIXTURES</div>
+        <div style="padding:11px 0;border-bottom:1px solid #eef0f4;display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent A</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Jul 26</div></div>
+        <div style="padding:11px 0;border-bottom:1px solid #eef0f4;display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent B</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Jul 30</div></div>
+        <div style="padding:11px 0;display:flex;justify-content:space-between;align-items:center"><div style="font:500 13px 'Barlow',sans-serif">vs Opponent C</div><div style="font:600 11px 'Barlow',sans-serif;color:#8b90a0">Aug 3</div></div>
+      </div>
+      <div class="ph" style="width:100%;height:250px;border-radius:6px;border:1px dashed #c9cdd8">[ ad slot 300×250 ]</div>
+      <div style="background:#101523;border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:9px">
+        <div style="font:700 15px 'Barlow Condensed',sans-serif;color:#fff;letter-spacing:.06em">THE MZ BRIEFING</div>
+        <div style="font:400 12px/1.5 'Barlow',sans-serif;color:#c3c8d6">Daily email. Every Madrid story that matters.</div>
+        <div style="background:#c8102e;color:#fff;font:600 12px 'Barlow',sans-serif;padding:9px 0;border-radius:4px;text-align:center">Sign up free</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 1d mobile -->
+<div class="dv-card" style="width:375px;background:#f4f5f7;font-family:'Barlow',sans-serif;color:#101523">
+  <div style="background:#101523;display:flex;align-items:center;height:32px;overflow:hidden">
+    <div style="background:#c8102e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:0 10px;display:flex;align-items:center;height:100%;flex:none">LIVE</div>
+    <div style="padding:0 12px;font:500 11px 'Barlow',sans-serif;color:#c3c8d6;white-space:nowrap"><b style="color:#fff">21:40</b> Medical scheduled for Friday morning</div>
+  </div>
+  <div style="background:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:3px solid #101523">
+    <div style="display:flex;align-items:center;gap:9px"><img src="uploads/logo-1783679866641.png" alt="MZ" style="height:30px"><div style="font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.05em">THE MADRID ZONE</div></div>
+    <div style="font:700 18px 'Barlow',sans-serif;color:#8b90a0">≡</div>
+  </div>
+  <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+    <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;overflow:hidden">
+      <div class="ph" style="width:100%;aspect-ratio:16/9">[ hero photo ]</div>
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+        <span style="background:#c8102e;color:#fff;font:700 9.5px 'Barlow Condensed',sans-serif;letter-spacing:.1em;padding:3px 8px;border-radius:2px;width:fit-content">EXCLUSIVE</span>
+        <div style="font:700 20px/1.15 'Barlow Condensed',sans-serif;text-wrap:pretty">MADRID ACCELERATE TALKS OVER €80M MIDFIELD ANCHOR</div>
+        <div style="font:500 10.5px 'Barlow',sans-serif;color:#8b90a0">Marco Delgado · 2h</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:12px 14px;display:flex;gap:11px"><div class="ph" style="width:86px;height:58px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Alonso confirms captaincy decision ahead of tour</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">4h</div></div></div>
+    <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:12px 14px;display:flex;gap:11px"><div class="ph" style="width:86px;height:58px;flex:none">[ img ]</div><div style="display:flex;flex-direction:column;gap:4px"><div style="font:600 13.5px/1.3 'Barlow',sans-serif">Rodrygo: three clubs circling this summer</div><div style="font:500 10px 'Barlow',sans-serif;color:#8b90a0">5h</div></div></div>
+    <div style="background:#fff;border:1px solid #e2e4ea;border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center"><div style="font:700 12px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#c8102e">FIXTURES</div><div style="font:500 12px 'Barlow',sans-serif">vs Opponent A · Jul 26 →</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "go deeper on <a class="dv-oid" href="#1a">1a</a> — add the transfers hub and squad pages" · "mix <a class="dv-oid" href="#1c">1c</a>'s dark hero with <a class="dv-oid" href="#1a">1a</a>'s typography" · "make <a class="dv-oid" href="#1b">1b</a> less shouty"</p>
+</section>
+
+</x-dc>
+</body>
+</html>
