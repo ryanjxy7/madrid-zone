@@ -1,4 +1,5 @@
 import { placeholderImage } from "@/lib/utils/images";
+import { paragraph, quote } from "@/lib/utils/portableText";
 import type { Article } from "@/types/content";
 
 /**
@@ -24,26 +25,19 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-10T21:05:00.000Z",
     readingTime: "6 min read",
     body: [
-      {
-        type: "paragraph",
-        text: "MADRID — Negotiations over the club's primary midfield target accelerated sharply this week, with sources on both sides describing a deal as “close” for the first time since contact opened in May.",
-      },
-      {
-        type: "paragraph",
-        text: "The fee under discussion is €80m plus performance-related add-ons, structured over four instalments. Personal terms are not expected to be an obstacle: the player agreed the framework of a five-year contract last month.",
-      },
-      {
-        type: "quote",
-        text: "“The club wants this closed before the plane leaves for Chicago. Everyone is aligned.”",
-      },
-      {
-        type: "paragraph",
-        text: "Internally, the recruitment team views the signing as the final structural piece of the summer. A medical is provisionally pencilled in for Friday morning, subject to the clubs formalising documentation.",
-      },
-      {
-        type: "paragraph",
-        text: "The US tour squad list, expected this week, may yet include the new arrival — a decision that rests with Xabi Alonso and the performance staff after the medical.",
-      },
+      paragraph(
+        "MADRID — Negotiations over the club's primary midfield target accelerated sharply this week, with sources on both sides describing a deal as “close” for the first time since contact opened in May."
+      ),
+      paragraph(
+        "The fee under discussion is €80m plus performance-related add-ons, structured over four instalments. Personal terms are not expected to be an obstacle: the player agreed the framework of a five-year contract last month."
+      ),
+      quote("“The club wants this closed before the plane leaves for Chicago. Everyone is aligned.”"),
+      paragraph(
+        "Internally, the recruitment team views the signing as the final structural piece of the summer. A medical is provisionally pencilled in for Friday morning, subject to the clubs formalising documentation."
+      ),
+      paragraph(
+        "The US tour squad list, expected this week, may yet include the new arrival — a decision that rests with Xabi Alonso and the performance staff after the medical."
+      ),
     ],
   },
   {
@@ -62,8 +56,12 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-10T15:00:00.000Z",
     readingTime: "4 min read",
     body: [
-      { type: "paragraph", text: "Xabi Alonso used Thursday's press conference to confirm the club's captaincy structure for the season ahead, ending weeks of speculation among supporters and press alike." },
-      { type: "paragraph", text: "The decision reflects the dressing room's existing leadership hierarchy rather than any single dramatic call, according to sources inside Valdebebas." },
+      paragraph(
+        "Xabi Alonso used Thursday's press conference to confirm the club's captaincy structure for the season ahead, ending weeks of speculation among supporters and press alike."
+      ),
+      paragraph(
+        "The decision reflects the dressing room's existing leadership hierarchy rather than any single dramatic call, according to sources inside Valdebebas."
+      ),
     ],
   },
   {
@@ -82,8 +80,12 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-10T14:00:00.000Z",
     readingTime: "5 min read",
     body: [
-      { type: "paragraph", text: "Interest in the Brazilian winger has firmed up over the past fortnight, with two Premier League clubs and a Serie A giant all making contact with representatives." },
-      { type: "paragraph", text: "The club's position remains that any departure would need to clear a significant valuation before talks are entertained this window." },
+      paragraph(
+        "Interest in the Brazilian winger has firmed up over the past fortnight, with two Premier League clubs and a Serie A giant all making contact with representatives."
+      ),
+      paragraph(
+        "The club's position remains that any departure would need to clear a significant valuation before talks are entertained this window."
+      ),
     ],
   },
   {
@@ -102,8 +104,10 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-10T09:00:00.000Z",
     readingTime: "7 min read",
     body: [
-      { type: "paragraph", text: "Understanding what the club can spend this summer means looking past the headline wage bill and into amortisation schedules, LaLiga's spending cap rules, and money freed by summer departures." },
-      { type: "paragraph", text: "Our finance desk breaks down the pyramid — and what's actually left in the budget for one more marquee arrival." },
+      paragraph(
+        "Understanding what the club can spend this summer means looking past the headline wage bill and into amortisation schedules, LaLiga's spending cap rules, and money freed by summer departures."
+      ),
+      paragraph("Our finance desk breaks down the pyramid — and what's actually left in the budget for one more marquee arrival."),
     ],
   },
   {
@@ -122,8 +126,10 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-09T18:00:00.000Z",
     readingTime: "8 min read",
     body: [
-      { type: "paragraph", text: "Five academy graduates have been included in the pre-season travelling party, a signal of how highly the coaching staff rate this generation of Castilla talent." },
-      { type: "paragraph", text: "We profile each name, their natural position, and the pathway the club sees for them over the next eighteen months." },
+      paragraph(
+        "Five academy graduates have been included in the pre-season travelling party, a signal of how highly the coaching staff rate this generation of Castilla talent."
+      ),
+      paragraph("We profile each name, their natural position, and the pathway the club sees for them over the next eighteen months."),
     ],
   },
   {
@@ -142,7 +148,9 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-09T12:00:00.000Z",
     readingTime: "3 min read",
     body: [
-      { type: "paragraph", text: "The retractable pitch renovation project has finished two weeks ahead of its revised schedule, clearing the way for the full surface to be ready well before the opening LaLiga fixture." },
+      paragraph(
+        "The retractable pitch renovation project has finished two weeks ahead of its revised schedule, clearing the way for the full surface to be ready well before the opening LaLiga fixture."
+      ),
     ],
   },
   {
@@ -161,7 +169,9 @@ export const placeholderArticles: Article[] = [
     publishedAt: "2026-07-09T08:00:00.000Z",
     readingTime: "4 min read",
     body: [
-      { type: "paragraph", text: "The full pre-season US tour schedule is confirmed, taking in three cities across two weeks. Here's every fixture, kick-off time in CET, and where to watch." },
+      paragraph(
+        "The full pre-season US tour schedule is confirmed, taking in three cities across two weeks. Here's every fixture, kick-off time in CET, and where to watch."
+      ),
     ],
   },
 ];
@@ -182,9 +192,7 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-09T10:00:00.000Z",
     readingTime: "9 min",
-    body: [
-      { type: "paragraph", text: "The structural tweak behind the spring winning run, broken down phase by phase with six key moments from the build-up play." },
-    ],
+    body: [paragraph("The structural tweak behind the spring winning run, broken down phase by phase with six key moments from the build-up play.")],
   },
   {
     slug: "inside-the-wage-structure",
@@ -201,7 +209,7 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-08T10:00:00.000Z",
     readingTime: "7 min",
-    body: [{ type: "paragraph", text: "A deep dive into the salary pyramid, amortisation schedules and the actual room left in the budget this window." }],
+    body: [paragraph("A deep dive into the salary pyramid, amortisation schedules and the actual room left in the budget this window.")],
   },
   {
     slug: "mbappe-shot-map",
@@ -218,7 +226,7 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-07T10:00:00.000Z",
     readingTime: "6 min",
-    body: [{ type: "paragraph", text: "Expected goals, shot zones, and exactly what changed in the underlying numbers after the turn of the year." }],
+    body: [paragraph("Expected goals, shot zones, and exactly what changed in the underlying numbers after the turn of the year.")],
   },
   {
     slug: "castilla-pipeline",
@@ -235,7 +243,9 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-06T10:00:00.000Z",
     readingTime: "8 min",
-    body: [{ type: "paragraph", text: "Five academy names, their individual pathways, and what the first-team coaching staff are telling the club about each of them." }],
+    body: [
+      paragraph("Five academy names, their individual pathways, and what the first-team coaching staff are telling the club about each of them."),
+    ],
   },
   {
     slug: "defending-the-counter",
@@ -252,7 +262,11 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-05T10:00:00.000Z",
     readingTime: "10 min",
-    body: [{ type: "paragraph", text: "Why the reigning champions still concede on transitions, broken down with case studies — and the structural fix being worked on at Valdebebas." }],
+    body: [
+      paragraph(
+        "Why the reigning champions still concede on transitions, broken down with case studies — and the structural fix being worked on at Valdebebas."
+      ),
+    ],
   },
   {
     slug: "captaincy-question",
@@ -269,7 +283,9 @@ export const placeholderAnalysisArticles: Article[] = [
     author: { name: "Analysis Desk", slug: "analysis-desk" },
     publishedAt: "2026-07-04T10:00:00.000Z",
     readingTime: "5 min",
-    body: [{ type: "paragraph", text: "What the captaincy decision really tells us about the dressing-room hierarchy — and why the armband itself was never the story." }],
+    body: [
+      paragraph("What the captaincy decision really tells us about the dressing-room hierarchy — and why the armband itself was never the story."),
+    ],
   },
 ];
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/seo/constants";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -7,35 +7,37 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-const cards = [
-  {
-    title: "EDITORIAL & TIPS",
-    body: "Story tips and corrections. Sources always protected.",
-    value: siteConfig.emails.editorial,
-    href: `mailto:${siteConfig.emails.editorial}`,
-  },
-  {
-    title: "PARTNERSHIPS",
-    body: "Sponsorships, branded content and display advertising.",
-    value: siteConfig.emails.partners,
-    href: `mailto:${siteConfig.emails.partners}`,
-  },
-  {
-    title: "PRESS & LEGAL",
-    body: "Media enquiries, licensing and legal notices.",
-    value: siteConfig.emails.press,
-    href: `mailto:${siteConfig.emails.press}`,
-  },
-  {
-    title: "RSS FEED",
-    body: "Follow every story in your reader of choice.",
-    value: "themadridzone.com/rss.xml",
-    href: "/rss.xml",
-    mono: true,
-  },
-];
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
 
-export default function ContactPage() {
+  const cards = [
+    {
+      title: "EDITORIAL & TIPS",
+      body: "Story tips and corrections. Sources always protected.",
+      value: settings.editorialEmail,
+      href: `mailto:${settings.editorialEmail}`,
+    },
+    {
+      title: "PARTNERSHIPS",
+      body: "Sponsorships, branded content and display advertising.",
+      value: settings.partnersEmail,
+      href: `mailto:${settings.partnersEmail}`,
+    },
+    {
+      title: "PRESS & LEGAL",
+      body: "Media enquiries, licensing and legal notices.",
+      value: settings.pressEmail,
+      href: `mailto:${settings.pressEmail}`,
+    },
+    {
+      title: "RSS FEED",
+      body: "Follow every story in your reader of choice.",
+      value: "themadridzone.com/rss.xml",
+      href: "/rss.xml",
+      mono: true,
+    },
+  ];
+
   return (
     <div className="flex max-w-[900px] flex-1 flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-1">

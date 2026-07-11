@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 import { getSponsors } from "@/lib/data/sponsors";
-import { siteConfig } from "@/lib/seo/constants";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,14 +9,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const stats = [
-  { value: "2.1M", label: "Followers" },
-  { value: "40M+", label: "Monthly reach" },
-  { value: "24/7", label: "Coverage" },
-];
-
 export default async function AboutPage() {
-  const sponsors = await getSponsors();
+  const [sponsors, settings] = await Promise.all([getSponsors(), getSiteSettings()]);
+
+  const stats = [
+    { value: settings.followerCount, label: "Followers" },
+    { value: settings.monthlyReach, label: "Monthly reach" },
+    { value: "24/7", label: "Coverage" },
+  ];
 
   return (
     <div className="flex flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
@@ -26,8 +27,8 @@ export default async function AboutPage() {
           </h1>
           <p className="font-body text-[15px] leading-relaxed text-body">
             Madrid Zone is an independent Real Madrid news outlet trusted by over{" "}
-            <b className="text-heading">2.1 million followers</b> across social media. We cover transfers, matches
-            and club news with one rule: verified before published.
+            <b className="text-heading">{settings.followerCount} followers</b> across social media. We cover
+            transfers, matches and club news with one rule: verified before published.
           </p>
           <p className="font-body text-[15px] leading-relaxed text-body">
             Founded by fans, run like a newsroom — our team works sources in Madrid daily to bring you the story
@@ -50,12 +51,12 @@ export default async function AboutPage() {
             placements available.
           </p>
           <a
-            href={`mailto:${siteConfig.emails.partners}`}
+            href={`mailto:${settings.partnersEmail}`}
             className="rounded-[4px] bg-brand py-2.5 text-center font-body text-[13px] font-bold text-white hover:opacity-90"
           >
             PARTNER WITH US
           </a>
-          <p className="text-center font-body text-xs text-muted">{siteConfig.emails.partners}</p>
+          <p className="text-center font-body text-xs text-muted">{settings.partnersEmail}</p>
         </div>
       </div>
 
@@ -65,13 +66,22 @@ export default async function AboutPage() {
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {sponsors.map((sponsor) => (
-            <div
+            <a
               key={sponsor.name}
-              className="flex h-[110px] flex-col items-center justify-center gap-1 rounded-lg border border-border bg-card shadow-card"
+              href={sponsor.website ?? undefined}
+              className="flex h-[110px] flex-col items-center justify-center gap-1 rounded-lg border border-border bg-card p-4 shadow-card"
             >
-              <span className="font-display text-2xl font-bold tracking-[0.2em] text-heading">{sponsor.name}</span>
-              <span className="font-body text-[9.5px] font-semibold tracking-[0.34em] text-muted">{sponsor.tag}</span>
-            </div>
+              {sponsor.logo ? (
+                <div className="relative h-full w-full">
+                  <Image src={sponsor.logo} alt={sponsor.name} fill sizes="200px" className="object-contain" />
+                </div>
+              ) : (
+                <>
+                  <span className="font-display text-2xl font-bold tracking-[0.2em] text-heading">{sponsor.name}</span>
+                  <span className="font-body text-[9.5px] font-semibold tracking-[0.34em] text-muted">{sponsor.tag}</span>
+                </>
+              )}
+            </a>
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { ThemeProvider, themeInitScript } from "@/components/layout/ThemeProvider";
 import { Ticker } from "@/components/layout/Ticker";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 import { siteConfig } from "@/lib/seo/constants";
 import { oswald, sourceSans } from "./fonts";
 import "./globals.css";
@@ -50,7 +51,9 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const settings = await getSiteSettings();
+
   return (
     <html lang="en" className={`${oswald.variable} ${sourceSans.variable}`}>
       <body className="flex min-h-screen flex-col bg-surface font-body text-ink antialiased">
@@ -58,10 +61,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {themeInitScript}
         </Script>
         <ThemeProvider>
-          <Ticker />
-          <Header />
+          {settings.tickerEnabled ? <Ticker /> : null}
+          <Header followerCount={settings.followerCount} />
           <main className="flex flex-1 flex-col">{children}</main>
-          <Footer />
+          <Footer socialLinks={settings.socialLinks} />
           <MobileTabBar />
         </ThemeProvider>
       </body>

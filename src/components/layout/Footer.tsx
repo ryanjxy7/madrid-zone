@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/seo/constants";
+import type { SiteSettings } from "@/lib/data/siteSettings";
 
 const sectionLinks = [
   { label: "News", href: "/" },
@@ -17,16 +17,16 @@ const clubLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const followLinks = [
-  { label: "X / Twitter", href: siteConfig.social.x },
-  { label: "Facebook", href: siteConfig.social.facebook },
-  { label: "Instagram", href: siteConfig.social.instagram },
-  { label: "YouTube", href: siteConfig.social.youtube },
-  { label: "TikTok", href: siteConfig.social.tiktok },
-  { label: "RSS Feed", href: "/rss.xml", accent: true },
-];
+export function Footer({ socialLinks }: { socialLinks: SiteSettings["socialLinks"] }) {
+  const followLinks = [
+    { label: "X / Twitter", href: socialLinks.x },
+    { label: "Facebook", href: socialLinks.facebook },
+    { label: "Instagram", href: socialLinks.instagram },
+    { label: "YouTube", href: socialLinks.youtube },
+    { label: "TikTok", href: socialLinks.tiktok },
+    { label: "RSS Feed", href: "/rss.xml", accent: true },
+  ];
 
-export function Footer() {
   return (
     <footer className="mt-auto border-t border-white/10 bg-ink-900 px-4 py-7 text-white sm:px-6 lg:px-8">
       <div className="flex flex-wrap justify-center gap-x-20 gap-y-8 text-center">

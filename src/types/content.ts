@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from "@portabletext/types";
+
 /**
  * Editorial content types. Shapes mirror what a Sanity CMS schema would
  * return (see src/lib/cms/sanity/queries.ts), so swapping the placeholder
@@ -27,11 +29,6 @@ export interface ArticleAuthor {
   slug: string;
 }
 
-export interface ArticleBlock {
-  type: "paragraph" | "quote";
-  text: string;
-}
-
 export interface Article {
   slug: string;
   title: string;
@@ -43,7 +40,8 @@ export interface Article {
   author: ArticleAuthor;
   publishedAt: string;
   readingTime: string;
-  body: ArticleBlock[];
+  /** Rich text written in the Studio's Word-like editor. */
+  body: PortableTextBlock[];
 }
 
 export interface WireItem {
@@ -54,6 +52,9 @@ export interface WireItem {
 export interface Sponsor {
   name: string;
   tag: string;
+  /** Optional uploaded logo; falls back to a styled text logo when absent. */
+  logo?: string;
+  website?: string;
 }
 
 export interface LegalSection {

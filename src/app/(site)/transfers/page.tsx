@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DealsTable } from "@/components/transfers/DealsTable";
 import { RumourCard } from "@/components/transfers/RumourCard";
 import { getDeals, getRumours } from "@/lib/data/transfers";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 
 export const metadata: Metadata = {
   title: "Transfer Centre",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TransfersPage() {
-  const [deals, rumours] = await Promise.all([getDeals(), getRumours()]);
+  const [deals, rumours, settings] = await Promise.all([getDeals(), getRumours(), getSiteSettings()]);
 
   return (
     <div className="flex flex-1 flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
@@ -22,7 +23,7 @@ export default async function TransfersPage() {
           <p className="font-body text-[13px] text-muted">Every deal, rumour and medical — verified before we publish.</p>
         </div>
         <div className="rounded-md border border-border bg-card px-4 py-2.5 font-body text-[13px] font-semibold">
-          <span className="text-muted">Window closes in</span> <span className="text-accent">53 days</span>
+          <span className="text-muted">Window closes in</span> <span className="text-accent">{settings.transferWindowClosesText}</span>
         </div>
       </div>
 

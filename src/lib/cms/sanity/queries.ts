@@ -1,8 +1,8 @@
 /**
- * GROQ queries written against the content model documented in
- * src/lib/cms/sanity/schema-reference.md. Field names intentionally match
- * src/types/content.ts so a Sanity response can be used as-is once the
- * dataset exists.
+ * GROQ queries matching the schema in src/sanity/schemaTypes. Image
+ * fields are returned as raw Sanity image objects (not dereferenced to a
+ * URL) so src/lib/cms/sanity/image.ts can build crop/hotspot-aware URLs
+ * in the data-mapping layer — see src/lib/data/*.ts.
  */
 
 const articleProjection = /* groq */ `{
@@ -12,27 +12,25 @@ const articleProjection = /* groq */ `{
   category,
   tags,
   isExclusive,
-  "image": {
-    "url": mainImage.asset->url,
-    "alt": coalesce(mainImage.alt, title),
-    "width": mainImage.asset->metadata.dimensions.width,
-    "height": mainImage.asset->metadata.dimensions.height
-  },
+  mainImage,
   "author": author->{ name, "slug": slug.current },
   publishedAt,
   readingTime,
-  body[]{ type, text }
+  body
 }`;
 
+const NEWS_CATEGORIES = ["News", "Transfers", "Finance", "Academy", "Club", "Matches"];
+const ANALYSIS_CATEGORIES = ["Tactics", "Finance", "Data", "Academy", "Opinion"];
+
 export const allArticlesQuery = /* groq */ `
-  *[_type == "article" && !(category in ["Tactics","Finance","Data","Academy","Opinion"])]
-  | order(publishedAt desc) ${articleProjection}
+  *[_type == "article" && category in $categories] | order(publishedAt desc) ${articleProjection}
 `;
+export const allArticlesQueryParams = { categories: NEWS_CATEGORIES };
 
 export const allAnalysisArticlesQuery = /* groq */ `
-  *[_type == "article" && category in ["Tactics","Finance","Data","Academy","Opinion"]]
-  | order(publishedAt desc) ${articleProjection}
+  *[_type == "article" && category in $categories] | order(publishedAt desc) ${articleProjection}
 `;
+export const allAnalysisArticlesQueryParams = { categories: ANALYSIS_CATEGORIES };
 
 export const articleBySlugQuery = /* groq */ `
   *[_type == "article" && slug.current == $slug][0] ${articleProjection}
@@ -43,9 +41,58 @@ export const relatedArticlesQuery = /* groq */ `
 `;
 
 export const sponsorsQuery = /* groq */ `
-  *[_type == "sponsor"] | order(order asc) { name, tag }
+  *[_type == "sponsor"] | order(order asc) { name, tag, logo, website }
 `;
 
-export const wireQuery = /* groq */ `
-  *[_type == "wireItem"] | order(_createdAt desc)[0...4] { time, text }
+export const wireItemsQuery = /* groq */ `
+  *[_type == "wireItem"] | order(publishedAt desc)[0...4] { text, publishedAt }
+`;
+
+export const squadQuery = /* groq */ `
+  *[_type == "player"] | order(position asc, order asc) {
+    "id": _id, name, number, role, position, "image": photo, nationality
+  }
+`;
+
+export const transferDealsQuery = /* groq */ `
+  *[_type == "transferDeal"] | order(order asc) {
+    "id": _id, player, position, direction, status, fee, latest
+  }
+`;
+
+export const rumoursQuery = /* groq */ `
+  *[_type == "rumour"] | order(publishedAt desc) {
+    "id": _id, source, tier, text, publishedAt
+  }
+`;
+
+export const nextMatchQuery = /* groq */ `
+  *[_type == "nextMatch"][0] { opponent, competition, matchDate, kickOff, venue, isHome }
+`;
+
+export const fixturesQuery = /* groq */ `
+  *[_type == "fixture"] | order(matchDate asc) { "id": _id, opponent, competition, matchDate }
+`;
+
+export const resultsQuery = /* groq */ `
+  *[_type == "matchResult"] | order(playedAt desc) { "id": _id, match, competition, outcome }
+`;
+
+export const leagueTableQuery = /* groq */ `
+  *[_type == "leagueTable"][0] { heading, rows }
+`;
+
+export const seasonStatsQuery = /* groq */ `
+  *[_type == "seasonStats"][0] { statTiles, topScorers, topAssists, goalkeeping, homeStats }
+`;
+
+export const legalPageQuery = /* groq */ `
+  *[_type == "legalPage" && pageType == $pageType][0] { pageType, updatedAt, sections }
+`;
+
+export const siteSettingsQuery = /* groq */ `
+  *[_type == "siteSettings"][0] {
+    followerCount, monthlyReach, tickerEnabled, adSlotEnabled, transferWindowClosesText,
+    editorialEmail, partnersEmail, pressEmail, socialLinks, newsletterHeading, newsletterBody
+  }
 `;

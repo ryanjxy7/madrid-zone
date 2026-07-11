@@ -9,6 +9,7 @@ import { PlayerStatsWidget } from "@/components/home/PlayerStatsWidget";
 import { SponsorsStrip } from "@/components/home/SponsorsStrip";
 import { TopGoalscorersWidget } from "@/components/home/TopGoalscorersWidget";
 import { getAllArticles, getFeaturedArticle } from "@/lib/data/articles";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 import { siteConfig } from "@/lib/seo/constants";
 
 export const metadata: Metadata = {
@@ -18,7 +19,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [featured, articles] = await Promise.all([getFeaturedArticle(), getAllArticles()]);
+  const [featured, articles, settings] = await Promise.all([
+    getFeaturedArticle(),
+    getAllArticles(),
+    getSiteSettings(),
+  ]);
   const gridStories = articles.filter((article) => article.slug !== featured.slug).slice(0, 4);
 
   return (
@@ -41,8 +46,8 @@ export default async function HomePage() {
 
         <div className="order-3 flex flex-col gap-4">
           <FixturesWidget />
-          <AdSlot />
-          <NewsletterCta />
+          {settings.adSlotEnabled ? <AdSlot /> : null}
+          <NewsletterCta heading={settings.newsletterHeading} body={settings.newsletterBody} />
         </div>
       </div>
 

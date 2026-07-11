@@ -10,12 +10,6 @@ export const placeholderNextMatch: Fixture = {
   isHome: false,
 };
 
-export const placeholderFixtures: Fixture[] = [
-  { id: "fix-1", opponent: "vs Opponent A", competition: "US Tour", date: "Jul 26" },
-  { id: "fix-2", opponent: "vs Opponent B", competition: "US Tour", date: "Jul 30" },
-  { id: "fix-3", opponent: "vs Opponent C", competition: "US Tour", date: "Aug 3" },
-];
-
 export const placeholderUpcoming: Fixture[] = [
   { id: "up-1", opponent: "Real Madrid vs Opponent A", competition: "US Tour · Chicago", date: "Jul 26" },
   { id: "up-2", opponent: "Real Madrid vs Opponent B", competition: "US Tour · Miami", date: "Jul 30" },

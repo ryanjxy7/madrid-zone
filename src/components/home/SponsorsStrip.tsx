@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getSponsors } from "@/lib/data/sponsors";
 
@@ -16,10 +17,18 @@ export async function SponsorsStrip() {
         {sponsors.map((sponsor) => (
           <div
             key={sponsor.name}
-            className="flex h-[76px] flex-col items-center justify-center gap-1 rounded-lg border border-border bg-card shadow-card"
+            className="flex h-[76px] flex-col items-center justify-center gap-1 rounded-lg border border-border bg-card p-3 shadow-card"
           >
-            <span className="font-display text-lg font-bold tracking-[0.2em] text-heading">{sponsor.name}</span>
-            <span className="font-body text-[8.5px] font-semibold tracking-[0.32em] text-muted">{sponsor.tag}</span>
+            {sponsor.logo ? (
+              <div className="relative h-full w-full">
+                <Image src={sponsor.logo} alt={sponsor.name} fill sizes="150px" className="object-contain" />
+              </div>
+            ) : (
+              <>
+                <span className="font-display text-lg font-bold tracking-[0.2em] text-heading">{sponsor.name}</span>
+                <span className="font-body text-[8.5px] font-semibold tracking-[0.32em] text-muted">{sponsor.tag}</span>
+              </>
+            )}
           </div>
         ))}
       </div>

@@ -10,9 +10,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@portabletext/react": "^6.2.0",
+    "@portabletext/types": "^4.0.2",
+    "@sanity/image-url": "^2.1.1",
     "next": "15.5.20",
+    "next-sanity": "^11.6.13",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sanity": "^4.22.0",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",

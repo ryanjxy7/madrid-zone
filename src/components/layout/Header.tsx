@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 import { MobilePillNav } from "./MobilePillNav";
 import { ThemeToggle } from "./ThemeToggle";
 
-export function Header() {
+export function Header({ followerCount }: { followerCount: string }) {
   const pathname = usePathname();
 
   return (
@@ -39,7 +39,7 @@ export function Header() {
             href="/about"
             className="rounded-[4px] bg-brand px-3.5 py-2 font-body text-xs font-bold text-white hover:opacity-90 sm:px-4"
           >
-            FOLLOW · 2.1M
+            FOLLOW · {followerCount}
           </Link>
         </div>
       </div>

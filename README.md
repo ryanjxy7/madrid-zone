@@ -8,7 +8,8 @@ Implemented from the Claude Design handoff bundle in `design/` (see `design/HAND
 
 - **Next.js 15** (App Router, React 19, TypeScript, strict mode)
 - **Tailwind CSS v4** — design tokens (colors, fonts, shadows) defined as CSS variables in `src/app/globals.css`, themeable for the dark/light toggle
-- Zero required external services — the site runs entirely on placeholder data out of the box
+- **Sanity Studio**, embedded at `/studio` — the CMS non-technical editors use to publish everything (see [docs/CMS_GUIDE.md](docs/CMS_GUIDE.md))
+- Zero required external services to run locally — the site works fully on placeholder data until Sanity/API-Football credentials are set
 
 ## Getting started
 
@@ -25,38 +26,48 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`, `npm run typech
 
 ```
 src/
-  app/                 Routes (App Router). One folder per page/segment.
+  app/
+    (site)/            All public pages — its own root layout (Header/Ticker/Footer)
+    studio/            Embedded Sanity Studio at /studio — its own isolated root layout
+    api/                Route handlers (placeholder images, Sanity revalidate webhook)
   components/
     layout/            Header, Footer, Ticker, mobile nav, theme provider
-    article/           Article/story cards, article body renderer
+    article/           Article/story cards, Portable Text article body renderer
     home/               Homepage-only widgets (sidebar cards, sponsors strip, newsletter)
     transfers/ matches/ squad/ stats/ legal/    Section-specific components
     ui/                 Small generic primitives (Container, Card, Tag, SectionHeading)
   lib/
     data/               Data-access layer — every page/component fetches through here
-    cms/sanity/         Sanity integration scaffold (client, GROQ queries, schema reference)
-    sports-api/api-football/   API-Football integration scaffold (client, typed endpoints)
+    cms/sanity/         Sanity client, image URL builder, GROQ queries, raw doc types
+    sports-api/api-football/   API-Football client + typed endpoints
     seo/                Site constants, JSON-LD helpers
-    utils/              Formatting, image URLs, small style helpers
-  data/placeholder/     Static placeholder content (the current data source)
+    utils/              Formatting, image URLs, Portable Text helpers
+  data/placeholder/     Static placeholder content (fallback data source)
   types/                Shared TypeScript domain types (Article, Player, Fixture, ...)
+sanity.config.ts         Studio configuration (schema, desk structure, singleton rules)
+src/sanity/
+  schemaTypes/           Every content type an editor can create/edit
+  structure.ts            The friendly, grouped Studio menu
+docs/CMS_GUIDE.md        Non-technical setup + day-to-day editing guide
 design/                 Original Claude Design handoff bundle (reference only, not built)
 ```
 
 ## Content architecture — why nothing is hardcoded
 
-Every page reads content through `src/lib/data/*.ts` (e.g. `getAllArticles()`, `getSquad()`, `getStandings()`). Each of those functions currently returns data from `src/data/placeholder/`, but is already written to prefer a live source when one is configured:
+Every page reads content through `src/lib/data/*.ts` (e.g. `getAllArticles()`, `getSquad()`, `getStandings()`). Each of those functions queries Sanity first when configured, then API-Football for live match data where relevant, and falls back to `src/data/placeholder/` — so the site always renders, CMS or not, and no page or component needs to change as real content is added:
 
-- **Editorial content** (articles, sponsors) checks `isSanityConfigured` and runs a GROQ query from `src/lib/cms/sanity/queries.ts` against your Sanity project first, falling back to placeholder data.
-- **Football data** (fixtures, results, standings, scorers) checks `isApiFootballConfigured` and calls API-Football (`src/lib/sports-api/api-football`) first, falling back to placeholder data.
-
-This means connecting a real CMS or live sports data is additive — set the environment variables below, and the relevant pages switch from placeholder to live data automatically. No component or page needs to change.
+- **Editorial content** (articles, squad, transfers, sponsors, legal pages, site settings) checks `isSanityConfigured` and runs a GROQ query from `src/lib/cms/sanity/queries.ts`.
+- **Football data** (fixtures, results, standings, scorers) checks `isApiFootballConfigured` first for live data, then falls back to the equivalent editorial Sanity content (for manual entry), then placeholder.
 
 ### Connecting Sanity CMS
 
-1. Create a project at [sanity.io/manage](https://www.sanity.io/manage) and set up schema types matching `src/lib/cms/sanity/schema-reference.md` (`article`, `author`, `sponsor`, `wireItem`).
-2. Copy `.env.example` to `.env.local` and fill in `SANITY_PROJECT_ID` / `SANITY_DATASET`.
-3. Restart the dev server — the homepage, `/analysis`, `/news/[slug]` etc. now read from Sanity.
+Full non-technical walkthrough: **[docs/CMS_GUIDE.md](docs/CMS_GUIDE.md)**. Short version:
+
+1. Create a free project at [sanity.io/manage](https://www.sanity.io/manage) — no code, no CLI.
+2. Set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` (see `.env.example`).
+3. Add your site URL (and `http://localhost:3000`) as CORS origins in Sanity's project settings.
+4. Visit `/studio`, log in, and start publishing — the content model (Articles, Squad, Transfers, Matches, Season Stats, Sponsors, Live Ticker, Legal Pages, Site Settings) is defined in `src/sanity/schemaTypes/`.
+5. Optional: set `SANITY_REVALIDATE_SECRET` and add a webhook (Sanity → API → Webhooks → `/api/revalidate`) so publishing goes live instantly instead of within ~60 seconds.
 
 ### Connecting API-Football
 
@@ -64,7 +75,7 @@ This means connecting a real CMS or live sports data is additive — set the env
 2. Set `API_FOOTBALL_KEY` in `.env.local` (team/league IDs default to Real Madrid / LaLiga — override if needed).
 3. `/matches` and `/stats` now read live fixtures, results, standings and top scorers.
 
-Transfer-market data (`/transfers`) stays editorial by design — verified newsroom content, not an API feed — so it's intended to move to Sanity rather than API-Football when that's ready.
+Transfer-market data (`/transfers`) stays editorial by design — verified newsroom content, not an API feed — so it's edited in Sanity, not pulled from API-Football.
 
 ## SEO
 
@@ -77,7 +88,10 @@ Transfer-market data (`/transfers`) stays editorial by design — verified newsr
 
 ## Images
 
-Placeholder imagery is generated locally and deterministically by `src/app/api/placeholder/[seed]/route.tsx` (via `next/og`) — there is no dependency on a third-party image host, so the site works fully offline and never breaks behind a restrictive network policy. Swap `src/lib/utils/images.ts` for real licensed photography or Sanity-hosted assets before launch, and add your CDN hostname to `images.remotePatterns` in `next.config.ts`.
+Two sources, both fully automatic — nobody ever resizes or crops an image by hand:
+
+- **Placeholder mode** (no Sanity configured): `src/app/api/placeholder/[seed]/route.tsx` generates deterministic branded imagery locally via `next/og` — zero third-party dependency, works fully offline.
+- **Sanity mode**: editors upload a photo and choose a focal point with Studio's built-in crop tool (hotspot). `src/lib/cms/sanity/image.ts` builds CDN URLs from that hotspot at the exact crop each component needs (wide hero crops, 3:4 squad portraits, contained logos); `next/image` then handles responsive `srcset`/format negotiation on top.
 
 ## Theming
 
