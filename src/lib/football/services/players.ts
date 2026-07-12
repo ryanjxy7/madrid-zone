@@ -1,18 +1,19 @@
 import type { SquadGroup } from "@/types/football";
-import { sofascoreProvider } from "../providers/sofascore";
+import { espnProvider as activeProvider } from "../providers/espn";
 import { slugifyPlayerName } from "../slug";
 import type { PlayerProfile, PlayerSeasonStats } from "../types/domain";
 
 export async function getSquad(): Promise<SquadGroup[] | null> {
-  return sofascoreProvider.getSquad();
+  return activeProvider.getSquad();
 }
 
 export async function getPlayerProfile(playerId: string): Promise<PlayerProfile | null> {
-  return sofascoreProvider.getPlayerProfile(playerId);
+  return activeProvider.getPlayerProfile(playerId);
 }
 
+/** ESPN doesn't reliably expose aggregate season stats for soccer players — see docs/ESPN_GUIDE.md. Always null for now. */
 export async function getPlayerSeasonStats(playerId: string): Promise<PlayerSeasonStats | null> {
-  return sofascoreProvider.getPlayerSeasonStats(playerId);
+  return activeProvider.getPlayerSeasonStats(playerId);
 }
 
 /**

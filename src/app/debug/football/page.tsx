@@ -2,6 +2,7 @@ import {
   footballConfig,
   getCacheStatus,
   getProviderStatus,
+  getSquad,
   getStandings,
   getTeamInfo,
   getUpcomingFixtures,
@@ -10,18 +11,19 @@ import {
 export const dynamic = "force-dynamic";
 
 /**
- * Live diagnostic for the Sofascore-backed football data layer. Runs a
- * handful of real requests on every load (so you can tell "is Sofascore
+ * Live diagnostic for the football data layer. Runs a handful of real
+ * requests on every load (so you can tell "is the active provider
  * reachable from this Vercel deployment right now") and then shows the
  * accumulated provider status / cache contents from this server instance.
  * Delete this route once the integration is trusted, same as
  * /debug/api-football.
  */
 export default async function FootballDebugPage() {
-  const [teamInfo, fixtures, standings] = await Promise.all([
+  const [teamInfo, fixtures, standings, squad] = await Promise.all([
     getTeamInfo(),
     getUpcomingFixtures(1),
     getStandings("laLiga"),
+    getSquad(),
   ]);
 
   const status = getProviderStatus();
@@ -32,24 +34,27 @@ export default async function FootballDebugPage() {
     <main style={{ maxWidth: 980, margin: "0 auto" }}>
       <h1 style={{ fontSize: 20, marginBottom: 4 }}>/debug/football</h1>
       <p style={{ color: "#9ca3af", marginTop: 0, marginBottom: 24 }}>
-        Sofascore is an unofficial, unauthenticated API with no SLA — it can be blocked or change shape without
-        notice. This page shows exactly what this server instance has seen, live.
+        Active provider: ESPN (unofficial). Like every other option here, it has no key, no documented contract and
+        no SLA — it can change shape or get blocked without notice, though it&apos;s empirically far more tolerant
+        of cloud/datacenter IPs than Sofascore was. This page shows exactly what this server instance has seen,
+        live. See docs/ESPN_GUIDE.md for the full endpoint audit and known gaps.
       </p>
 
       <Section title="Configuration">
-        <Row label="Provider" value="Sofascore (unofficial)" />
-        <Row label="Real Madrid team ID" value={footballConfig.teamId} />
-        <Row label="La Liga competition ID" value={footballConfig.competitions.laLiga.id} />
-        <Row label="Champions League competition ID" value={footballConfig.competitions.championsLeague.id} />
+        <Row label="Provider" value="ESPN (unofficial)" />
+        <Row label="Real Madrid ESPN team ID" value={footballConfig.espn.teamId} />
+        <Row label="La Liga league slug" value={footballConfig.espn.leagues.laLiga} />
+        <Row label="Champions League slug" value={footballConfig.espn.leagues.championsLeague} />
         <Row label="Timezone" value={footballConfig.timezone} />
-        <Row label="API base URL" value={footballConfig.api.baseUrl} />
-        <Row label="Request timeout / retries" value={`${footballConfig.api.timeoutMs}ms / ${footballConfig.api.retries}`} />
+        <Row label="API base URL" value={footballConfig.espn.baseUrl} />
+        <Row label="Standings base URL" value={footballConfig.espn.standingsBaseUrl} />
+        <Row label="Request timeout / retries" value={`${footballConfig.espn.timeoutMs}ms / ${footballConfig.espn.retries}`} />
         <Row label="Server time" value={now.toISOString()} />
       </Section>
 
       <Section title="Live requests (run on this page load)">
         <Row
-          label={`getTeamInfo() → resolves team ${footballConfig.teamId}`}
+          label={`getTeamInfo() → resolves team ${footballConfig.espn.teamId}`}
           value={teamInfo ? `OK — "${teamInfo.name}"` : "FAILED — see last error below"}
           tone={teamInfo ? "ok" : "error"}
         />
@@ -63,6 +68,18 @@ export default async function FootballDebugPage() {
           value={standings && standings.length > 0 ? `OK — ${standings.length} row(s)` : "FAILED — see last error below"}
           tone={standings && standings.length > 0 ? "ok" : "error"}
         />
+        <Row
+          label="getSquad()"
+          value={squad && squad.length > 0 ? `OK — ${squad.reduce((n, g) => n + g.players.length, 0)} player(s)` : "FAILED — see last error below"}
+          tone={squad && squad.length > 0 ? "ok" : "error"}
+        />
+      </Section>
+
+      <Section title="Known provider gaps (not bugs — ESPN doesn't reliably expose these for soccer)">
+        <Row label="Player season statistics" value="Not available — falls back to Sanity/placeholder" tone="error" />
+        <Row label="Top scorers leaderboard" value="Not available — falls back to Sanity/placeholder" tone="error" />
+        <Row label="Top assists leaderboard" value="Not available — falls back to Sanity/placeholder" tone="error" />
+        <Row label="Champions League standings" value="Available but format needs live verification (Swiss-model table)" />
       </Section>
 
       <Section title="Last successful request">

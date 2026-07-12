@@ -47,6 +47,27 @@ export const footballConfig = {
     retries: 2,
   },
 
+  /**
+   * ESPN's IDs and league slugs — unrelated to the Sofascore ones above.
+   * ESPN's hidden site API nests almost everything under a league slug
+   * (e.g. "esp.1" for La Liga) rather than a flat numeric competition ID,
+   * so this is shaped differently on purpose. Best-known-correct from
+   * public reference, not verified live from this environment — confirm
+   * at /debug/football and override via env vars if wrong.
+   */
+  espn: {
+    /** Real Madrid's ESPN team ID. */
+    teamId: process.env.ESPN_TEAM_ID ?? "86",
+    leagues: {
+      laLiga: process.env.ESPN_LALIGA_SLUG ?? "esp.1",
+      championsLeague: process.env.ESPN_UCL_SLUG ?? "uefa.champions",
+    },
+    baseUrl: process.env.ESPN_BASE_URL ?? "https://site.api.espn.com/apis/site/v2/sports/soccer",
+    standingsBaseUrl: process.env.ESPN_STANDINGS_BASE_URL ?? "https://site.api.espn.com/apis/v2/sports/soccer",
+    timeoutMs: 8000,
+    retries: 2,
+  },
+
   /** How long each kind of data is cached before a fresh fetch is attempted. */
   cache: {
     fixtures: 6 * 60 * 60, // 6 hours

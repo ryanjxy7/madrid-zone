@@ -1,4 +1,4 @@
-import { footballConfig } from "@/config/football";
+import { footballConfig, type CompetitionKey } from "@/config/football";
 import type { AssistStat, Fixture, MatchResult, ScorerStat, SquadGroup, StandingRow, Player, PlayerPosition } from "@/types/football";
 import { withCache } from "../cache/cache";
 import type {
@@ -366,7 +366,8 @@ export const sofascoreProvider: FootballProvider = {
     );
   },
 
-  async getStandings(competitionId): Promise<StandingRow[] | null> {
+  async getStandings(competition: CompetitionKey): Promise<StandingRow[] | null> {
+    const competitionId = footballConfig.competitions[competition].id;
     return withCache(
       `standings:${competitionId}`,
       async () => {
@@ -392,7 +393,8 @@ export const sofascoreProvider: FootballProvider = {
     );
   },
 
-  async getTopScorers(competitionId): Promise<ScorerStat[] | null> {
+  async getTopScorers(competition: CompetitionKey): Promise<ScorerStat[] | null> {
+    const competitionId = footballConfig.competitions[competition].id;
     return withCache(
       `top-scorers:${competitionId}`,
       async () => {
@@ -416,7 +418,8 @@ export const sofascoreProvider: FootballProvider = {
     );
   },
 
-  async getTopAssists(competitionId): Promise<AssistStat[] | null> {
+  async getTopAssists(competition: CompetitionKey): Promise<AssistStat[] | null> {
+    const competitionId = footballConfig.competitions[competition].id;
     return withCache(
       `top-assists:${competitionId}`,
       async () => {
@@ -438,7 +441,8 @@ export const sofascoreProvider: FootballProvider = {
     );
   },
 
-  async getBestRatedPlayers(competitionId): Promise<RatedPlayer[] | null> {
+  async getBestRatedPlayers(competition: CompetitionKey): Promise<RatedPlayer[] | null> {
+    const competitionId = footballConfig.competitions[competition].id;
     return withCache(
       `top-rated:${competitionId}`,
       async () => {

@@ -7,8 +7,10 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io" },
       // API-Football player photos (kept for the alternate provider — see src/lib/sports-api).
       { protocol: "https", hostname: "media.api-sports.io" },
-      // Sofascore player photos (the active provider — see src/lib/football).
+      // Sofascore player photos (kept for the alternate provider — see src/lib/football/providers/sofascore.ts).
       { protocol: "https", hostname: "api.sofascore.com" },
+      // ESPN player photos (the active provider — see src/lib/football/providers/espn.ts).
+      { protocol: "https", hostname: "a.espncdn.com" },
     ],
     // Offline placeholder imagery (see src/lib/utils/images.ts) — zero
     // external dependency until real content is added in Studio.
