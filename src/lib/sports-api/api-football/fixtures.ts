@@ -12,7 +12,7 @@ export async function fetchUpcomingFixtures(count = 5): Promise<Fixture[] | null
     { team: REAL_MADRID_TEAM_ID, next: String(count) },
     { revalidate: REVALIDATE.matchData }
   );
-  if (!data) return null;
+  if (!data || data.length === 0) return null;
 
   return data.map((f) => ({
     id: String(f.fixture.id),
@@ -33,7 +33,7 @@ export async function fetchRecentResults(count = 5): Promise<MatchResult[] | nul
     { team: REAL_MADRID_TEAM_ID, last: String(count) },
     { revalidate: REVALIDATE.matchData }
   );
-  if (!data) return null;
+  if (!data || data.length === 0) return null;
 
   return data.map((f) => {
     const isHome = f.teams.home.id.toString() === REAL_MADRID_TEAM_ID;

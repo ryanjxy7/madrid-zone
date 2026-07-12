@@ -6,6 +6,13 @@
  * Never throws — a failed request (bad key, rate limit, API-Football being
  * down) always resolves to `null` after a couple of retries, so callers
  * fall through to the next data source instead of a page-breaking error.
+ *
+ * Auth: this calls the direct api-sports.io host, which only needs the
+ * `x-apisports-key` header. The `x-rapidapi-key` / `x-rapidapi-host` pair
+ * is a *different* header scheme, only used if you instead access the API
+ * via the RapidAPI marketplace gateway (api-football-v1.p.rapidapi.com) —
+ * not applicable here since API_FOOTBALL_BASE_URL points at api-sports.io
+ * directly.
  */
 
 const baseUrl = process.env.API_FOOTBALL_BASE_URL ?? "https://v3.football.api-sports.io";
@@ -17,6 +24,8 @@ export const isApiFootballConfigured = Boolean(apiKey);
 export const REAL_MADRID_TEAM_ID = process.env.API_FOOTBALL_TEAM_ID ?? "541";
 /** LaLiga's API-Football league ID. */
 export const LALIGA_LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID ?? "140";
+/** UEFA Champions League's API-Football league ID (not currently used for any fetch, available for future use). */
+export const CHAMPIONS_LEAGUE_ID = process.env.API_FOOTBALL_CHAMPIONS_LEAGUE_ID ?? "2";
 
 /** How long Next.js caches each kind of data before re-checking the API. */
 export const REVALIDATE = {
@@ -30,12 +39,25 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/** Errors API-Football returns as 200 OK with an `errors` object instead of an HTTP error code. */
+function extractApiErrors(json: unknown): string | null {
+  if (!json || typeof json !== "object" || !("errors" in json)) return null;
+  const errors = (json as { errors: unknown }).errors;
+  if (!errors) return null;
+  if (Array.isArray(errors) && errors.length === 0) return null;
+  if (typeof errors === "object" && Object.keys(errors).length === 0) return null;
+  return JSON.stringify(errors);
+}
+
 export async function apiFootballFetch<T>(
   path: string,
   params: Record<string, string> = {},
   { revalidate = REVALIDATE.matchData, retries = 2 }: { revalidate?: number | false; retries?: number } = {}
 ): Promise<T | null> {
-  if (!isApiFootballConfigured) return null;
+  if (!isApiFootballConfigured) {
+    console.error(`[API-Football] ${path} skipped — API_FOOTBALL_KEY is not set`);
+    return null;
+  }
 
   const url = new URL(`${baseUrl}${path}`);
   for (const [key, value] of Object.entries(params)) {
@@ -45,25 +67,46 @@ export async function apiFootballFetch<T>(
   let lastError: unknown;
 
   for (let attempt = 0; attempt <= retries; attempt++) {
+    const startedAt = Date.now();
     try {
       const res = await fetch(url.toString(), {
         headers: { "x-apisports-key": apiKey as string },
         next: revalidate === false ? undefined : { revalidate },
       });
+      const elapsedMs = Date.now() - startedAt;
+      const remaining = res.headers.get("x-ratelimit-requests-remaining");
 
       if (res.ok) {
-        const json = (await res.json()) as { response: T };
+        const json = (await res.json()) as { response: T; results?: number };
+        const apiError = extractApiErrors(json);
+
+        if (apiError) {
+          // API-Football returns HTTP 200 even for plan/parameter errors —
+          // the failure is inside the JSON body, not the status code.
+          console.error(
+            `[API-Football] ${path} status=200 time=${elapsedMs}ms result=api-error error=${apiError}${remaining ? ` quotaRemaining=${remaining}` : ""}`
+          );
+          return null;
+        }
+
+        console.log(
+          `[API-Football] ${path} status=200 time=${elapsedMs}ms results=${json.results ?? "n/a"}${remaining ? ` quotaRemaining=${remaining}` : ""}`
+        );
         return json.response;
       }
 
-      // Bad key / bad request won't fix itself on retry — fail fast.
+      const body = await res.text();
+      console.error(`[API-Football] ${path} status=${res.status} time=${elapsedMs}ms attempt=${attempt + 1} body=${body.slice(0, 500)}`);
+
+      // Bad key / bad request / not found won't fix itself on retry — fail fast.
       if (res.status < 500 && res.status !== 429) {
-        console.error(`[api-football] ${path} failed (${res.status}): ${await res.text()}`);
         return null;
       }
 
       lastError = new Error(`API-Football request failed (${res.status})`);
     } catch (error) {
+      const elapsedMs = Date.now() - startedAt;
+      console.error(`[API-Football] ${path} network-error time=${elapsedMs}ms attempt=${attempt + 1}:`, error);
       lastError = error;
     }
 
@@ -72,6 +115,6 @@ export async function apiFootballFetch<T>(
     }
   }
 
-  console.error(`[api-football] ${path} failed after ${retries + 1} attempt(s):`, lastError);
+  console.error(`[API-Football] ${path} gave up after ${retries + 1} attempt(s):`, lastError);
   return null;
 }

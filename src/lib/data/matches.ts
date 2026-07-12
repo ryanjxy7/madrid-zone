@@ -2,11 +2,9 @@ import { placeholderNextMatch, placeholderResults, placeholderStandings, placeho
 import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { fixturesQuery, leagueTableQuery, nextMatchQuery, resultsQuery } from "@/lib/cms/sanity/queries";
 import type { SanityFixture, SanityLeagueTable, SanityMatchResult, SanityNextMatch } from "@/lib/cms/sanity/types";
-import { fetchRecentResults, fetchStandings, fetchUpcomingFixtures, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { fetchRecentResults, fetchStandings, fetchUpcomingFixtures, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
 import { formatMatchDate, formatShortDate } from "@/lib/utils/format";
 import type { Fixture, MatchResult, StandingRow } from "@/types/football";
-
-const CURRENT_SEASON = new Date().getFullYear();
 
 export async function getNextMatch(): Promise<Fixture> {
   if (isApiFootballConfigured) {
@@ -34,7 +32,7 @@ export async function getNextMatch(): Promise<Fixture> {
 export async function getUpcomingFixtures(): Promise<Fixture[]> {
   if (isApiFootballConfigured) {
     const upcoming = await fetchUpcomingFixtures(4);
-    if (upcoming) return upcoming;
+    if (upcoming && upcoming.length > 0) return upcoming;
   }
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityFixture[]>(fixturesQuery);
@@ -54,7 +52,7 @@ export async function getFixtures(): Promise<Fixture[]> {
 export async function getRecentResults(): Promise<MatchResult[]> {
   if (isApiFootballConfigured) {
     const results = await fetchRecentResults(4);
-    if (results) return results;
+    if (results && results.length > 0) return results;
   }
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityMatchResult[]>(resultsQuery);
@@ -65,8 +63,9 @@ export async function getRecentResults(): Promise<MatchResult[]> {
 
 export async function getStandings(): Promise<StandingRow[]> {
   if (isApiFootballConfigured) {
-    const standings = await fetchStandings(CURRENT_SEASON);
-    if (standings) return standings;
+    const season = await getCurrentSeason();
+    const standings = await fetchStandings(season);
+    if (standings && standings.length > 0) return standings;
   }
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityLeagueTable>(leagueTableQuery);

@@ -8,10 +8,8 @@ import {
 import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
-import { fetchTeamStatistics, fetchTopAssists, fetchTopScorers, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { fetchTeamStatistics, fetchTopAssists, fetchTopScorers, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
 import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
-
-const CURRENT_SEASON = new Date().getFullYear();
 
 async function getSeasonStats(): Promise<SanitySeasonStats | null> {
   if (!isSanityConfigured) return null;
@@ -27,8 +25,9 @@ async function getSeasonStats(): Promise<SanitySeasonStats | null> {
  */
 export async function getStatTiles(): Promise<StatTile[]> {
   if (isApiFootballConfigured) {
-    const live = await fetchTeamStatistics(CURRENT_SEASON);
-    if (live) return live;
+    const season = await getCurrentSeason();
+    const live = await fetchTeamStatistics(season);
+    if (live && live.length > 0) return live;
   }
   const stats = await getSeasonStats();
   if (stats?.statTiles?.length) {
@@ -39,8 +38,9 @@ export async function getStatTiles(): Promise<StatTile[]> {
 
 export async function getScorers(): Promise<ScorerStat[]> {
   if (isApiFootballConfigured) {
-    const scorers = await fetchTopScorers(CURRENT_SEASON);
-    if (scorers) return scorers;
+    const season = await getCurrentSeason();
+    const scorers = await fetchTopScorers(season);
+    if (scorers && scorers.length > 0) return scorers;
   }
   const stats = await getSeasonStats();
   if (stats?.topScorers?.length) {
@@ -58,8 +58,9 @@ export async function getScorers(): Promise<ScorerStat[]> {
 
 export async function getAssists(): Promise<AssistStat[]> {
   if (isApiFootballConfigured) {
-    const assists = await fetchTopAssists(CURRENT_SEASON);
-    if (assists) return assists;
+    const season = await getCurrentSeason();
+    const assists = await fetchTopAssists(season);
+    if (assists && assists.length > 0) return assists;
   }
   const stats = await getSeasonStats();
   if (stats?.topAssists?.length) {

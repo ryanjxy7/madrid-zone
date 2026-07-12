@@ -53,3 +53,8 @@ export interface ApiFootballTeamStatistics {
     for: { total: { total: number }; average: { total: string } };
   };
 }
+
+export interface ApiFootballLeague {
+  league: { id: number; name: string; type: string };
+  seasons: Array<{ year: number; start: string; end: string; current: boolean }>;
+}

@@ -8,7 +8,7 @@ export async function fetchTopScorers(season: number): Promise<ScorerStat[] | nu
     { league: process.env.API_FOOTBALL_LEAGUE_ID ?? "140", season: String(season), team: REAL_MADRID_TEAM_ID },
     { revalidate: REVALIDATE.matchData }
   );
-  if (!data) return null;
+  if (!data || data.length === 0) return null;
 
   const top = data[0]?.statistics[0]?.goals.total ?? 1;
   return data.map((entry, index) => ({
@@ -25,7 +25,7 @@ export async function fetchTopAssists(season: number): Promise<AssistStat[] | nu
     { league: process.env.API_FOOTBALL_LEAGUE_ID ?? "140", season: String(season), team: REAL_MADRID_TEAM_ID },
     { revalidate: REVALIDATE.matchData }
   );
-  if (!data) return null;
+  if (!data || data.length === 0) return null;
 
   return data.map((entry, index) => ({
     rank: index + 1,

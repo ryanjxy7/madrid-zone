@@ -9,7 +9,7 @@ export async function fetchStandings(season: number): Promise<StandingRow[] | nu
     { revalidate: REVALIDATE.matchData }
   );
   const table = data?.[0]?.league.standings?.[0];
-  if (!table) return null;
+  if (!table || table.length === 0) return null;
 
   return table.map((row) => ({
     position: row.rank,

@@ -1,10 +1,8 @@
 import { placeholderSquad } from "@/data/placeholder/squad";
 import { isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
-import { fetchSquad, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { fetchSquad, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
-
-const CURRENT_SEASON = new Date().getFullYear();
 
 const GROUP_ORDER: { position: PlayerPosition; label: string }[] = [
   { position: "Goalkeeper", label: "GOALKEEPERS" },
@@ -39,7 +37,8 @@ function groupPlayers(players: Player[]): SquadGroup[] {
  */
 export async function getSquad(): Promise<SquadGroup[]> {
   if (isApiFootballConfigured) {
-    const live = await fetchSquad(CURRENT_SEASON);
+    const season = await getCurrentSeason();
+    const live = await fetchSquad(season);
     if (live && live.length > 0) return live;
   }
   if (isSanityConfigured) {
