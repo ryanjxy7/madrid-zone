@@ -104,7 +104,6 @@ export interface SanitySiteSettings {
   followerCount?: string;
   monthlyReach?: string;
   tickerEnabled?: boolean;
-  adSlotEnabled?: boolean;
   transferWindowClosesText?: string;
   editorialEmail?: string;
   partnersEmail?: string;
@@ -112,4 +111,15 @@ export interface SanitySiteSettings {
   socialLinks?: { x?: string; facebook?: string; instagram?: string; youtube?: string; tiktok?: string };
   newsletterHeading?: string;
   newsletterBody?: string;
+}
+
+export interface SanityAdSlot {
+  enabled?: boolean;
+  mode?: "placeholder" | "image" | "code";
+  creative?: SanityImageWithAlt;
+  linkUrl?: string;
+  advertiserName?: string;
+  adNetworkCode?: string;
+  width?: number;
+  height?: number;
 }

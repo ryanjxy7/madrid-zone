@@ -7,7 +7,6 @@ export interface SiteSettings {
   followerCount: string;
   monthlyReach: string;
   tickerEnabled: boolean;
-  adSlotEnabled: boolean;
   transferWindowClosesText: string;
   editorialEmail: string;
   partnersEmail: string;
@@ -21,7 +20,6 @@ const defaults: SiteSettings = {
   followerCount: "2.1M",
   monthlyReach: "40M+",
   tickerEnabled: true,
-  adSlotEnabled: true,
   transferWindowClosesText: "53 days",
   editorialEmail: siteConfig.emails.editorial,
   partnersEmail: siteConfig.emails.partners,
@@ -45,7 +43,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         followerCount: result.followerCount ?? defaults.followerCount,
         monthlyReach: result.monthlyReach ?? defaults.monthlyReach,
         tickerEnabled: result.tickerEnabled ?? defaults.tickerEnabled,
-        adSlotEnabled: result.adSlotEnabled ?? defaults.adSlotEnabled,
         transferWindowClosesText: result.transferWindowClosesText ?? defaults.transferWindowClosesText,
         editorialEmail: result.editorialEmail ?? defaults.editorialEmail,
         partnersEmail: result.partnersEmail ?? defaults.partnersEmail,

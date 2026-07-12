@@ -27,3 +27,8 @@ export function portraitImageUrl(source: SanityImageSource, width = 600): string
 export function logoImageUrl(source: SanityImageSource, width = 300): string {
   return urlForImage(source).width(width).fit("max").url();
 }
+
+/** Exact pixel crop for ad creatives — ad slots need precise dimensions. */
+export function adImageUrl(source: SanityImageSource, width: number, height: number): string {
+  return urlForImage(source).width(width).height(height).fit("crop").url();
+}

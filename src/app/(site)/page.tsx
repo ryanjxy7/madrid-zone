@@ -8,6 +8,7 @@ import { NewsletterCta } from "@/components/home/NewsletterCta";
 import { PlayerStatsWidget } from "@/components/home/PlayerStatsWidget";
 import { SponsorsStrip } from "@/components/home/SponsorsStrip";
 import { TopGoalscorersWidget } from "@/components/home/TopGoalscorersWidget";
+import { getAdSlot } from "@/lib/data/adSlot";
 import { getAllArticles, getFeaturedArticle } from "@/lib/data/articles";
 import { getSiteSettings } from "@/lib/data/siteSettings";
 import { siteConfig } from "@/lib/seo/constants";
@@ -19,10 +20,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [featured, articles, settings] = await Promise.all([
+  const [featured, articles, settings, adSlot] = await Promise.all([
     getFeaturedArticle(),
     getAllArticles(),
     getSiteSettings(),
+    getAdSlot(),
   ]);
   const gridStories = articles.filter((article) => article.slug !== featured.slug).slice(0, 4);
 
@@ -46,7 +48,7 @@ export default async function HomePage() {
 
         <div className="order-3 flex flex-col gap-4">
           <FixturesWidget />
-          {settings.adSlotEnabled ? <AdSlot /> : null}
+          {adSlot.enabled ? <AdSlot content={adSlot} /> : null}
           <NewsletterCta heading={settings.newsletterHeading} body={settings.newsletterBody} />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import type { SchemaTypeDefinition } from "sanity";
+import { adSlot } from "./adSlot";
 import { article } from "./article";
 import { author } from "./author";
 import { fixture } from "./fixture";
@@ -28,8 +29,9 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   sponsor,
   wireItem,
   legalPage,
+  adSlot,
   siteSettings,
 ];
 
 /** Document types that should only ever have one instance in the dataset. */
-export const singletonTypes = new Set(["siteSettings", "nextMatch", "leagueTable", "seasonStats"]);
+export const singletonTypes = new Set(["siteSettings", "nextMatch", "leagueTable", "seasonStats", "adSlot"]);

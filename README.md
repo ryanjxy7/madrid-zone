@@ -49,6 +49,7 @@ src/sanity/
   schemaTypes/           Every content type an editor can create/edit
   structure.ts            The friendly, grouped Studio menu
 docs/CMS_GUIDE.md        Non-technical setup + day-to-day editing guide
+docs/API_FOOTBALL_GUIDE.md   Connecting live match/squad/stats data
 design/                 Original Claude Design handoff bundle (reference only, not built)
 ```
 
@@ -56,8 +57,8 @@ design/                 Original Claude Design handoff bundle (reference only, n
 
 Every page reads content through `src/lib/data/*.ts` (e.g. `getAllArticles()`, `getSquad()`, `getStandings()`). Each of those functions queries Sanity first when configured, then API-Football for live match data where relevant, and falls back to `src/data/placeholder/` — so the site always renders, CMS or not, and no page or component needs to change as real content is added:
 
-- **Editorial content** (articles, squad, transfers, sponsors, legal pages, site settings) checks `isSanityConfigured` and runs a GROQ query from `src/lib/cms/sanity/queries.ts`.
-- **Football data** (fixtures, results, standings, scorers) checks `isApiFootballConfigured` first for live data, then falls back to the equivalent editorial Sanity content (for manual entry), then placeholder.
+- **Editorial content** (articles, transfers, sponsors, legal pages, site settings, ad slot) checks `isSanityConfigured` and runs a GROQ query from `src/lib/cms/sanity/queries.ts`.
+- **Football data** (fixtures, results, standings, squad, scorers, assists, headline stats) checks `isApiFootballConfigured` first for live data, then falls back to the equivalent editorial Sanity content (for manual entry), then placeholder.
 
 ### Connecting Sanity CMS
 
@@ -71,11 +72,13 @@ Full non-technical walkthrough: **[docs/CMS_GUIDE.md](docs/CMS_GUIDE.md)**. Shor
 
 ### Connecting API-Football
 
-1. Get a key at [api-football.com](https://www.api-football.com) (free tier: 100 requests/day).
-2. Set `API_FOOTBALL_KEY` in `.env.local` (team/league IDs default to Real Madrid / LaLiga — override if needed).
-3. `/matches` and `/stats` now read live fixtures, results, standings and top scorers.
+Full walkthrough (what auto-updates, cache timing, troubleshooting): **[docs/API_FOOTBALL_GUIDE.md](docs/API_FOOTBALL_GUIDE.md)**. Short version:
 
-Transfer-market data (`/transfers`) stays editorial by design — verified newsroom content, not an API feed — so it's edited in Sanity, not pulled from API-Football.
+1. Get a key at [api-football.com](https://www.api-football.com) (free tier: 100 requests/day).
+2. Set `API_FOOTBALL_KEY` in `.env.local` / Vercel env vars (team/league IDs default to Real Madrid / LaLiga — override if needed).
+3. `/matches`, `/squad` and `/stats` now read live fixtures, results, standings, the full roster, and top scorers/assists — cached 6-24h per data type to stay well within the free tier, with retries and a silent fallback to Sanity/placeholder data on any failure.
+
+Transfer-market data (`/transfers`) stays editorial by design — verified newsroom content, not an API feed — so it's edited in Sanity, not pulled from API-Football. Trophy counts and goalkeeper-specific stats also stay editorial (no clean live source for either).
 
 ## SEO
 

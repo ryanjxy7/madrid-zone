@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       // Sanity-hosted photography (articles, squad, sponsor logos).
       { protocol: "https", hostname: "cdn.sanity.io" },
+      // API-Football player photos (used when the live squad is on).
+      { protocol: "https", hostname: "media.api-sports.io" },
     ],
     // Offline placeholder imagery (see src/lib/utils/images.ts) — zero
     // external dependency until real content is added in Studio.

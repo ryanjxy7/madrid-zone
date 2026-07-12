@@ -92,7 +92,11 @@ export const legalPageQuery = /* groq */ `
 
 export const siteSettingsQuery = /* groq */ `
   *[_type == "siteSettings"][0] {
-    followerCount, monthlyReach, tickerEnabled, adSlotEnabled, transferWindowClosesText,
+    followerCount, monthlyReach, tickerEnabled, transferWindowClosesText,
     editorialEmail, partnersEmail, pressEmail, socialLinks, newsletterHeading, newsletterBody
   }
+`;
+
+export const adSlotQuery = /* groq */ `
+  *[_type == "adSlot"][0] { enabled, mode, creative, linkUrl, advertiserName, adNetworkCode, width, height }
 `;

@@ -29,3 +29,27 @@ export interface ApiFootballTopScorer {
   player: { name: string };
   statistics: Array<{ goals: { total: number | null; assists: number | null } }>;
 }
+
+export interface ApiFootballSquadPlayer {
+  player: {
+    id: number;
+    name: string;
+    photo: string;
+    nationality: string;
+  };
+  statistics: Array<{
+    games: { position: string; number: number | null };
+  }>;
+}
+
+export interface ApiFootballTeamStatistics {
+  fixtures: {
+    played: { total: number };
+    wins: { total: number };
+    draws: { total: number };
+    loses: { total: number };
+  };
+  goals: {
+    for: { total: { total: number }; average: { total: string } };
+  };
+}

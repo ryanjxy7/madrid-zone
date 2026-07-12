@@ -102,6 +102,7 @@ editing, not by technical names:
 | 🤝 Sponsors | The sponsor logos on the homepage and About page |
 | 📢 Live Ticker | The scrolling bar at the very top of the site |
 | 📄 Legal Pages | Privacy Policy, Terms of Use, Cookie Policy |
+| 🖼️ Ad Slot | The ad box on the homepage sidebar |
 | ⚙️ Site Settings | Header follower count, contact emails, social links, newsletter box text |
 
 ### Publishing an article
@@ -123,12 +124,31 @@ editing, not by technical names:
    heading, a bulleted list, a quote, or a link.
 8. Click **Publish** (top right). That's it — no deploy, no code.
 
+### Editing the ad slot
+
+**🖼️ Ad Slot** controls the ad box on the homepage sidebar. Click into it and
+choose **What to show**:
+
+- **Neutral placeholder box** — the default dashed box, useful while you
+  don't have an ad to run yet.
+- **Your own ad image** — upload an image, add a destination link and an
+  advertiser name (used as the accessibility label), and it replaces the
+  placeholder. This is for direct/house ads you've sold yourself.
+- **Ad network code** — paste the exact embed snippet a network like Google
+  AdSense gave you. It runs inside an isolated frame that can't affect the
+  rest of the site, so it's safe to use — just only paste code from a
+  provider you actually trust, the same way you'd be careful pasting any
+  code anywhere.
+
+Toggle **Show the ad slot** off any time to hide it entirely without losing
+your settings.
+
 ### Editing things that only have one instance
 
-Four items — **⚙️ Site Settings**, **Next Match**, **League Table**, and
-**📊 Season Stats** — only ever have a single version, not a list. Click
-straight into them, edit the fields, and hit **Publish**. You can't
-accidentally create a duplicate or delete them.
+Five items — **⚙️ Site Settings**, **Next Match**, **League Table**,
+**📊 Season Stats**, and **🖼️ Ad Slot** — only ever have a single version, not
+a list. Click straight into them, edit the fields, and hit **Publish**. You
+can't accidentally create a duplicate or delete them.
 
 ### Reordering lists
 

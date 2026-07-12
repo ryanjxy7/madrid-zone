@@ -35,13 +35,6 @@ export const siteSettings = defineType({
       group: "general",
     }),
     defineField({
-      name: "adSlotEnabled",
-      title: "Show ad slots",
-      type: "boolean",
-      initialValue: true,
-      group: "general",
-    }),
-    defineField({
       name: "transferWindowClosesText",
       title: "Transfer window countdown text",
       type: "string",

@@ -8,7 +8,7 @@ import {
 import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
-import { fetchTopAssists, fetchTopScorers, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { fetchTeamStatistics, fetchTopAssists, fetchTopScorers, isApiFootballConfigured } from "@/lib/sports-api/api-football";
 import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
 
 const CURRENT_SEASON = new Date().getFullYear();
@@ -18,7 +18,18 @@ async function getSeasonStats(): Promise<SanitySeasonStats | null> {
   return sanityFetch<SanitySeasonStats>(seasonStatsQuery);
 }
 
+/**
+ * Live tiles cover matches played, goals scored and win rate — not
+ * trophies (the API has no clean "trophies this season" figure), so that
+ * stays editorial. When API-Football is on, this shows 3 tiles instead
+ * of the usual 4; add a Sanity Season Stats entry too if you want a
+ * trophies tile alongside it — see docs/API_FOOTBALL_GUIDE.md.
+ */
 export async function getStatTiles(): Promise<StatTile[]> {
+  if (isApiFootballConfigured) {
+    const live = await fetchTeamStatistics(CURRENT_SEASON);
+    if (live) return live;
+  }
   const stats = await getSeasonStats();
   if (stats?.statTiles?.length) {
     return stats.statTiles.map((tile) => ({ value: tile.value, label: tile.label, sub: tile.sub ?? "" }));

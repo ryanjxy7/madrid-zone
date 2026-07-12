@@ -50,5 +50,6 @@ export const structure: StructureResolver = (S) =>
       S.listItem().title("📢 Live Ticker").child(S.documentTypeList("wireItem").title("Live Ticker")),
       S.listItem().title("📄 Legal Pages").child(S.documentTypeList("legalPage").title("Legal Pages")),
       S.divider(),
+      singleton(S, "adSlot", "🖼️ Ad Slot"),
       singleton(S, "siteSettings", "⚙️ Site Settings"),
     ]);
