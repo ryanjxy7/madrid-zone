@@ -54,6 +54,10 @@ export const squadQuery = /* groq */ `
   }
 `;
 
+export const playerBiosQuery = /* groq */ `
+  *[_type == "player" && defined(bio)] { name, bio }
+`;
+
 export const transferDealsQuery = /* groq */ `
   *[_type == "transferDeal"] | order(order asc) {
     "id": _id, player, position, direction, status, fee, latest

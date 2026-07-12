@@ -2,15 +2,13 @@ import { placeholderNextMatch, placeholderResults, placeholderStandings, placeho
 import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { fixturesQuery, leagueTableQuery, nextMatchQuery, resultsQuery } from "@/lib/cms/sanity/queries";
 import type { SanityFixture, SanityLeagueTable, SanityMatchResult, SanityNextMatch } from "@/lib/cms/sanity/types";
-import { fetchRecentResults, fetchStandings, fetchUpcomingFixtures, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { getRecentResults as getLiveRecentResults, getStandings as getLiveStandings, getUpcomingFixtures as getLiveUpcomingFixtures } from "@/lib/football/footballService";
 import { formatMatchDate, formatShortDate } from "@/lib/utils/format";
 import type { Fixture, MatchResult, StandingRow } from "@/types/football";
 
 export async function getNextMatch(): Promise<Fixture> {
-  if (isApiFootballConfigured) {
-    const upcoming = await fetchUpcomingFixtures(1);
-    if (upcoming?.[0]) return upcoming[0];
-  }
+  const upcoming = await getLiveUpcomingFixtures(1);
+  if (upcoming?.[0]) return upcoming[0];
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityNextMatch>(nextMatchQuery);
     if (result) {
@@ -30,10 +28,8 @@ export async function getNextMatch(): Promise<Fixture> {
 
 /** The full editorial fixture list (Matches page) — one list, edited once. */
 export async function getUpcomingFixtures(): Promise<Fixture[]> {
-  if (isApiFootballConfigured) {
-    const upcoming = await fetchUpcomingFixtures(4);
-    if (upcoming && upcoming.length > 0) return upcoming;
-  }
+  const upcoming = await getLiveUpcomingFixtures(4);
+  if (upcoming && upcoming.length > 0) return upcoming;
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityFixture[]>(fixturesQuery);
     if (result && result.length > 0) {
@@ -50,10 +46,8 @@ export async function getFixtures(): Promise<Fixture[]> {
 }
 
 export async function getRecentResults(): Promise<MatchResult[]> {
-  if (isApiFootballConfigured) {
-    const results = await fetchRecentResults(4);
-    if (results && results.length > 0) return results;
-  }
+  const results = await getLiveRecentResults(4);
+  if (results && results.length > 0) return results;
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityMatchResult[]>(resultsQuery);
     if (result && result.length > 0) return result;
@@ -62,11 +56,8 @@ export async function getRecentResults(): Promise<MatchResult[]> {
 }
 
 export async function getStandings(): Promise<StandingRow[]> {
-  if (isApiFootballConfigured) {
-    const season = await getCurrentSeason();
-    const standings = await fetchStandings(season);
-    if (standings && standings.length > 0) return standings;
-  }
+  const standings = await getLiveStandings("laLiga");
+  if (standings && standings.length > 0) return standings;
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityLeagueTable>(leagueTableQuery);
     if (result?.rows?.length) return result.rows;

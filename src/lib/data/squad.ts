@@ -1,7 +1,7 @@
 import { placeholderSquad } from "@/data/placeholder/squad";
 import { isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
-import { fetchSquad, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { getSquad as getLiveSquad } from "@/lib/football/footballService";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
 
 const GROUP_ORDER: { position: PlayerPosition; label: string }[] = [
@@ -31,16 +31,13 @@ function groupPlayers(players: Player[]): SquadGroup[] {
 }
 
 /**
- * Prefers live API-Football data (auto-updated roster, numbers, photos),
- * then an editorially managed Sanity squad (lets you add specific role
- * labels like "Right-back" that the API can't give), then placeholder.
+ * Prefers live Sofascore data (auto-updated roster, numbers, photos), then
+ * an editorially managed Sanity squad (lets you add specific role labels
+ * like "Right-back" that the API can't give), then placeholder.
  */
 export async function getSquad(): Promise<SquadGroup[]> {
-  if (isApiFootballConfigured) {
-    const season = await getCurrentSeason();
-    const live = await fetchSquad(season);
-    if (live && live.length > 0) return live;
-  }
+  const live = await getLiveSquad();
+  if (live && live.length > 0) return live;
   if (isSanityConfigured) {
     const result = await sanityFetch<SanityPlayer[]>(squadQuery);
     if (result && result.length > 0) return groupPlayers(result.map(mapPlayer));

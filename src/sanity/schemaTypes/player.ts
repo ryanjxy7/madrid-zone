@@ -46,6 +46,14 @@ export const player = defineType({
     }),
     defineField({ name: "nationality", title: "Nationality", type: "string" }),
     defineField({
+      name: "bio",
+      title: "Editorial bio",
+      type: "text",
+      rows: 4,
+      description:
+        "Optional editorial write-up shown on the player's page (/players/player-name) alongside live stats. Leave blank to show stats only.",
+    }),
+    defineField({
       name: "order",
       title: "Display order",
       type: "number",

@@ -8,7 +8,7 @@ import {
 import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
-import { fetchTeamStatistics, fetchTopAssists, fetchTopScorers, getCurrentSeason, isApiFootballConfigured } from "@/lib/sports-api/api-football";
+import { getTopAssists as getLiveTopAssists, getTopScorers as getLiveTopScorers } from "@/lib/football/footballService";
 import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
 
 async function getSeasonStats(): Promise<SanitySeasonStats | null> {
@@ -17,18 +17,11 @@ async function getSeasonStats(): Promise<SanitySeasonStats | null> {
 }
 
 /**
- * Live tiles cover matches played, goals scored and win rate — not
- * trophies (the API has no clean "trophies this season" figure), so that
- * stays editorial. When API-Football is on, this shows 3 tiles instead
- * of the usual 4; add a Sanity Season Stats entry too if you want a
- * trophies tile alongside it — see docs/API_FOOTBALL_GUIDE.md.
+ * Sofascore has no clean single-call "team season summary" endpoint, so
+ * these tiles (matches played, goals scored, trophies, etc.) stay fully
+ * editorial via Sanity — see docs/API_FOOTBALL_GUIDE.md for the shape.
  */
 export async function getStatTiles(): Promise<StatTile[]> {
-  if (isApiFootballConfigured) {
-    const season = await getCurrentSeason();
-    const live = await fetchTeamStatistics(season);
-    if (live && live.length > 0) return live;
-  }
   const stats = await getSeasonStats();
   if (stats?.statTiles?.length) {
     return stats.statTiles.map((tile) => ({ value: tile.value, label: tile.label, sub: tile.sub ?? "" }));
@@ -37,11 +30,8 @@ export async function getStatTiles(): Promise<StatTile[]> {
 }
 
 export async function getScorers(): Promise<ScorerStat[]> {
-  if (isApiFootballConfigured) {
-    const season = await getCurrentSeason();
-    const scorers = await fetchTopScorers(season);
-    if (scorers && scorers.length > 0) return scorers;
-  }
+  const scorers = await getLiveTopScorers("laLiga");
+  if (scorers && scorers.length > 0) return scorers;
   const stats = await getSeasonStats();
   if (stats?.topScorers?.length) {
     const sorted = [...stats.topScorers].sort((a, b) => b.goals - a.goals);
@@ -57,11 +47,8 @@ export async function getScorers(): Promise<ScorerStat[]> {
 }
 
 export async function getAssists(): Promise<AssistStat[]> {
-  if (isApiFootballConfigured) {
-    const season = await getCurrentSeason();
-    const assists = await fetchTopAssists(season);
-    if (assists && assists.length > 0) return assists;
-  }
+  const assists = await getLiveTopAssists("laLiga");
+  if (assists && assists.length > 0) return assists;
   const stats = await getSeasonStats();
   if (stats?.topAssists?.length) {
     const sorted = [...stats.topAssists].sort((a, b) => b.assists - a.assists);

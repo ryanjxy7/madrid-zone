@@ -1,9 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
+import { slugifyPlayerName } from "@/lib/football/footballService";
 import type { Player } from "@/types/football";
 
 export function PlayerCard({ player }: { player: Player }) {
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-negative/55">
+    <Link
+      href={`/players/${slugifyPlayerName(player.name)}`}
+      className="group relative overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-negative/55"
+    >
       <div className="relative aspect-[3/4] w-full">
         <Image
           src={player.image}
@@ -24,6 +29,6 @@ export function PlayerCard({ player }: { player: Player }) {
           {player.role}
         </span>
       </div>
-    </div>
+    </Link>
   );
 }

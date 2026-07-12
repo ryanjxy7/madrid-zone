@@ -38,6 +38,7 @@ export interface SanityPlayer {
   position: PlayerPosition;
   image: SanityImageWithAlt;
   nationality?: string;
+  bio?: string;
 }
 
 export interface SanityTransferDeal {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { AssistsList } from "@/components/stats/AssistsList";
 import { GoalkeepingCard } from "@/components/stats/GoalkeepingCard";
 import { ScorersList } from "@/components/stats/ScorersList";
@@ -21,9 +22,14 @@ export default async function StatsPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-[28px] font-bold tracking-[0.02em] text-heading sm:text-[34px]">STATS</h1>
-        <p className="font-body text-[13px] text-muted">The season in numbers · all competitions.</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div className="flex flex-col gap-1">
+          <h1 className="font-display text-[28px] font-bold tracking-[0.02em] text-heading sm:text-[34px]">STATS</h1>
+          <p className="font-body text-[13px] text-muted">The season in numbers · all competitions.</p>
+        </div>
+        <Link href="/stats/leaders" className="font-body text-xs font-semibold text-accent hover:opacity-85">
+          La Liga leaders →
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

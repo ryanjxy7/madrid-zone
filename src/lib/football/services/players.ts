@@ -1,0 +1,35 @@
+import type { SquadGroup } from "@/types/football";
+import { sofascoreProvider } from "../providers/sofascore";
+import { slugifyPlayerName } from "../slug";
+import type { PlayerProfile, PlayerSeasonStats } from "../types/domain";
+
+export async function getSquad(): Promise<SquadGroup[] | null> {
+  return sofascoreProvider.getSquad();
+}
+
+export async function getPlayerProfile(playerId: string): Promise<PlayerProfile | null> {
+  return sofascoreProvider.getPlayerProfile(playerId);
+}
+
+export async function getPlayerSeasonStats(playerId: string): Promise<PlayerSeasonStats | null> {
+  return sofascoreProvider.getPlayerSeasonStats(playerId);
+}
+
+/**
+ * Player pages are addressed by slug (e.g. /players/jude-bellingham), but
+ * the provider is keyed by ID. Resolves a slug to a full profile by
+ * searching the squad — the squad list is cached for 24h, so this is cheap.
+ */
+export async function getPlayerProfileBySlug(slug: string): Promise<PlayerProfile | null> {
+  const groups = await getSquad();
+  if (!groups) return null;
+
+  for (const group of groups) {
+    for (const player of group.players) {
+      if (slugifyPlayerName(player.name) === slug) {
+        return getPlayerProfile(player.id);
+      }
+    }
+  }
+  return null;
+}

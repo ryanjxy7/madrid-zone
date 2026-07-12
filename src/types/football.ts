@@ -75,6 +75,10 @@ export interface StandingRow {
   team: string;
   points: number;
   isHighlighted?: boolean;
+  played?: number;
+  won?: number;
+  drawn?: number;
+  lost?: number;
 }
 
 export interface StatTile {
@@ -88,12 +92,14 @@ export interface ScorerStat {
   name: string;
   goals: number;
   barPercent: number;
+  team?: string;
 }
 
 export interface AssistStat {
   rank: number;
   name: string;
   assists: number;
+  team?: string;
 }
 
 export interface GoalkeepingStat {
