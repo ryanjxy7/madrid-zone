@@ -28,6 +28,9 @@
   --warning: #e9c258;
   --negative: #ff4d64;
   --neutral: #9aa5cc;
+
+  /* Logo mark is a single-color PNG; this filter recolors it to match the theme. */
+  --logo-filter: brightness(0) invert(1);
 }
 
 html.light {
@@ -45,6 +48,7 @@ html.light {
   --track: rgba(12, 16, 30, 0.08);
   --shadow-card: 0 4px 14px rgba(15, 20, 40, 0.08);
   --shadow-card-hover: 0 14px 30px rgba(15, 20, 40, 0.16);
+  --logo-filter: brightness(0);
 }
 
 @theme inline {
@@ -85,4 +89,13 @@ a {
 
 * {
   border-color: var(--border);
+}
+
+@keyframes mz-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

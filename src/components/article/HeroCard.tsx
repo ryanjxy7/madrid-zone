@@ -23,14 +23,14 @@ export function HeroCard({ article }: { article: Article }) {
       <div className="flex flex-col gap-2 p-4 sm:p-5">
         <div className="flex items-center gap-2">
           {article.isExclusive ? <Tag>Exclusive</Tag> : null}
-          <span className="font-body text-[11px] font-semibold text-muted">{article.category.toUpperCase()}</span>
+          <Tag variant="soft">{article.category}</Tag>
         </div>
         <h1 className="text-pretty font-display text-2xl font-bold leading-tight text-heading sm:text-[28px]">
           {article.title.toUpperCase()}
         </h1>
         <p className="font-body text-[13.5px] leading-relaxed text-subtle">{article.dek}</p>
         <span className="font-body text-[11px] font-medium text-muted">
-          {formatRelativeTime(article.publishedAt)} · {article.readingTime}
+          By {article.author.name} · {formatRelativeTime(article.publishedAt)} · {article.readingTime}
         </span>
       </div>
     </Link>

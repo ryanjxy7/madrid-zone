@@ -92,7 +92,7 @@ export interface SanitySeasonStats {
   topScorers?: { name: string; goals: number }[];
   topAssists?: { name: string; assists: number }[];
   goalkeeping?: { label: string; value: string }[];
-  homeStats?: { label: string; value: string }[];
+  homeStats?: { label: string; player: string; value: string; barPercent: number }[];
 }
 
 export interface SanityLegalPage {

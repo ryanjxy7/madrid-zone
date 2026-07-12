@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { SiteSettings } from "@/lib/data/siteSettings";
 
@@ -36,7 +37,7 @@ export function Footer({ socialLinks }: { socialLinks: SiteSettings["socialLinks
       </div>
 
       <div className="mt-7 flex flex-col items-center gap-1.5 border-t border-white/[0.07] pt-5">
-        <span className="font-display text-[28px] font-bold leading-none tracking-[0.02em] text-white">MZ</span>
+        <Image src="/logo.png" alt="Madrid Zone" width={42} height={42} className="h-[42px] w-auto" style={{ filter: "brightness(0) invert(1)" }} />
         <span className="font-display text-[17px] font-bold tracking-[0.08em]">MADRID ZONE</span>
         <p className="max-w-md text-center font-body text-xs leading-relaxed text-[#8b90a0]">
           Independent Real Madrid coverage. Not affiliated with Real Madrid C.F.

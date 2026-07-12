@@ -13,8 +13,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "a.espncdn.com" },
     ],
     // Offline placeholder imagery (see src/lib/utils/images.ts) — zero
-    // external dependency until real content is added in Studio.
-    localPatterns: [{ pathname: "/api/placeholder/**" }],
+    // external dependency until real content is added in Studio. Also
+    // covers /logo.png (public/), the site wordmark used in header/footer.
+    localPatterns: [{ pathname: "/api/placeholder/**" }, { pathname: "/logo.png" }],
     formats: ["image/avif", "image/webp"],
   },
   eslint: {

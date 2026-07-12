@@ -1,4 +1,4 @@
-import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
+import type { AssistStat, GoalkeepingStat, HomeStatRow, ScorerStat, StatTile } from "@/types/football";
 
 export const placeholderStatTiles: StatTile[] = [
   { value: "58", label: "Matches played", sub: "All competitions" },
@@ -27,9 +27,9 @@ export const placeholderGoalkeeping: GoalkeepingStat[] = [
   { label: "Save percentage", value: "78%" },
 ];
 
-export const placeholderHomeStats: { label: string; value: string }[] = [
-  { label: "Most assists", value: "Vinícius Jr · 15" },
-  { label: "Clean sheets", value: "Courtois · 19" },
-  { label: "Most minutes", value: "Valverde · 4,410" },
-  { label: "Top rated", value: "Mbappé · 7.9" },
+export const placeholderHomeStats: HomeStatRow[] = [
+  { label: "Most assists", player: "Vinícius Jr", value: "15", barPercent: 88 },
+  { label: "Clean sheets", player: "T. Courtois", value: "19", barPercent: 76 },
+  { label: "Most minutes", player: "F. Valverde", value: "4,410", barPercent: 96 },
+  { label: "Top rated", player: "K. Mbappé", value: "7.9", barPercent: 79 },
 ];

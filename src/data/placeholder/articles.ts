@@ -295,3 +295,13 @@ export const placeholderWire = [
   { time: "18:02", text: "US tour squad list expected this week" },
   { time: "16:44", text: "Pitch renovation finishes two weeks early" },
 ];
+
+/** Matchday timeline shown in the scrolling header ticker — distinct from the news wire above. */
+export const placeholderSchedule = [
+  { time: "10:00 AM", text: "Training session · Valdebebas" },
+  { time: "11:30 AM", text: "Alonso press conference" },
+  { time: "2:00 PM", text: "US tour squad list announced" },
+  { time: "3:00 PM", text: "Castilla friendly kick-off" },
+  { time: "6:00 PM", text: "Matchday live blog opens" },
+  { time: "9:00 PM", text: "Kick-off · Real Madrid vs Opponent A" },
+];

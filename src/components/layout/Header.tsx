@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 import { MobilePillNav } from "./MobilePillNav";
 import { ThemeToggle } from "./ThemeToggle";
 
-export function Header({ followerCount }: { followerCount: string }) {
+export function Header() {
   const pathname = usePathname();
 
   return (
@@ -35,12 +35,6 @@ export function Header({ followerCount }: { followerCount: string }) {
             {new Date().toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" })}
           </span>
           <ThemeToggle />
-          <Link
-            href="/about"
-            className="rounded-[4px] bg-brand px-3.5 py-2 font-body text-xs font-bold text-white hover:opacity-90 sm:px-4"
-          >
-            FOLLOW · {followerCount}
-          </Link>
         </div>
       </div>
 

@@ -26,7 +26,7 @@ export function ArticleView({
 
         <div className="flex items-center gap-2">
           {article.isExclusive ? <Tag>Exclusive</Tag> : null}
-          <span className="font-body text-[11px] font-semibold text-muted">{article.category.toUpperCase()}</span>
+          <Tag variant="soft">{article.category}</Tag>
         </div>
 
         <h1 className="text-pretty font-display text-[32px] font-bold leading-[1.08] text-heading sm:text-[42px]">
@@ -34,7 +34,7 @@ export function ArticleView({
         </h1>
 
         <div className="border-b border-border-strong pb-4 font-body text-xs font-medium text-muted">
-          {formatDateTime(article.publishedAt)} · {article.readingTime}
+          By {article.author.name} · {formatDateTime(article.publishedAt)} · {article.readingTime}
         </div>
 
         <div className="relative aspect-video w-full overflow-hidden rounded-md">

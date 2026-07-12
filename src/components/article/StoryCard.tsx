@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { formatRelativeTime } from "@/lib/utils/format";
+import { formatDate } from "@/lib/utils/format";
 import type { Article } from "@/types/content";
+
+function tagFontSize(tag: string): string {
+  return tag.length > 8 ? "8.5px" : tag.length > 6 ? "9px" : "10px";
+}
 
 export function StoryCard({ article }: { article: Article }) {
   return (
@@ -15,10 +19,15 @@ export function StoryCard({ article }: { article: Article }) {
       <div className="flex flex-col gap-1.5">
         <h3 className="font-body text-[15px] font-semibold leading-snug text-heading">{article.title}</h3>
         <div className="flex items-center gap-2">
-          <span className="w-fit rounded-[3px] bg-negative/[0.16] px-2 py-[3px] font-display text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
+          <span
+            className="w-fit flex-none whitespace-nowrap rounded-[3px] bg-negative/[0.16] px-2 py-[3px] font-display font-bold uppercase tracking-[0.08em] text-accent"
+            style={{ fontSize: tagFontSize(article.category) }}
+          >
             {article.category}
           </span>
-          <span className="font-body text-[10.5px] font-semibold text-muted">{formatRelativeTime(article.publishedAt)}</span>
+          <span className="font-display text-[10px] font-bold uppercase tracking-[0.08em] text-muted">
+            {formatDate(article.publishedAt)}
+          </span>
         </div>
       </div>
     </Link>

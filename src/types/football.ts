@@ -106,3 +106,10 @@ export interface GoalkeepingStat {
   label: string;
   value: string;
 }
+
+export interface HomeStatRow {
+  label: string;
+  player: string;
+  value: string;
+  barPercent: number;
+}

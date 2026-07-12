@@ -9,7 +9,7 @@ import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
 import { getTopAssists as getLiveTopAssists, getTopScorers as getLiveTopScorers } from "@/lib/football/footballService";
-import type { AssistStat, GoalkeepingStat, ScorerStat, StatTile } from "@/types/football";
+import type { AssistStat, GoalkeepingStat, HomeStatRow, ScorerStat, StatTile } from "@/types/football";
 
 async function getSeasonStats(): Promise<SanitySeasonStats | null> {
   if (!isSanityConfigured) return null;
@@ -63,7 +63,7 @@ export async function getGoalkeeping(): Promise<GoalkeepingStat[]> {
   return placeholderGoalkeeping;
 }
 
-export async function getHomeStats(): Promise<{ label: string; value: string }[]> {
+export async function getHomeStats(): Promise<HomeStatRow[]> {
   const stats = await getSeasonStats();
   if (stats?.homeStats?.length) return stats.homeStats;
   return placeholderHomeStats;

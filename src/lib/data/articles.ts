@@ -1,6 +1,7 @@
 import {
   placeholderAnalysisArticles,
   placeholderArticles,
+  placeholderSchedule,
   placeholderWire,
 } from "@/data/placeholder/articles";
 import {
@@ -94,4 +95,9 @@ export async function getWireItems(): Promise<WireItem[]> {
     if (result && result.length > 0) return result.map(mapWireItem);
   }
   return placeholderWire;
+}
+
+/** Matchday timeline for the scrolling header ticker — kept editorial-free (no Sanity backing) since it's decorative, not news content. */
+export async function getSchedule(): Promise<WireItem[]> {
+  return placeholderSchedule;
 }
