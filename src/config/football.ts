@@ -54,6 +54,12 @@ export const footballConfig = {
    * so this is shaped differently on purpose. Best-known-correct from
    * public reference, not verified live from this environment — confirm
    * at /debug/football and override via env vars if wrong.
+   *
+   * Kept in place as a dormant alternate provider (see providers/espn.ts)
+   * even though SportsAPI Pro below is the active one — this project has
+   * swapped the active provider three times now (API-Football -> Sofascore
+   * -> ESPN -> SportsAPI Pro) and every previous one is left working for
+   * exactly this reason.
    */
   espn: {
     /** Real Madrid's ESPN team ID. */
@@ -64,6 +70,28 @@ export const footballConfig = {
     },
     baseUrl: process.env.ESPN_BASE_URL ?? "https://site.api.espn.com/apis/site/v2/sports/soccer",
     standingsBaseUrl: process.env.ESPN_STANDINGS_BASE_URL ?? "https://site.api.espn.com/apis/v2/sports/soccer",
+    timeoutMs: 8000,
+    retries: 2,
+  },
+
+  /**
+   * SportsAPI Pro — the active provider. A licensed, key-based multi-sport
+   * API (unlike Sofascore/ESPN, which are unofficial). Team and
+   * competition IDs are NOT hardcoded here: this is a brand-new provider
+   * with no previously-known ID mapping, so the provider resolves
+   * "Real Madrid" / "La Liga" / "UEFA Champions League" to their numeric
+   * IDs via the documented /search endpoint at request time and caches
+   * the result long-term (see providers/sportsApiPro.ts).
+   */
+  sportsApiPro: {
+    apiKey: process.env.SPORTSAPIPRO_API_KEY ?? "",
+    baseUrl: process.env.SPORTSAPIPRO_BASE_URL ?? "https://api.sportsapipro.com/v2",
+    sport: "football",
+    teamSearchQuery: "Real Madrid",
+    competitionSearchQueries: {
+      laLiga: "La Liga",
+      championsLeague: "UEFA Champions League",
+    },
     timeoutMs: 8000,
     retries: 2,
   },
