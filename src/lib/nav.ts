@@ -2,7 +2,6 @@ export interface NavItem {
   label: string;
   href: string;
   match: string[];
-  icon?: string;
 }
 
 export const primaryNav: NavItem[] = [
@@ -16,11 +15,11 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const mobileTabs: NavItem[] = [
-  { label: "Home", href: "/", icon: "🏠", match: ["/", "/news"] },
-  { label: "Transfers", href: "/transfers", icon: "⇄", match: ["/transfers"] },
-  { label: "Matches", href: "/matches", icon: "⚽", match: ["/matches"] },
-  { label: "Squad", href: "/squad", icon: "👤", match: ["/squad"] },
-  { label: "Stats", href: "/stats", icon: "📊", match: ["/stats"] },
+  { label: "Home", href: "/", match: ["/", "/news"] },
+  { label: "Transfers", href: "/transfers", match: ["/transfers"] },
+  { label: "Matches", href: "/matches", match: ["/matches"] },
+  { label: "Squad", href: "/squad", match: ["/squad"] },
+  { label: "Stats", href: "/stats", match: ["/stats"] },
 ];
 
 export function isNavActive(pathname: string, item: NavItem): boolean {

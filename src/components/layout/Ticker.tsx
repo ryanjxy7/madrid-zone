@@ -5,9 +5,10 @@ export async function Ticker() {
   const items = await getSchedule();
 
   return (
-    <div className="flex h-9 items-center overflow-hidden bg-ink-900 sm:h-[38px]">
+    <div className="flex h-8 items-center overflow-hidden bg-ink-900 sm:h-[38px]">
       <div className="flex h-full flex-none items-center bg-brand px-3 font-display text-[10px] font-bold tracking-[0.1em] text-white sm:px-3.5 sm:text-[11px]">
-        LIVE
+        <span className="sm:hidden">TODAY</span>
+        <span className="hidden sm:inline">LIVE</span>
       </div>
       <div className="flex-1 overflow-hidden">
         <div
