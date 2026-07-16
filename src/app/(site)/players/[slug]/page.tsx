@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { StoryCard } from "@/components/article/StoryCard";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getPlayerBio } from "@/lib/data/players";
-import { getPlayerProfileBySlug, getPlayerSeasonStats } from "@/lib/football/footballService";
+import { getArticlesMentioningPlayer } from "@/lib/data/articles";
+import { getPlayerBio, getPlayerProfileBySlug } from "@/lib/data/players";
+import { getPlayerSeasonStats } from "@/lib/football/footballService";
 import { siteConfig } from "@/lib/seo/constants";
 
 interface Props {
@@ -34,7 +36,11 @@ export default async function PlayerPage({ params }: Props) {
   const player = await getPlayerProfileBySlug(slug);
   if (!player) notFound();
 
-  const [stats, bio] = await Promise.all([getPlayerSeasonStats(player.id), getPlayerBio(slug)]);
+  const [stats, bio, news] = await Promise.all([
+    getPlayerSeasonStats(player.id),
+    getPlayerBio(slug),
+    getArticlesMentioningPlayer(player.name),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -90,6 +96,19 @@ export default async function PlayerPage({ params }: Props) {
       ) : (
         <p className="font-body text-sm text-muted">Season statistics aren&apos;t available right now — check back soon.</p>
       )}
+
+      {news.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          <h2 className="border-b border-border-strong pb-2 font-display text-[13px] font-bold tracking-[0.14em] text-muted">
+            NEWS MENTIONING {player.name.toUpperCase()}
+          </h2>
+          <div className="flex flex-col gap-3">
+            {news.map((article) => (
+              <StoryCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

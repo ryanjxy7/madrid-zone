@@ -62,6 +62,9 @@ export const placeholderArticles: Article[] = [
       paragraph(
         "The decision reflects the dressing room's existing leadership hierarchy rather than any single dramatic call, according to sources inside Valdebebas."
       ),
+      paragraph(
+        "F. Valverde and J. Bellingham are both expected to feature among the vice-captains, continuing the armband's gradual handover to the squad's core group."
+      ),
     ],
   },
   {

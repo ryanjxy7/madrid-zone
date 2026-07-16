@@ -1,4 +1,4 @@
-import type { PortableTextBlock } from "@portabletext/types";
+import type { PortableTextBlock, PortableTextSpan } from "@portabletext/types";
 
 /**
  * Builds valid Portable Text blocks for placeholder content, matching
@@ -30,4 +30,16 @@ export function quote(text: string): PortableTextBlock {
     markDefs: [],
     children: [{ _type: "span", _key: nextKey(), text, marks: [] }],
   };
+}
+
+/** Flattens Portable Text blocks to plain text — used for search/matching (e.g. "which articles mention this player"), never for display. */
+export function portableTextToPlainText(blocks: PortableTextBlock[]): string {
+  return blocks
+    .map((block) =>
+      (block.children ?? [])
+        .filter((child): child is PortableTextSpan => child._type === "span")
+        .map((span) => span.text)
+        .join("")
+    )
+    .join("\n");
 }

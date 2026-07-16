@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import { RelatedArticles } from "@/components/article/RelatedArticles";
 import { Tag } from "@/components/ui/Tag";
+import { getAllPlayerLinks } from "@/lib/data/players";
 import { formatDateTime } from "@/lib/utils/format";
 import type { Article } from "@/types/content";
 
-export function ArticleView({
+export async function ArticleView({
   article,
   related,
   backHref,
@@ -17,6 +18,8 @@ export function ArticleView({
   backHref: string;
   backLabel: string;
 }) {
+  const players = await getAllPlayerLinks();
+
   return (
     <div className="flex flex-1 justify-center px-4 py-6 sm:px-6 lg:px-8">
       <article className="flex w-full max-w-[780px] flex-col gap-4">
@@ -48,7 +51,7 @@ export function ArticleView({
           />
         </div>
 
-        <ArticleBody blocks={article.body} />
+        <ArticleBody blocks={article.body} players={players} />
 
         <div className="flex flex-wrap gap-2 border-t border-border-strong pt-4">
           {article.tags.map((tag) => (
