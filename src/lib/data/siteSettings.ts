@@ -3,6 +3,16 @@ import { siteSettingsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySiteSettings } from "@/lib/cms/sanity/types";
 import { siteConfig } from "@/lib/seo/constants";
 
+export interface SocialPlatform {
+  key: string;
+  name: string;
+  mark: string;
+  color: string;
+  handle: string;
+  followers: string;
+  url: string;
+}
+
 export interface SiteSettings {
   followerCount: string;
   monthlyReach: string;
@@ -11,11 +21,19 @@ export interface SiteSettings {
   editorialEmail: string;
   partnersEmail: string;
   pressEmail: string;
-  socialLinks: { x: string; facebook: string; instagram: string; youtube: string; tiktok: string };
+  socialPlatforms: SocialPlatform[];
   newsletterHeading: string;
   newsletterBody: string;
   managerName: string;
 }
+
+const defaultSocialPlatforms: SocialPlatform[] = [
+  { key: "x", name: "X / TWITTER", mark: "𝕏", color: "#0f1419", handle: "@theMadridZone", followers: "1.8M+", url: siteConfig.social.x },
+  { key: "instagram", name: "INSTAGRAM", mark: "IG", color: "linear-gradient(45deg,#f09433,#dc2743,#bc1888)", handle: "@themadridzone", followers: "520K+", url: siteConfig.social.instagram },
+  { key: "facebook", name: "FACEBOOK", mark: "f", color: "#1877f2", handle: "Madrid Zone", followers: "50K+", url: siteConfig.social.facebook },
+  { key: "tiktok", name: "TIKTOK", mark: "TT", color: "#010101", handle: "@themadridzone", followers: "95K+", url: siteConfig.social.tiktok },
+  { key: "youtube", name: "YOUTUBE", mark: "YT", color: "#cc0000", handle: "Madrid Zone", followers: "130K+", url: siteConfig.social.youtube },
+];
 
 const defaults: SiteSettings = {
   followerCount: "2.1M",
@@ -25,7 +43,7 @@ const defaults: SiteSettings = {
   editorialEmail: siteConfig.emails.editorial,
   partnersEmail: siteConfig.emails.partners,
   pressEmail: siteConfig.emails.press,
-  socialLinks: siteConfig.social,
+  socialPlatforms: defaultSocialPlatforms,
   newsletterHeading: "THE MZ BRIEFING",
   newsletterBody: "Daily email. Every Madrid story that matters.",
   managerName: "José Mourinho",
@@ -49,13 +67,18 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         editorialEmail: result.editorialEmail ?? defaults.editorialEmail,
         partnersEmail: result.partnersEmail ?? defaults.partnersEmail,
         pressEmail: result.pressEmail ?? defaults.pressEmail,
-        socialLinks: {
-          x: result.socialLinks?.x ?? defaults.socialLinks.x,
-          facebook: result.socialLinks?.facebook ?? defaults.socialLinks.facebook,
-          instagram: result.socialLinks?.instagram ?? defaults.socialLinks.instagram,
-          youtube: result.socialLinks?.youtube ?? defaults.socialLinks.youtube,
-          tiktok: result.socialLinks?.tiktok ?? defaults.socialLinks.tiktok,
-        },
+        socialPlatforms:
+          result.socialPlatforms && result.socialPlatforms.length > 0
+            ? result.socialPlatforms.map((platform, index) => ({
+                key: platform.key ?? defaultSocialPlatforms[index]?.key ?? `platform-${index}`,
+                name: platform.name ?? defaultSocialPlatforms[index]?.name ?? "",
+                mark: platform.mark ?? defaultSocialPlatforms[index]?.mark ?? "",
+                color: platform.color ?? defaultSocialPlatforms[index]?.color ?? "#565d73",
+                handle: platform.handle ?? defaultSocialPlatforms[index]?.handle ?? "",
+                followers: platform.followers ?? defaultSocialPlatforms[index]?.followers ?? "",
+                url: platform.url ?? defaultSocialPlatforms[index]?.url ?? "#",
+              }))
+            : defaults.socialPlatforms,
         newsletterHeading: result.newsletterHeading ?? defaults.newsletterHeading,
         newsletterBody: result.newsletterBody ?? defaults.newsletterBody,
         managerName: result.managerName ?? defaults.managerName,

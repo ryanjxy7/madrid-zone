@@ -102,7 +102,9 @@ export const legalPageQuery = /* groq */ `
 export const siteSettingsQuery = /* groq */ `
   *[_type == "siteSettings"][0] {
     followerCount, monthlyReach, tickerEnabled, transferWindowClosesText,
-    editorialEmail, partnersEmail, pressEmail, socialLinks, newsletterHeading, newsletterBody, managerName
+    editorialEmail, partnersEmail, pressEmail,
+    socialPlatforms[]{ key, name, mark, color, handle, followers, url },
+    newsletterHeading, newsletterBody, managerName
   }
 `;
 

@@ -62,9 +62,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </Script>
         <ThemeProvider>
           {settings.tickerEnabled ? <Ticker /> : null}
-          <Header />
+          <Header followerCount={settings.followerCount} />
           <main className="flex flex-1 flex-col">{children}</main>
-          <Footer socialLinks={settings.socialLinks} />
+          <Footer socialPlatforms={settings.socialPlatforms} />
           <MobileTabBar />
         </ThemeProvider>
       </body>

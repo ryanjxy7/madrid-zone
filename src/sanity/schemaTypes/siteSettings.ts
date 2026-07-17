@@ -52,16 +52,42 @@ export const siteSettings = defineType({
     defineField({ name: "partnersEmail", title: "Partnerships email", type: "string", group: "contact" }),
     defineField({ name: "pressEmail", title: "Press & legal email", type: "string", group: "contact" }),
     defineField({
-      name: "socialLinks",
-      title: "Social links",
-      type: "object",
+      name: "socialPlatforms",
+      title: "Social platforms",
+      description: "Shown on the Follow page and (name/URL only) in the footer. Add, remove or reorder freely.",
+      type: "array",
       group: "contact",
-      fields: [
-        defineField({ name: "x", title: "X / Twitter", type: "url" }),
-        defineField({ name: "facebook", title: "Facebook", type: "url" }),
-        defineField({ name: "instagram", title: "Instagram", type: "url" }),
-        defineField({ name: "youtube", title: "YouTube", type: "url" }),
-        defineField({ name: "tiktok", title: "TikTok", type: "url" }),
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "key",
+              title: "Platform",
+              type: "string",
+              options: {
+                list: [
+                  { title: "X / Twitter", value: "x" },
+                  { title: "Facebook", value: "facebook" },
+                  { title: "Instagram", value: "instagram" },
+                  { title: "YouTube", value: "youtube" },
+                  { title: "TikTok", value: "tiktok" },
+                  { title: "Other", value: "other" },
+                ],
+              },
+              validation: (rule) => rule.required(),
+            }),
+            defineField({ name: "name", title: "Display name", type: "string", description: "e.g. \"X / TWITTER\"" }),
+            defineField({ name: "mark", title: "Mark / initials", type: "string", description: "Short glyph shown in the icon tile, e.g. \"IG\", \"YT\", \"f\"" }),
+            defineField({ name: "color", title: "Icon tile background", type: "string", description: "Any CSS color or gradient, e.g. \"#1877f2\"" }),
+            defineField({ name: "handle", title: "Handle", type: "string", description: "e.g. \"@themadridzone\"" }),
+            defineField({ name: "followers", title: "Follower count", type: "string", description: "e.g. \"1.8M+\"" }),
+            defineField({ name: "url", title: "Profile URL", type: "url" }),
+          ],
+          preview: {
+            select: { title: "name", subtitle: "followers" },
+          },
+        },
       ],
     }),
     defineField({

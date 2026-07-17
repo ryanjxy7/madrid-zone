@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { SiteSettings } from "@/lib/data/siteSettings";
+import type { SocialPlatform } from "@/lib/data/siteSettings";
 
 const sectionLinks = [
   { label: "News", href: "/" },
@@ -18,13 +18,20 @@ const clubLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export function Footer({ socialLinks }: { socialLinks: SiteSettings["socialLinks"] }) {
+const footerLabels: Record<string, string> = {
+  x: "X / Twitter",
+  facebook: "Facebook",
+  instagram: "Instagram",
+  youtube: "YouTube",
+  tiktok: "TikTok",
+};
+
+export function Footer({ socialPlatforms }: { socialPlatforms: SocialPlatform[] }) {
   const followLinks = [
-    { label: "X / Twitter", href: socialLinks.x },
-    { label: "Facebook", href: socialLinks.facebook },
-    { label: "Instagram", href: socialLinks.instagram },
-    { label: "YouTube", href: socialLinks.youtube },
-    { label: "TikTok", href: socialLinks.tiktok },
+    ...socialPlatforms.map((platform) => ({
+      label: footerLabels[platform.key] ?? platform.name,
+      href: platform.url,
+    })),
     { label: "RSS Feed", href: "/rss.xml", accent: true },
   ];
 

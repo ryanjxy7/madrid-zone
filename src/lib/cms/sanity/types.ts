@@ -109,7 +109,15 @@ export interface SanitySiteSettings {
   editorialEmail?: string;
   partnersEmail?: string;
   pressEmail?: string;
-  socialLinks?: { x?: string; facebook?: string; instagram?: string; youtube?: string; tiktok?: string };
+  socialPlatforms?: {
+    key?: string;
+    name?: string;
+    mark?: string;
+    color?: string;
+    handle?: string;
+    followers?: string;
+    url?: string;
+  }[];
   newsletterHeading?: string;
   newsletterBody?: string;
   managerName?: string;
