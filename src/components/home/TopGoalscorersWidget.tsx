@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getScorers } from "@/lib/data/stats";
@@ -11,8 +12,11 @@ export async function TopGoalscorersWidget() {
       {scorers.map((scorer) => (
         <div key={scorer.rank} className="flex flex-col gap-1.5 border-b border-border-soft py-2.5 last:border-0">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-center gap-2">
               <span className="font-display text-xs font-bold text-muted">{scorer.rank}</span>
+              {scorer.image ? (
+                <Image src={scorer.image} alt="" width={22} height={22} className="h-[22px] w-[22px] flex-none rounded-full border border-border-strong object-cover" />
+              ) : null}
               <span className="font-body text-[13px] font-semibold text-heading">{scorer.name}</span>
             </div>
             <span className="font-display text-sm font-bold text-accent">{scorer.goals}</span>

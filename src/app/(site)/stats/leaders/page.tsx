@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getBestRatedPlayers, getTopAssists, getTopScorers } from "@/lib/football/footballService";
+import { getAssists, getScorers } from "@/lib/data/stats";
+import { getBestRatedPlayers } from "@/lib/football/footballService";
 
 export const metadata: Metadata = {
   title: "La Liga Leaders",
@@ -11,8 +13,8 @@ export const metadata: Metadata = {
 
 export default async function LeadersPage() {
   const [scorers, assists, rated] = await Promise.all([
-    getTopScorers("laLiga"),
-    getTopAssists("laLiga"),
+    getScorers(),
+    getAssists(),
     getBestRatedPlayers("laLiga"),
   ]);
 
@@ -30,6 +32,9 @@ export default async function LeadersPage() {
             scorers.map((scorer) => (
               <div key={scorer.rank} className="flex items-center gap-3 border-b border-border-soft py-2.5 last:border-0">
                 <span className="w-[18px] font-display text-sm font-bold text-muted">{scorer.rank}</span>
+                {scorer.image ? (
+                  <Image src={scorer.image} alt="" width={22} height={22} className="h-[22px] w-[22px] flex-none rounded-full border border-border-strong object-cover" />
+                ) : null}
                 <div className="flex flex-1 flex-col gap-0.5">
                   <span className="font-body text-[13.5px] font-semibold text-heading">{scorer.name}</span>
                   {scorer.team ? <span className="font-body text-[11px] text-muted">{scorer.team}</span> : null}

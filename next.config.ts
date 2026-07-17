@@ -5,11 +5,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       // Sanity-hosted photography (articles, squad, sponsor logos).
       { protocol: "https", hostname: "cdn.sanity.io" },
-      // API-Football player photos (kept for the alternate provider — see src/lib/sports-api).
+      // API-Football player photos (the active provider — see src/lib/sports-api/api-football).
       { protocol: "https", hostname: "media.api-sports.io" },
       // Sofascore player photos (kept for the alternate provider — see src/lib/football/providers/sofascore.ts).
       { protocol: "https", hostname: "api.sofascore.com" },
-      // ESPN player photos (the active provider — see src/lib/football/providers/espn.ts).
+      // ESPN player photos (kept for the alternate provider — see src/lib/football/providers/espn.ts).
       { protocol: "https", hostname: "a.espncdn.com" },
     ],
     // Offline placeholder imagery (see src/lib/utils/images.ts) — zero

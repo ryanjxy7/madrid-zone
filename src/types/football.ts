@@ -93,6 +93,7 @@ export interface ScorerStat {
   goals: number;
   barPercent: number;
   team?: string;
+  image?: string;
 }
 
 export interface AssistStat {

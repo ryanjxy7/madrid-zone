@@ -15,6 +15,8 @@
  * directly.
  */
 
+import { recordRequest } from "@/lib/football/cache/status";
+
 const baseUrl = process.env.API_FOOTBALL_BASE_URL ?? "https://v3.football.api-sports.io";
 const apiKey = process.env.API_FOOTBALL_KEY;
 
@@ -86,12 +88,14 @@ export async function apiFootballFetch<T>(
           console.error(
             `[API-Football] ${path} status=200 time=${elapsedMs}ms result=api-error error=${apiError}${remaining ? ` quotaRemaining=${remaining}` : ""}`
           );
+          recordRequest({ endpoint: path, ok: false, timeMs: elapsedMs, error: `API error: ${apiError}` });
           return null;
         }
 
         console.log(
           `[API-Football] ${path} status=200 time=${elapsedMs}ms results=${json.results ?? "n/a"}${remaining ? ` quotaRemaining=${remaining}` : ""}`
         );
+        recordRequest({ endpoint: path, ok: true, timeMs: elapsedMs, error: null });
         return json.response;
       }
 
@@ -100,10 +104,11 @@ export async function apiFootballFetch<T>(
 
       // Bad key / bad request / not found won't fix itself on retry — fail fast.
       if (res.status < 500 && res.status !== 429) {
+        recordRequest({ endpoint: path, ok: false, timeMs: elapsedMs, error: `HTTP ${res.status}: ${body.slice(0, 200)}` });
         return null;
       }
 
-      lastError = new Error(`API-Football request failed (${res.status})`);
+      lastError = new Error(`API-Football request failed (${res.status}): ${body.slice(0, 200)}`);
     } catch (error) {
       const elapsedMs = Date.now() - startedAt;
       console.error(`[API-Football] ${path} network-error time=${elapsedMs}ms attempt=${attempt + 1}:`, error);
@@ -115,6 +120,8 @@ export async function apiFootballFetch<T>(
     }
   }
 
+  const message = lastError instanceof Error ? lastError.message : String(lastError);
   console.error(`[API-Football] ${path} gave up after ${retries + 1} attempt(s):`, lastError);
+  recordRequest({ endpoint: path, ok: false, timeMs: 0, error: message });
   return null;
 }
