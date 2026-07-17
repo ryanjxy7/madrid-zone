@@ -22,7 +22,11 @@ function linkifyChildren(children: ReactNode, players: PlayerLink[]): ReactNode 
     const segments = linkifyPlayerNames(child, players);
     return segments.map((segment, segmentIndex) =>
       segment.type === "player" ? (
-        <Link key={`${childIndex}-${segmentIndex}`} href={`/players/${segment.slug}`} className="text-accent hover:underline">
+        <Link
+          key={`${childIndex}-${segmentIndex}`}
+          href={`/players/${segment.slug}`}
+          className="font-semibold text-negative underline decoration-negative/40 underline-offset-2 hover:decoration-negative"
+        >
           {segment.text}
         </Link>
       ) : (

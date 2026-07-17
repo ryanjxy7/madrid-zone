@@ -1,4 +1,4 @@
-import { espnProvider as activeProvider } from "../providers/espn";
+import { apiFootballProvider as activeProvider } from "../providers/apiFootball";
 import type { LiveMatchDetail } from "../types/domain";
 
 /** Real Madrid's live match right now, or null if they're not playing. */

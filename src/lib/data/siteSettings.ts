@@ -14,6 +14,7 @@ export interface SiteSettings {
   socialLinks: { x: string; facebook: string; instagram: string; youtube: string; tiktok: string };
   newsletterHeading: string;
   newsletterBody: string;
+  managerName: string;
 }
 
 const defaults: SiteSettings = {
@@ -27,6 +28,7 @@ const defaults: SiteSettings = {
   socialLinks: siteConfig.social,
   newsletterHeading: "THE MZ BRIEFING",
   newsletterBody: "Daily email. Every Madrid story that matters.",
+  managerName: "José Mourinho",
 };
 
 /**
@@ -56,6 +58,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         },
         newsletterHeading: result.newsletterHeading ?? defaults.newsletterHeading,
         newsletterBody: result.newsletterBody ?? defaults.newsletterBody,
+        managerName: result.managerName ?? defaults.managerName,
       };
     }
   }

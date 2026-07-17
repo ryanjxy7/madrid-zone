@@ -3,7 +3,7 @@ import { playerBiosQuery } from "@/lib/cms/sanity/queries";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
 import { getPlayerProfileBySlug as getLivePlayerProfileBySlug, slugifyPlayerName } from "@/lib/football/footballService";
 import type { PlayerProfile } from "@/lib/football/footballService";
-import { getSquad } from "@/lib/data/squad";
+import { getPlayerPhotoOverrides, getSquad } from "@/lib/data/squad";
 import { playerNameAliases, type PlayerLink } from "@/lib/utils/linkifyPlayers";
 
 /**
@@ -45,9 +45,12 @@ export async function getAllPlayerLinks(): Promise<PlayerLink[]> {
  * follows.
  */
 export async function getPlayerProfileBySlug(slug: string): Promise<PlayerProfile | null> {
-  const live = await getLivePlayerProfileBySlug(slug);
-  if (live) return live;
+  const [live, photoOverrides] = await Promise.all([getLivePlayerProfileBySlug(slug), getPlayerPhotoOverrides()]);
+  if (live) {
+    return { ...live, photo: photoOverrides.get(slug) ?? live.photo };
+  }
 
+  // getSquad() already merges in the same photo overrides, so no extra work needed on this branch.
   const groups = await getSquad();
   for (const group of groups) {
     for (const player of group.players) {

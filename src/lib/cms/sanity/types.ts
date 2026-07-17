@@ -112,6 +112,7 @@ export interface SanitySiteSettings {
   socialLinks?: { x?: string; facebook?: string; instagram?: string; youtube?: string; tiktok?: string };
   newsletterHeading?: string;
   newsletterBody?: string;
+  managerName?: string;
 }
 
 export interface SanityAdSlot {

@@ -1,5 +1,5 @@
 import type { Fixture, MatchResult } from "@/types/football";
-import { espnProvider as activeProvider } from "../providers/espn";
+import { apiFootballProvider as activeProvider } from "../providers/apiFootball";
 
 export async function getUpcomingFixtures(count = 5): Promise<Fixture[] | null> {
   return activeProvider.getUpcomingFixtures(count);

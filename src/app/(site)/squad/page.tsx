@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { SquadGroupSection } from "@/components/squad/SquadGroupSection";
+import { Card } from "@/components/ui/Card";
 import { getSquad } from "@/lib/data/squad";
+import { getSiteSettings } from "@/lib/data/siteSettings";
 
 export const metadata: Metadata = {
   title: "First-Team Squad",
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SquadPage() {
-  const squadGroups = await getSquad();
+  const [squadGroups, settings] = await Promise.all([getSquad(), getSiteSettings()]);
 
   return (
     <div className="flex flex-1 flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
@@ -19,6 +21,11 @@ export default async function SquadPage() {
         </h1>
         <p className="font-body text-[13px] text-muted">2026–27 season · profiles, numbers and roles.</p>
       </div>
+
+      <Card className="flex items-center gap-4 p-4 sm:p-[16px_22px]">
+        <span className="font-display text-xs font-bold tracking-[0.14em] text-accent">MANAGER</span>
+        <span className="font-body text-[15px] font-semibold text-heading">{settings.managerName}</span>
+      </Card>
 
       <div className="flex flex-col gap-8">
         {squadGroups.map((group) => (

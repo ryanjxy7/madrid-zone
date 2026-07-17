@@ -1,12 +1,12 @@
 import {
   footballConfig,
   getCacheStatus,
+  getLiveMatch,
   getProviderStatus,
-  getSquad,
-  getStandings,
-  getTeamInfo,
+  getRecentResults,
   getUpcomingFixtures,
 } from "@/lib/football/footballService";
+import { isApiFootballConfigured, REAL_MADRID_TEAM_ID, LALIGA_LEAGUE_ID } from "@/lib/sports-api/api-football";
 
 export const dynamic = "force-dynamic";
 
@@ -19,11 +19,10 @@ export const dynamic = "force-dynamic";
  * /debug/api-football.
  */
 export default async function FootballDebugPage() {
-  const [teamInfo, fixtures, standings, squad] = await Promise.all([
-    getTeamInfo(),
+  const [fixtures, results, liveMatch] = await Promise.all([
     getUpcomingFixtures(1),
-    getStandings("laLiga"),
-    getSquad(),
+    getRecentResults(1),
+    getLiveMatch(),
   ]);
 
   const status = getProviderStatus();
@@ -34,52 +33,43 @@ export default async function FootballDebugPage() {
     <main style={{ maxWidth: 980, margin: "0 auto" }}>
       <h1 style={{ fontSize: 20, marginBottom: 4 }}>/debug/football</h1>
       <p style={{ color: "#9ca3af", marginTop: 0, marginBottom: 24 }}>
-        Active provider: ESPN (unofficial). Like every other option here, it has no key, no documented contract and
-        no SLA — it can change shape or get blocked without notice, though it&apos;s empirically far more tolerant
-        of cloud/datacenter IPs than Sofascore was. This page shows exactly what this server instance has seen,
-        live. See docs/ESPN_GUIDE.md for the full endpoint audit and known gaps.
+        Active provider: API-Football (official, key-based) — reactivated for fixtures, results, and the live match
+        centre only. Squad, team info, player stats, standings and leaderboards are intentionally not wired up yet
+        (a separate data-source decision, still pending) — they return null and fall back to Sanity/placeholder,
+        same as any other unsupported provider method in this app.
       </p>
 
       <Section title="Configuration">
-        <Row label="Provider" value="ESPN (unofficial)" />
-        <Row label="Real Madrid ESPN team ID" value={footballConfig.espn.teamId} />
-        <Row label="La Liga league slug" value={footballConfig.espn.leagues.laLiga} />
-        <Row label="Champions League slug" value={footballConfig.espn.leagues.championsLeague} />
+        <Row label="API key detected" value={isApiFootballConfigured ? "YES" : "NO"} tone={isApiFootballConfigured ? "ok" : "error"} />
+        <Row label="Real Madrid team ID" value={REAL_MADRID_TEAM_ID} />
+        <Row label="La Liga league ID" value={LALIGA_LEAGUE_ID} />
         <Row label="Timezone" value={footballConfig.timezone} />
-        <Row label="API base URL" value={footballConfig.espn.baseUrl} />
-        <Row label="Standings base URL" value={footballConfig.espn.standingsBaseUrl} />
-        <Row label="Request timeout / retries" value={`${footballConfig.espn.timeoutMs}ms / ${footballConfig.espn.retries}`} />
         <Row label="Server time" value={now.toISOString()} />
       </Section>
 
       <Section title="Live requests (run on this page load)">
-        <Row
-          label={`getTeamInfo() → resolves team ${footballConfig.espn.teamId}`}
-          value={teamInfo ? `OK — "${teamInfo.name}"` : "FAILED — see last error below"}
-          tone={teamInfo ? "ok" : "error"}
-        />
         <Row
           label="getUpcomingFixtures(1)"
           value={fixtures && fixtures.length > 0 ? `OK — next: ${fixtures[0].opponent}` : "FAILED — see last error below"}
           tone={fixtures && fixtures.length > 0 ? "ok" : "error"}
         />
         <Row
-          label={`getStandings("laLiga")`}
-          value={standings && standings.length > 0 ? `OK — ${standings.length} row(s)` : "FAILED — see last error below"}
-          tone={standings && standings.length > 0 ? "ok" : "error"}
+          label="getRecentResults(1)"
+          value={results && results.length > 0 ? `OK — ${results[0].match}` : "FAILED — see last error below"}
+          tone={results && results.length > 0 ? "ok" : "error"}
         />
         <Row
-          label="getSquad()"
-          value={squad && squad.length > 0 ? `OK — ${squad.reduce((n, g) => n + g.players.length, 0)} player(s)` : "FAILED — see last error below"}
-          tone={squad && squad.length > 0 ? "ok" : "error"}
+          label="getLiveMatch()"
+          value={liveMatch ? `LIVE — ${liveMatch.home.name} ${liveMatch.home.score} – ${liveMatch.away.score} ${liveMatch.away.name}` : "No match live right now (expected most of the time)"}
         />
       </Section>
 
-      <Section title="Known provider gaps (not bugs — ESPN doesn't reliably expose these for soccer)">
-        <Row label="Player season statistics" value="Not available — falls back to Sanity/placeholder" tone="error" />
-        <Row label="Top scorers leaderboard" value="Not available — falls back to Sanity/placeholder" tone="error" />
-        <Row label="Top assists leaderboard" value="Not available — falls back to Sanity/placeholder" tone="error" />
-        <Row label="Champions League standings" value="Available but format needs live verification (Swiss-model table)" />
+      <Section title="Known gaps (not bugs — deliberately deferred, see conversation history)">
+        <Row label="Team info / manager" value="Not wired — Squad page manager name comes from Sanity/placeholder instead" />
+        <Row label="Squad / player photos" value="Not wired — Squad page uses Sanity/placeholder" />
+        <Row label="Player season statistics" value="Not wired — falls back to Sanity/placeholder" />
+        <Row label="Standings" value="Not wired — falls back to Sanity/placeholder" />
+        <Row label="Top scorers / assists" value="Not wired — falls back to Sanity/placeholder" />
       </Section>
 
       <Section title="Last successful request">

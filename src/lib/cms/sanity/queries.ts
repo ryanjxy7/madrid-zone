@@ -58,6 +58,11 @@ export const playerBiosQuery = /* groq */ `
   *[_type == "player" && defined(bio)] { name, bio }
 `;
 
+/** Editor-uploaded photos, keyed by name — merged over whatever the live data provider returns, everywhere a player appears. */
+export const playerPhotoOverridesQuery = /* groq */ `
+  *[_type == "player" && defined(photo)] { name, "image": photo }
+`;
+
 export const transferDealsQuery = /* groq */ `
   *[_type == "transferDeal"] | order(order asc) {
     "id": _id, player, position, direction, status, fee, latest
@@ -97,7 +102,7 @@ export const legalPageQuery = /* groq */ `
 export const siteSettingsQuery = /* groq */ `
   *[_type == "siteSettings"][0] {
     followerCount, monthlyReach, tickerEnabled, transferWindowClosesText,
-    editorialEmail, partnersEmail, pressEmail, socialLinks, newsletterHeading, newsletterBody
+    editorialEmail, partnersEmail, pressEmail, socialLinks, newsletterHeading, newsletterBody, managerName
   }
 `;
 

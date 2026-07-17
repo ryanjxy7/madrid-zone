@@ -41,6 +41,13 @@ export const siteSettings = defineType({
       description: "Shown on the Transfer Centre page, e.g. \"53 days\".",
       group: "general",
     }),
+    defineField({
+      name: "managerName",
+      title: "First-team manager",
+      type: "string",
+      description: "Shown on the Squad page.",
+      group: "general",
+    }),
     defineField({ name: "editorialEmail", title: "Editorial & tips email", type: "string", group: "contact" }),
     defineField({ name: "partnersEmail", title: "Partnerships email", type: "string", group: "contact" }),
     defineField({ name: "pressEmail", title: "Press & legal email", type: "string", group: "contact" }),
