@@ -35,10 +35,10 @@ export const siteSettings = defineType({
       group: "general",
     }),
     defineField({
-      name: "transferWindowClosesText",
-      title: "Transfer window countdown text",
-      type: "string",
-      description: "Shown on the Transfer Centre page, e.g. \"53 days\".",
+      name: "transferWindowClosesDate",
+      title: "Transfer window closing date",
+      type: "date",
+      description: "The Transfer Centre page's \"Window closes in\" countdown is calculated from this automatically — no need to update the day count by hand.",
       group: "general",
     }),
     defineField({

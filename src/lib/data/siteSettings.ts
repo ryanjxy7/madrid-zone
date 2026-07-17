@@ -35,11 +35,27 @@ const defaultSocialPlatforms: SocialPlatform[] = [
   { key: "youtube", name: "YOUTUBE", mark: "YT", color: "#cc0000", handle: "Madrid Zone", followers: "130K+", url: siteConfig.social.youtube },
 ];
 
-const defaults: SiteSettings = {
+const DEFAULT_TRANSFER_WINDOW_CLOSES_DATE = "2026-09-01";
+
+/** Days remaining until `closesDate` (YYYY-MM-DD), formatted for the Transfer Centre countdown — recomputed on every request, so it advances on its own with no editorial upkeep. */
+function formatWindowCountdown(closesDate: string): string {
+  const msPerDay = 24 * 60 * 60 * 1000;
+  const today = new Date();
+  const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  const closes = new Date(closesDate);
+  const closesUtc = Date.UTC(closes.getUTCFullYear(), closes.getUTCMonth(), closes.getUTCDate());
+  const daysRemaining = Math.round((closesUtc - todayUtc) / msPerDay);
+
+  if (daysRemaining < 0) return "Closed";
+  if (daysRemaining === 0) return "Today";
+  if (daysRemaining === 1) return "1 day";
+  return `${daysRemaining} days`;
+}
+
+const defaults: Omit<SiteSettings, "transferWindowClosesText"> = {
   followerCount: "2.1M",
   monthlyReach: "40M+",
   tickerEnabled: true,
-  transferWindowClosesText: "53 days",
   editorialEmail: siteConfig.emails.editorial,
   partnersEmail: siteConfig.emails.partners,
   pressEmail: siteConfig.emails.press,
@@ -63,7 +79,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         followerCount: result.followerCount ?? defaults.followerCount,
         monthlyReach: result.monthlyReach ?? defaults.monthlyReach,
         tickerEnabled: result.tickerEnabled ?? defaults.tickerEnabled,
-        transferWindowClosesText: result.transferWindowClosesText ?? defaults.transferWindowClosesText,
+        transferWindowClosesText: formatWindowCountdown(result.transferWindowClosesDate ?? DEFAULT_TRANSFER_WINDOW_CLOSES_DATE),
         editorialEmail: result.editorialEmail ?? defaults.editorialEmail,
         partnersEmail: result.partnersEmail ?? defaults.partnersEmail,
         pressEmail: result.pressEmail ?? defaults.pressEmail,
@@ -85,5 +101,5 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       };
     }
   }
-  return defaults;
+  return { ...defaults, transferWindowClosesText: formatWindowCountdown(DEFAULT_TRANSFER_WINDOW_CLOSES_DATE) };
 }

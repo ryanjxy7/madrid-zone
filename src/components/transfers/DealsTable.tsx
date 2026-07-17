@@ -1,12 +1,42 @@
 import { directionClasses, statusClasses } from "@/lib/utils/transferStyles";
 import type { TransferDeal } from "@/types/football";
 
+/** Real Madrid's badge is always red "RMA"; the other club's badge is gray with an editor-set short code (defaults to "CLB" for an unnamed club). Order flips so the arrow always reads left-to-right as "where the player is coming from → going to". */
+function dealBadges(deal: TransferDeal): { left: string; right: string } {
+  const rma = "RMA";
+  const counterpart = deal.counterpartMark ?? "CLB";
+  return deal.direction === "OUT" ? { left: rma, right: counterpart } : { left: counterpart, right: rma };
+}
+
+function ClubBadge({ mark, isMadrid }: { mark: string; isMadrid: boolean }) {
+  return (
+    <span
+      className={`flex h-6 w-6 flex-none items-center justify-center rounded-full font-display text-[9px] font-bold text-white ${
+        isMadrid ? "bg-brand" : "bg-[#565d73]"
+      }`}
+    >
+      {mark}
+    </span>
+  );
+}
+
+function DirectionBadges({ deal }: { deal: TransferDeal }) {
+  const { left, right } = dealBadges(deal);
+  return (
+    <div className="flex flex-none items-center gap-1.5">
+      <ClubBadge mark={left} isMadrid={left === "RMA"} />
+      <span className={`font-display text-sm font-bold ${directionClasses(deal.direction)}`}>→</span>
+      <ClubBadge mark={right} isMadrid={right === "RMA"} />
+    </div>
+  );
+}
+
 export function DealsTable({ deals }: { deals: TransferDeal[] }) {
   return (
     <div className="overflow-hidden rounded-md border border-border bg-card">
       <div className="hidden grid-cols-[2fr_1fr_1.2fr_1fr_2.4fr] gap-3 border-b border-border-strong px-[22px] py-3 font-display text-[11px] font-bold tracking-[0.12em] text-muted md:grid">
         <span>PLAYER / POSITION</span>
-        <span>DIRECTION</span>
+        <span>CLUBS</span>
         <span>STATUS</span>
         <span>FEE</span>
         <span>LATEST</span>
@@ -20,7 +50,7 @@ export function DealsTable({ deals }: { deals: TransferDeal[] }) {
               <span className="font-body text-[14.5px] font-semibold text-heading">{deal.player}</span>
               <span className="font-body text-[11px] font-medium text-muted">{deal.position}</span>
             </div>
-            <span className={`font-body text-xs font-semibold ${directionClasses(deal.direction)}`}>{deal.direction}</span>
+            <DirectionBadges deal={deal} />
             <span>
               <span className={`inline-block rounded-[3px] px-2.5 py-1 font-display text-[10px] font-bold tracking-[0.08em] ${statusClasses(deal.status)}`}>
                 {deal.status}
@@ -31,17 +61,19 @@ export function DealsTable({ deals }: { deals: TransferDeal[] }) {
           </div>
 
           {/* Mobile card */}
-          <div className="flex flex-col gap-1.5 border-b border-border-soft p-4 last:border-0 md:hidden">
+          <div className="flex flex-col gap-2 border-b border-border-soft p-4 last:border-0 md:hidden">
             <div className="flex items-center justify-between gap-2">
               <span className="font-body text-[14.5px] font-semibold text-heading">{deal.player}</span>
+              <DirectionBadges deal={deal} />
+            </div>
+            <div className="flex items-center justify-between gap-2">
               <span className={`flex-none rounded-[3px] px-2 py-1 font-display text-[9.5px] font-bold tracking-[0.08em] ${statusClasses(deal.status)}`}>
                 {deal.status}
               </span>
-            </div>
-            <div className="flex gap-2.5 font-body text-[11px] font-medium text-muted">
-              <span className={`font-bold ${directionClasses(deal.direction)}`}>{deal.direction}</span>
-              <span>{deal.position}</span>
-              <span>{deal.fee}</span>
+              <div className="flex gap-2.5 font-body text-[11px] font-medium text-muted">
+                <span>{deal.position}</span>
+                <span>{deal.fee}</span>
+              </div>
             </div>
             <p className="font-body text-[12.5px] leading-snug text-subtle">{deal.latest}</p>
           </div>

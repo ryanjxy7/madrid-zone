@@ -59,6 +59,13 @@ export const transferDeal = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "counterpartMark",
+      title: "Other club's badge text",
+      type: "string",
+      description: "Short code shown in the badge for the other side of the deal, e.g. \"PL\" (Premier League club), \"FA\" (free agent), \"CLB\" (unnamed club). Real Madrid's own badge always reads \"RMA\" automatically.",
+      initialValue: "CLB",
+    }),
+    defineField({
       name: "latest",
       title: "Latest update",
       type: "text",

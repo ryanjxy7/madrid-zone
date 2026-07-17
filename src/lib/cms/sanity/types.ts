@@ -49,6 +49,7 @@ export interface SanityTransferDeal {
   status: TransferStatus;
   fee: string;
   latest: string;
+  counterpartMark?: string;
 }
 
 export interface SanityRumour {
@@ -105,7 +106,7 @@ export interface SanitySiteSettings {
   followerCount?: string;
   monthlyReach?: string;
   tickerEnabled?: boolean;
-  transferWindowClosesText?: string;
+  transferWindowClosesDate?: string;
   editorialEmail?: string;
   partnersEmail?: string;
   pressEmail?: string;
