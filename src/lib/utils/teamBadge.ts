@@ -1,5 +1,16 @@
 /** Decorative circular-badge helpers for match/standings rows — not real crest data, just short codes derived from team names. */
 
+/**
+ * `Fixture.opponent` is meant to be just the opponent's name ("Barcelona"),
+ * but older/free-text Sanity content or a provider that hasn't been
+ * updated might still send "Real Madrid vs Barcelona" or "vs Barcelona" —
+ * strip either shape so every display site can trust it gets a bare name
+ * back, regardless of where the data came from.
+ */
+export function opponentName(opponent: string): string {
+  return opponent.replace(/^Real Madrid vs\s+/i, "").replace(/\s+vs Real Madrid$/i, "").replace(/^vs\s+/i, "");
+}
+
 /** "Opponent A" -> "OPA". Used for the small grey badge next to a fixture/result. */
 export function deriveTeamBadge(name: string): string {
   const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase();

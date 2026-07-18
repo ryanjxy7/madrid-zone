@@ -11,10 +11,10 @@ export const placeholderNextMatch: Fixture = {
 };
 
 export const placeholderUpcoming: Fixture[] = [
-  { id: "up-1", opponent: "Real Madrid vs Opponent A", competition: "US Tour · Chicago", date: "Jul 26" },
-  { id: "up-2", opponent: "Real Madrid vs Opponent B", competition: "US Tour · Miami", date: "Jul 30" },
-  { id: "up-3", opponent: "Real Madrid vs Opponent C", competition: "US Tour · New York", date: "Aug 3" },
-  { id: "up-4", opponent: "LaLiga Matchday 1", competition: "Opponent TBC · Bernabéu", date: "Aug 16" },
+  { id: "up-1", opponent: "Opponent A", competition: "US Tour · Chicago", date: "Jul 26" },
+  { id: "up-2", opponent: "Opponent B", competition: "US Tour · Miami", date: "Jul 30" },
+  { id: "up-3", opponent: "Opponent C", competition: "US Tour · New York", date: "Aug 3" },
+  { id: "up-4", opponent: "TBC", competition: "LaLiga Matchday 1 · Bernabéu", date: "Aug 16" },
 ];
 
 export const placeholderResults: MatchResult[] = [

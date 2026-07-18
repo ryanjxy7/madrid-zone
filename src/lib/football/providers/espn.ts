@@ -109,7 +109,7 @@ function mapFixture(event: EspnEvent, competitionName: string): Fixture | null {
 
   return {
     id: event.id,
-    opponent: weAreHome ? `Real Madrid vs ${opponent}` : `${opponent} vs Real Madrid`,
+    opponent,
     competition: competitionName,
     date: formatDate(iso),
     kickOff: formatKickOff(iso),

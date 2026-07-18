@@ -86,7 +86,7 @@ function mapFixture(event: SofascoreEvent): Fixture {
   const opponent = isRealMadrid(event.homeTeam) ? event.awayTeam.name : event.homeTeam.name;
   return {
     id: String(event.id),
-    opponent: isRealMadrid(event.homeTeam) ? `Real Madrid vs ${opponent}` : `${opponent} vs Real Madrid`,
+    opponent,
     competition: event.tournament?.name ?? event.tournament?.uniqueTournament?.name ?? "Unknown competition",
     date: formatDate(event.startTimestamp),
     kickOff: formatKickOff(event.startTimestamp),

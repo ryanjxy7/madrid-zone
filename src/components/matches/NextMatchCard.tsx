@@ -1,3 +1,4 @@
+import { opponentName } from "@/lib/utils/teamBadge";
 import type { Fixture } from "@/types/football";
 
 export function NextMatchCard({ fixture }: { fixture: Fixture }) {
@@ -14,7 +15,7 @@ export function NextMatchCard({ fixture }: { fixture: Fixture }) {
       <div className="flex items-center justify-around gap-4">
         <TeamBadge label="RMA" name="Real Madrid" tone="brand" />
         <span className="font-display text-xl font-bold text-muted sm:text-[26px]">VS</span>
-        <TeamBadge label="OPP" name={fixture.opponent} tone="neutral" />
+        <TeamBadge label="OPP" name={opponentName(fixture.opponent)} tone="neutral" />
       </div>
       {fixture.venue ? (
         <p className="text-center font-body text-xs text-muted">{fixture.venue}</p>

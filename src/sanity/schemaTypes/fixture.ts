@@ -9,9 +9,9 @@ export const fixture = defineType({
   fields: [
     defineField({
       name: "opponent",
-      title: "Fixture",
+      title: "Opponent",
       type: "string",
-      description: "e.g. \"vs Opponent A\" or \"Real Madrid vs Opponent A\"",
+      description: "Just the opponent's name, e.g. \"Barcelona\" — the site adds \"vs\" and the Real Madrid badge wherever it's needed.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({ name: "competition", title: "Competition", type: "string", validation: (Rule) => Rule.required() }),

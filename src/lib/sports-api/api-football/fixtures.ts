@@ -39,10 +39,7 @@ export async function fetchUpcomingFixtures(count = 5): Promise<Fixture[] | null
 
   return upcoming.map((f) => ({
     id: String(f.fixture.id),
-    opponent:
-      f.teams.home.id.toString() === REAL_MADRID_TEAM_ID
-        ? `Real Madrid vs ${f.teams.away.name}`
-        : `${f.teams.home.name} vs Real Madrid`,
+    opponent: f.teams.home.id.toString() === REAL_MADRID_TEAM_ID ? f.teams.away.name : f.teams.home.name,
     competition: f.league.name,
     date: formatFixtureDate(f.fixture.date),
     venue: f.fixture.venue.name ?? undefined,
