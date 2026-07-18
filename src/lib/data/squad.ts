@@ -8,14 +8,18 @@ import { normalizedPhotoUrl } from "@/lib/utils/images";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
 
 /**
- * A photo override, always normalised to a white backdrop. `circleUrl` is
- * a pre-cropped 3:4 portrait (safe for the small, roughly-square photo
- * circles used in scorer/assist/stat-leader rows and the player profile
- * page); `avatarUrl` is the same source with no forced crop at all, for
- * Squad cards, which do their own CSS crop driven by `focus` — see
- * PlayerCard.tsx. Baking a fixed crop AND letting CSS crop again (to a
- * differently-shaped container) is what caused photos to get cut off
- * there, so avatar consumers get exactly one crop, not two.
+ * A photo override, always normalised to a clean backdrop. `circleUrl` is
+ * a pre-cropped 3:4 portrait with an opaque white background baked in
+ * (safe for the small, roughly-square photo circles used in
+ * scorer/assist/stat-leader rows and the player profile page); `avatarUrl`
+ * is the same source with no forced crop at all, and its flat background
+ * keyed to *transparent* rather than opaque white, for Squad cards — which
+ * do their own CSS crop driven by `focus` (see PlayerCard.tsx) and render
+ * the photo over a big number watermark that's meant to show through the
+ * cutout's negative space, with the card's own white backdrop behind that.
+ * Baking a fixed crop AND letting CSS crop again (to a differently-shaped
+ * container) is what caused photos to get cut off there, so avatar
+ * consumers get exactly one crop, not two.
  */
 export interface PhotoOverride {
   circleUrl: string;
@@ -37,7 +41,7 @@ function mapPlayer(doc: SanityPlayer): Player {
     name: doc.name,
     role: doc.role,
     position: doc.position,
-    image: normalizedPhotoUrl(avatarSourceImageUrl(doc.image)),
+    image: normalizedPhotoUrl(avatarSourceImageUrl(doc.image), "transparent"),
     imageFocus: doc.image?.hotspot,
     nationality: doc.nationality,
   };
@@ -70,7 +74,7 @@ export async function getPlayerPhotoOverrides(): Promise<Map<string, PhotoOverri
   for (const player of players) {
     const entry: PhotoOverride = {
       circleUrl: normalizedPhotoUrl(portraitImageUrl(player.image)),
-      avatarUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image)),
+      avatarUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image), "transparent"),
       focus: player.image?.hotspot,
     };
     for (const alias of playerNameSlugAliases(player.name)) {

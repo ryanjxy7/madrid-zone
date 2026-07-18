@@ -27,11 +27,19 @@ export function isNormalizablePhotoHost(url: string): boolean {
 
 /**
  * Routes a real uploaded photo through /api/photo/normalize, which forces
- * a clean white backdrop behind the subject — see normalizeBackground.ts.
- * Never applied to placeholderImage() URLs (those are deliberate dark
- * site-themed art, not a photo with a background to normalise).
+ * a clean, consistent backdrop behind the subject — see
+ * normalizeBackground.ts. Never applied to placeholderImage() URLs (those
+ * are deliberate dark site-themed art, not a photo with a background to
+ * normalise).
+ *
+ * `mode: "transparent"` keys the background out to alpha 0 instead of
+ * baking an opaque white fill — for photos that sit over another design
+ * element meant to show through (the Squad card's number watermark).
+ * Defaults to "white" (opaque) for every other use — small photo circles
+ * with nothing behind them to reveal.
  */
-export function normalizedPhotoUrl(url: string): string {
+export function normalizedPhotoUrl(url: string, mode: "white" | "transparent" = "white"): string {
   if (!isNormalizablePhotoHost(url)) return url;
-  return `/api/photo/normalize?src=${encodeURIComponent(url)}`;
+  const modeParam = mode === "transparent" ? "&mode=transparent" : "";
+  return `/api/photo/normalize?src=${encodeURIComponent(url)}${modeParam}`;
 }

@@ -31,7 +31,7 @@ export async function ClubBadge({
     return (
       <span
         className={`flex flex-none items-center justify-center overflow-hidden rounded-full bg-white ${className}`}
-        style={{ width: sizePx, height: sizePx }}
+        style={{ width: sizePx, height: sizePx, filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))" }}
       >
         <Image src={entry.logoUrl} alt={name ?? ""} width={sizePx} height={sizePx} className="h-full w-full object-contain p-[12%]" />
       </span>
@@ -46,6 +46,7 @@ export async function ClubBadge({
         height: sizePx,
         background: entry?.color ?? style?.bg ?? fallbackColor ?? "#565d73",
         fontSize: Math.max(6, Math.round(sizePx * 0.3)),
+        filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))",
       }}
     >
       {fallbackMark ?? style?.badge ?? "?"}

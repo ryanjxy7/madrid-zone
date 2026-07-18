@@ -1,24 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { isNormalizablePhotoHost } from "@/lib/utils/images";
-import { normalizeToWhiteBackground } from "@/lib/utils/normalizeBackground";
+import { normalizeBackground } from "@/lib/utils/normalizeBackground";
 
 export const runtime = "nodejs";
 
 /**
- * Fetches a real uploaded player photo and forces a clean white backdrop
- * behind the subject (see normalizeBackground.ts) — used instead of the
- * raw CMS URL wherever a player/transfer photo renders, so a PNG with a
- * transparent, black, or off-white background always reads consistently
- * against the site's card chrome in both themes. `src` is restricted to
- * the same hosts next.config.ts already trusts for images, so this can't
- * be used as an open proxy for arbitrary URLs.
+ * Fetches a real uploaded player photo and forces a clean, consistent
+ * backdrop behind the subject (see normalizeBackground.ts) — used instead
+ * of the raw CMS URL wherever a player/transfer photo renders, so a PNG
+ * with a transparent, black, or off-white background always reads
+ * consistently against the site's card chrome in both themes. `src` is
+ * restricted to the same hosts next.config.ts already trusts for images,
+ * so this can't be used as an open proxy for arbitrary URLs.
+ *
+ * `mode=transparent` keys the background out to alpha 0 instead of baking
+ * an opaque white fill — used by the Squad card, whose photo sits over a
+ * design element (the number watermark) meant to show through the
+ * cutout's negative space.
  */
 export async function GET(request: NextRequest) {
   const src = request.nextUrl.searchParams.get("src");
   if (!src || !isNormalizablePhotoHost(src)) {
     return NextResponse.json({ error: "Invalid or disallowed src" }, { status: 400 });
   }
+  const mode = request.nextUrl.searchParams.get("mode") === "transparent" ? "transparent" : "white";
 
   const upstream = await fetch(src);
   if (!upstream.ok) {
@@ -26,7 +32,7 @@ export async function GET(request: NextRequest) {
   }
 
   const input = Buffer.from(await upstream.arrayBuffer());
-  const output = await normalizeToWhiteBackground(input);
+  const output = await normalizeBackground(input, mode);
 
   return new NextResponse(new Uint8Array(output), {
     headers: {

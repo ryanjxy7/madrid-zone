@@ -10,33 +10,41 @@ export function PlayerCard({ player }: { player: Player }) {
   return (
     <Link
       href={`/players/${slugifyPlayerName(player.name)}`}
-      className="flex flex-col overflow-hidden rounded-lg border border-border border-t-[3px] border-t-brand bg-card shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-negative/55"
+      className="relative flex flex-col overflow-hidden rounded-lg border border-border border-t-[3px] border-t-brand bg-card shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-negative/55"
     >
-      <div className="relative h-[120px] overflow-hidden bg-gradient-to-b from-track to-card sm:h-[170px]">
+      <div className="relative h-[132px] overflow-hidden bg-white sm:h-[185px]">
+        <span className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-[54%] whitespace-nowrap font-display text-[120px] font-extrabold leading-none tracking-[-0.04em] text-[#e9ecf3] sm:text-[170px]">
+          {player.number}
+        </span>
         <Image
           src={player.image}
           alt={player.name}
           fill
           sizes="(min-width: 1024px) 240px, 45vw"
-          className="object-cover grayscale-[15%] contrast-[1.05]"
+          className="z-10 object-cover"
           style={{
-            objectPosition: player.imageFocus ? `${player.imageFocus.x * 100}% ${player.imageFocus.y * 100}%` : "50% 50%",
+            objectPosition: player.imageFocus ? `${player.imageFocus.x * 100}% ${player.imageFocus.y * 100}%` : "50% 0%",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-45% to-card" />
-        <span className="absolute right-[9px] top-[5px] font-display text-[44px] font-bold leading-none text-white/35 [text-shadow:0_2px_8px_rgba(0,0,0,.4)] sm:right-3 sm:top-2 sm:text-[64px] sm:[text-shadow:0_2px_10px_rgba(0,0,0,.4)]">
+      </div>
+      {flagUrl ? (
+        <span className="absolute right-[9px] top-[96px] z-20 h-7 w-7 flex-none overflow-hidden rounded-full border-2 border-brand shadow-md sm:right-3 sm:top-[141px] sm:h-[34px] sm:w-[34px]">
+          <Image src={flagUrl} alt="" width={34} height={34} className="h-full w-full object-cover" />
+        </span>
+      ) : null}
+      <div className="flex items-center gap-2 p-[10px_10px_12px_12px] sm:gap-[11px] sm:p-[13px_14px_15px_16px]">
+        <span className="min-w-6 flex-none text-center font-display text-[22px] font-bold leading-none text-accent sm:min-w-[34px] sm:text-[30px]">
           {player.number}
         </span>
-        {flagUrl ? (
-          <span className="absolute bottom-2.5 right-2.5 h-7 w-7 flex-none overflow-hidden rounded-full border-2 border-brand shadow-md sm:h-[34px] sm:w-[34px]">
-            <Image src={flagUrl} alt="" width={34} height={34} className="h-full w-full object-cover" />
+        <span className="w-px flex-none self-stretch bg-border-strong" />
+        <div className="flex min-w-0 flex-col gap-0.5 sm:gap-[3px]">
+          <span className="truncate font-display text-[12.5px] font-semibold uppercase tracking-[0.01em] text-heading sm:text-base sm:font-bold">
+            {player.name}
           </span>
-        ) : null}
-      </div>
-      <div className="flex flex-col gap-0.5 p-3 pb-3.5 sm:p-4">
-        <span className="font-display text-[10px] font-bold tracking-[0.06em] text-accent sm:text-xs">№ {player.number}</span>
-        <span className="font-display text-[15px] font-bold uppercase tracking-[0.04em] text-heading sm:text-xl">{player.name}</span>
-        <span className="font-body text-[9px] font-semibold uppercase tracking-[0.1em] text-muted sm:text-[10.5px] sm:tracking-[0.12em]">{player.role}</span>
+          <span className="font-body text-[8.5px] font-semibold uppercase tracking-[0.1em] text-muted sm:text-[10px] sm:tracking-[0.14em]">
+            {player.role}
+          </span>
+        </div>
       </div>
     </Link>
   );
