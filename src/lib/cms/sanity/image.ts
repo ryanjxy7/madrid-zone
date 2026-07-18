@@ -23,6 +23,19 @@ export function portraitImageUrl(source: SanityImageSource, width = 600): string
   return urlForImage(source).width(width).height(Math.round((width * 4) / 3)).fit("crop").url();
 }
 
+/**
+ * Unconstrained-aspect, generously-sized source for player photos whose
+ * container's on-screen aspect ratio varies by breakpoint (the Squad
+ * card's photo strip, for one) — deliberately doesn't bake in a fixed
+ * crop the way portraitImageUrl does. The frontend does the one and only
+ * crop itself via CSS object-fit/object-position, driven by the editor's
+ * actual hotspot fraction (see Player.imageFocus), so there's no second,
+ * mismatched crop fighting the first and cutting the subject off.
+ */
+export function avatarSourceImageUrl(source: SanityImageSource, width = 500): string {
+  return urlForImage(source).width(width).fit("max").url();
+}
+
 /** Unconstrained-aspect crop for logos and avatars — no forced crop. */
 export function logoImageUrl(source: SanityImageSource, width = 300): string {
   return urlForImage(source).width(width).fit("max").url();

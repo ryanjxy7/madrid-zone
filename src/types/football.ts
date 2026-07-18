@@ -14,6 +14,8 @@ export interface Player {
   role: string;
   position: PlayerPosition;
   image: string;
+  /** Focal point (0-1 fractions) from the editor's Sanity hotspot — drives the CSS crop on cards whose on-screen aspect ratio varies by breakpoint. Undefined defaults to a plain center crop. */
+  imageFocus?: { x: number; y: number };
   nationality?: string;
 }
 

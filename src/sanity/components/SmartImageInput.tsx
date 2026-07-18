@@ -1,5 +1,5 @@
 import { createImageUrlBuilder } from "@sanity/image-url";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ImageValue, ObjectInputProps } from "sanity";
 import { set } from "sanity";
 import { dataset, projectId } from "@/sanity/env";
@@ -32,35 +32,49 @@ export function SmartImageInput(props: SmartImageInputProps) {
   const [status, setStatus] = useState<"idle" | "detecting" | "done" | "error">("idle");
 
   const assetRef = value?.asset?._ref;
+  const hotspot = value?.hotspot;
+
+  const runAutoDetect = useCallback(
+    (ref: string) => {
+      let cancelled = false;
+      setStatus("detecting");
+      const previewUrl = builder.image(ref).width(1000).url();
+
+      loadImage(previewUrl)
+        .then(detectAutoHotspot)
+        .then((detected) => {
+          if (cancelled) return;
+          onChange(set(detected, ["hotspot"]));
+          setStatus("done");
+        })
+        .catch(() => {
+          if (!cancelled) setStatus("error");
+        });
+
+      return () => {
+        cancelled = true;
+      };
+    },
+    [onChange]
+  );
 
   useEffect(() => {
     const justFinishedUploading = wasUploading.current && !isUploading;
     wasUploading.current = isUploading;
 
-    if (!justFinishedUploading || !assetRef || value?.hotspot) return;
+    // Fires right after a fresh upload, but also self-heals any photo that
+    // somehow ended up with no hotspot at all (uploaded before this shipped,
+    // added outside Studio, etc.) — either way, "no hotspot yet" auto-detects.
+    if (!assetRef || hotspot) return;
+    if (!justFinishedUploading && status !== "idle") return;
 
-    let cancelled = false;
-    setStatus("detecting");
-    const previewUrl = builder.image(assetRef).width(1000).url();
-
-    loadImage(previewUrl)
-      .then(detectAutoHotspot)
-      .then((hotspot) => {
-        if (cancelled) return;
-        onChange(set(hotspot, ["hotspot"]));
-        setStatus("done");
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
-      });
-
-    return () => {
-      cancelled = true;
-    };
+    return runAutoDetect(assetRef);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUploading, assetRef]);
+  }, [isUploading, assetRef, hotspot]);
 
   const previewSource = assetRef ? { ...value, asset: { _ref: assetRef, _type: "reference" as const } } : null;
+  const avatarSrc = previewSource ? builder.image(previewSource).width(240).fit("max").url() : null;
+  const focus = hotspot ? { x: hotspot.x, y: hotspot.y } : { x: 0.5, y: 0.5 };
 
   return (
     <div className="flex flex-col gap-3">
@@ -70,29 +84,44 @@ export function SmartImageInput(props: SmartImageInputProps) {
         <p style={{ font: "600 12px sans-serif", color: "#8b90a0" }}>Auto-framing the photo…</p>
       ) : null}
 
-      {previewSource ? (
-        <div style={{ display: "flex", gap: 20, alignItems: "flex-end", padding: "8px 0" }}>
-          <PreviewFrame
-            label="Circle avatar"
-            src={builder.image(previewSource).width(160).height(160).fit("crop").url()}
-            size={64}
-            round
-          />
-          <PreviewFrame
-            label="Card frame"
-            src={builder.image(previewSource).width(240).height(320).fit("crop").url()}
-            width={90}
-            height={120}
-          />
+      {previewSource && avatarSrc ? (
+        <div style={{ display: "flex", gap: 20, alignItems: "flex-end", padding: "8px 0", flexWrap: "wrap" }}>
+          <PreviewFrame label="Circle avatar" src={avatarSrc} focus={focus} size={64} round />
+          <PreviewFrame label="Card frame" src={avatarSrc} focus={focus} width={140} height={72} />
+          <button
+            type="button"
+            onClick={() => assetRef && runAutoDetect(assetRef)}
+            disabled={status === "detecting"}
+            style={{
+              font: "600 11px sans-serif",
+              color: "#c8102e",
+              background: "transparent",
+              border: "1px solid rgba(200,16,46,.4)",
+              borderRadius: 6,
+              padding: "6px 12px",
+              cursor: status === "detecting" ? "default" : "pointer",
+              alignSelf: "center",
+            }}
+          >
+            Re-detect crop
+          </button>
         </div>
       ) : null}
     </div>
   );
 }
 
+/**
+ * Renders the SAME crop the live site will — an uncropped source image
+ * with CSS object-fit:cover + object-position from the hotspot fraction
+ * (see PlayerCard.tsx) — rather than asking Sanity's image API for a
+ * separately-cropped preview, so what an editor sees here is exactly
+ * what ships, not a close approximation of it.
+ */
 function PreviewFrame({
   label,
   src,
+  focus,
   size,
   width,
   height,
@@ -100,6 +129,7 @@ function PreviewFrame({
 }: {
   label: string;
   src: string;
+  focus: { x: number; y: number };
   size?: number;
   width?: number;
   height?: number;
@@ -109,21 +139,28 @@ function PreviewFrame({
   const h = height ?? size ?? 64;
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt=""
-        width={w}
-        height={h}
+      <div
         style={{
           width: w,
           height: h,
-          objectFit: "cover",
           borderRadius: round ? "50%" : 6,
           border: "1.5px solid rgba(0,0,0,.15)",
-          display: "block",
+          overflow: "hidden",
         }}
-      />
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt=""
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: `${focus.x * 100}% ${focus.y * 100}%`,
+            display: "block",
+          }}
+        />
+      </div>
       <span style={{ font: "600 10.5px sans-serif", color: "#8b90a0", letterSpacing: ".02em" }}>{label}</span>
     </div>
   );

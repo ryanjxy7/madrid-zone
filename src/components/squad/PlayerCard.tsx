@@ -18,7 +18,10 @@ export function PlayerCard({ player }: { player: Player }) {
           alt={player.name}
           fill
           sizes="(min-width: 1024px) 240px, 45vw"
-          className="object-cover object-center grayscale-[15%] contrast-[1.05]"
+          className="object-cover grayscale-[15%] contrast-[1.05]"
+          style={{
+            objectPosition: player.imageFocus ? `${player.imageFocus.x * 100}% ${player.imageFocus.y * 100}%` : "50% 50%",
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent from-45% to-card" />
         <span className="absolute right-[9px] top-[5px] font-display text-[44px] font-bold leading-none text-white/35 [text-shadow:0_2px_8px_rgba(0,0,0,.4)] sm:right-3 sm:top-2 sm:text-[64px] sm:[text-shadow:0_2px_10px_rgba(0,0,0,.4)]">

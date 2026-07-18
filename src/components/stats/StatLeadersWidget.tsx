@@ -6,6 +6,14 @@ import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { StatLeaderCategory } from "@/types/football";
 
+/** Short mobile-only labels so all four tabs fit on one line on narrow screens — desktop keeps the full label (see the sm:hidden/hidden sm:inline split below). */
+const SHORT_LABEL: Record<string, string> = {
+  apps: "APPS",
+  mins: "MINS",
+  keeping: "GK",
+  rating: "RATED",
+};
+
 export function StatLeadersWidget({ categories }: { categories: StatLeaderCategory[] }) {
   const [activeKey, setActiveKey] = useState(categories[0]?.key);
   const active = categories.find((category) => category.key === activeKey) ?? categories[0];
@@ -13,7 +21,7 @@ export function StatLeadersWidget({ categories }: { categories: StatLeaderCatego
   return (
     <Card className="flex flex-col p-4 sm:p-[16px_22px]">
       <SectionHeading title="STAT LEADERS" href="/squad" linkLabel="SEE ALL →" tone="heading" />
-      <div className="flex flex-wrap gap-1.5 pb-1 pt-3">
+      <div className="flex flex-nowrap gap-1 pb-1 pt-3 sm:gap-1.5">
         {categories.map((category) => {
           const isActive = category.key === active?.key;
           return (
@@ -21,13 +29,14 @@ export function StatLeadersWidget({ categories }: { categories: StatLeaderCatego
               key={category.key}
               type="button"
               onClick={() => setActiveKey(category.key)}
-              className={`cursor-pointer whitespace-nowrap rounded-full border px-[11px] py-1.5 font-display text-[10px] font-bold tracking-[0.08em] transition-colors ${
+              className={`flex-1 cursor-pointer whitespace-nowrap rounded-full border px-1.5 py-1.5 font-display text-[9px] font-bold tracking-[0.04em] transition-colors sm:flex-none sm:px-[11px] sm:text-[10px] sm:tracking-[0.08em] ${
                 isActive
                   ? "border-brand bg-brand text-white"
                   : "border-border-strong bg-transparent text-muted hover:border-brand/60"
               }`}
             >
-              {category.label}
+              <span className="sm:hidden">{SHORT_LABEL[category.key] ?? category.label}</span>
+              <span className="hidden sm:inline">{category.label}</span>
             </button>
           );
         })}

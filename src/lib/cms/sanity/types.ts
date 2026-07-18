@@ -2,7 +2,7 @@ import type { SanityImageSource } from "@sanity/image-url";
 import type { ArticleCategory } from "@/types/content";
 import type { PlayerPosition, TransferDirection, TransferStatus } from "@/types/football";
 
-export type SanityImageWithAlt = SanityImageSource & { alt?: string };
+export type SanityImageWithAlt = SanityImageSource & { alt?: string; hotspot?: { x: number; y: number } };
 
 export interface SanityArticle {
   slug: string;

@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     // Offline placeholder imagery (see src/lib/utils/images.ts) — zero
     // external dependency until real content is added in Studio. Also
     // covers /logo.png (public/), the site wordmark used in header/footer.
-    localPatterns: [{ pathname: "/api/placeholder/**" }, { pathname: "/logo.png" }],
+    localPatterns: [{ pathname: "/api/placeholder/**" }, { pathname: "/api/photo/normalize" }, { pathname: "/logo.png" }],
     formats: ["image/avif", "image/webp"],
     // Squad-card flag icons (src/lib/utils/countries.ts) are the only SVGs
     // this app renders through next/image, and they come from one fixed,

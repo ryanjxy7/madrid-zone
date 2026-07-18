@@ -3,7 +3,7 @@ import { isSanityConfigured, portraitImageUrl, sanityFetch } from "@/lib/cms/san
 import { transferDealsQuery, rumoursQuery } from "@/lib/cms/sanity/queries";
 import type { SanityRumour, SanityTransferDeal } from "@/lib/cms/sanity/types";
 import { formatRelativeTime } from "@/lib/utils/format";
-import { placeholderImage } from "@/lib/utils/images";
+import { normalizedPhotoUrl, placeholderImage } from "@/lib/utils/images";
 import type { Rumour, TransferDeal } from "@/types/football";
 
 /**
@@ -18,7 +18,7 @@ export async function getDeals(): Promise<TransferDeal[]> {
     if (result && result.length > 0) {
       return result.map((deal) => ({
         ...deal,
-        photo: deal.photo ? portraitImageUrl(deal.photo, 100) : placeholderImage(deal.id, 100, 100),
+        photo: deal.photo ? normalizedPhotoUrl(portraitImageUrl(deal.photo, 100)) : placeholderImage(deal.id, 100, 100),
       }));
     }
   }

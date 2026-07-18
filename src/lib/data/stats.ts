@@ -12,7 +12,7 @@ import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
 import { getTopAssists as getLiveTopAssists, getTopScorers as getLiveTopScorers } from "@/lib/football/footballService";
-import { findPhotoOverride, getPlayerPhotoOverrides } from "@/lib/data/squad";
+import { findPhotoOverride, getPlayerPhotoOverrides, type PhotoOverride } from "@/lib/data/squad";
 import { placeholderImage } from "@/lib/utils/images";
 import type { AssistStat, HomeStatRow, ScorerStat, StatLeaderCategory, StatLeaderRow, StatTile } from "@/types/football";
 
@@ -40,7 +40,7 @@ export async function getStatTiles(): Promise<StatTile[]> {
  * as the design always shows one. Never conditional: a scorer/assist row
  * with no photo at all doesn't match the design and shouldn't happen.
  */
-function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, string>): (T & { image: string })[] {
+function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, PhotoOverride>): (T & { image: string })[] {
   return entries.map((entry) => ({
     ...entry,
     image: findPhotoOverride(entry.name, overrides) ?? entry.image ?? placeholderImage(entry.name, 80, 80),
@@ -99,7 +99,7 @@ function toNumericValue(value: string): number {
 
 function buildLeaderRows(
   entries: { name: string; value: string }[],
-  overrides: Map<string, string>,
+  overrides: Map<string, PhotoOverride>,
   photoNameFor: (name: string) => string = (name) => name
 ): StatLeaderRow[] {
   const max = Math.max(...entries.map((entry) => toNumericValue(entry.value)), 1);

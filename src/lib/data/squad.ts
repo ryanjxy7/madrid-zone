@@ -1,10 +1,27 @@
 import { placeholderSquad } from "@/data/placeholder/squad";
-import { isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
+import { avatarSourceImageUrl, isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
 import { playerPhotoOverridesQuery } from "@/lib/cms/sanity/queries";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
 import { getSquad as getLiveSquad } from "@/lib/football/footballService";
 import { playerNameSlugAliases } from "@/lib/football/slug";
+import { normalizedPhotoUrl } from "@/lib/utils/images";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
+
+/**
+ * A photo override, always normalised to a white backdrop. `circleUrl` is
+ * a pre-cropped 3:4 portrait (safe for the small, roughly-square photo
+ * circles used in scorer/assist/stat-leader rows and the player profile
+ * page); `avatarUrl` is the same source with no forced crop at all, for
+ * Squad cards, which do their own CSS crop driven by `focus` — see
+ * PlayerCard.tsx. Baking a fixed crop AND letting CSS crop again (to a
+ * differently-shaped container) is what caused photos to get cut off
+ * there, so avatar consumers get exactly one crop, not two.
+ */
+export interface PhotoOverride {
+  circleUrl: string;
+  avatarUrl: string;
+  focus?: { x: number; y: number };
+}
 
 const GROUP_ORDER: { position: PlayerPosition; label: string }[] = [
   { position: "Goalkeeper", label: "GOALKEEPERS" },
@@ -20,7 +37,8 @@ function mapPlayer(doc: SanityPlayer): Player {
     name: doc.name,
     role: doc.role,
     position: doc.position,
-    image: portraitImageUrl(doc.image),
+    image: normalizedPhotoUrl(avatarSourceImageUrl(doc.image)),
+    imageFocus: doc.image?.hotspot,
     nationality: doc.nationality,
   };
 }
@@ -44,36 +62,50 @@ function groupPlayers(players: Player[]): SquadGroup[] {
  * everywhere, regardless of which data source or naming convention
  * supplied the rest of their info.
  */
-export async function getPlayerPhotoOverrides(): Promise<Map<string, string>> {
+export async function getPlayerPhotoOverrides(): Promise<Map<string, PhotoOverride>> {
   if (!isSanityConfigured) return new Map();
   const players = await sanityFetch<Pick<SanityPlayer, "name" | "image">[]>(playerPhotoOverridesQuery);
   if (!players || players.length === 0) return new Map();
-  const overrides = new Map<string, string>();
+  const overrides = new Map<string, PhotoOverride>();
   for (const player of players) {
-    const url = portraitImageUrl(player.image);
+    const entry: PhotoOverride = {
+      circleUrl: normalizedPhotoUrl(portraitImageUrl(player.image)),
+      avatarUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image)),
+      focus: player.image?.hotspot,
+    };
     for (const alias of playerNameSlugAliases(player.name)) {
-      overrides.set(alias, url);
+      overrides.set(alias, entry);
     }
   }
   return overrides;
 }
 
-/** Looks up a photo override by every slug `name` could plausibly be registered under, so either naming convention matches the other. */
-export function findPhotoOverride(name: string, overrides: Map<string, string>): string | undefined {
+/** Looks up a photo override's pre-cropped circle URL by every slug `name` could plausibly be registered under — for scorer/assist/stat-leader rows and the player profile page. */
+export function findPhotoOverride(name: string, overrides: Map<string, PhotoOverride>): string | undefined {
   for (const alias of playerNameSlugAliases(name)) {
     const match = overrides.get(alias);
-    if (match) return match;
+    if (match) return match.circleUrl;
   }
   return undefined;
 }
 
-function applyPhotoOverrides(groups: SquadGroup[], overrides: Map<string, string>): SquadGroup[] {
+/** Same alias-aware lookup, but the uncropped avatar source + focal point for Squad cards' own CSS crop. */
+export function findPhotoAvatarOverride(name: string, overrides: Map<string, PhotoOverride>): { url: string; focus?: { x: number; y: number } } | undefined {
+  for (const alias of playerNameSlugAliases(name)) {
+    const match = overrides.get(alias);
+    if (match) return { url: match.avatarUrl, focus: match.focus };
+  }
+  return undefined;
+}
+
+function applyPhotoOverrides(groups: SquadGroup[], overrides: Map<string, PhotoOverride>): SquadGroup[] {
   if (overrides.size === 0) return groups;
   return groups.map((group) => ({
     ...group,
     players: group.players.map((player) => {
-      const override = findPhotoOverride(player.name, overrides);
-      return override ? { ...player, image: override } : player;
+      const avatar = findPhotoAvatarOverride(player.name, overrides);
+      if (!avatar) return player;
+      return { ...player, image: avatar.url, imageFocus: avatar.focus ?? player.imageFocus };
     }),
   }));
 }
