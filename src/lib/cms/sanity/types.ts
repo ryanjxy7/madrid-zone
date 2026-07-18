@@ -139,3 +139,10 @@ export interface SanityAdSlot {
   width?: number;
   height?: number;
 }
+
+export interface SanityClub {
+  name: string;
+  shortCode: string;
+  logo?: SanityImageWithAlt;
+  color?: string;
+}

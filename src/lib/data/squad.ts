@@ -2,7 +2,8 @@ import { placeholderSquad } from "@/data/placeholder/squad";
 import { isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
 import { playerPhotoOverridesQuery } from "@/lib/cms/sanity/queries";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
-import { getSquad as getLiveSquad, slugifyPlayerName } from "@/lib/football/footballService";
+import { getSquad as getLiveSquad } from "@/lib/football/footballService";
+import { playerNameSlugAliases } from "@/lib/football/slug";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
 
 const GROUP_ORDER: { position: PlayerPosition; label: string }[] = [
@@ -32,19 +33,38 @@ function groupPlayers(players: Player[]): SquadGroup[] {
 }
 
 /**
- * Editor-uploaded photos, keyed by slug. Merged over whatever the live
- * data provider (or placeholder) returns, everywhere a player appears —
- * squad cards, player profile pages, anywhere else that reads through
- * getSquad() or getPlayerProfileBySlug() (see src/lib/data/players.ts).
- * Upload a photo once against a player's name in Studio and it follows
- * that player everywhere, regardless of which data source supplied the
- * rest of their info.
+ * Editor-uploaded photos, keyed by every slug a player's typed name could
+ * plausibly be matched against — see playerNameSlugAliases. Merged over
+ * whatever the live data provider (or placeholder) returns, everywhere a
+ * player appears — squad cards, player profile pages, scorer/assist
+ * leaderboards, anywhere else that reads through getSquad(),
+ * getPlayerProfileBySlug() or stats.ts. Upload a photo once against a
+ * player's name in Studio — full ("Jude Bellingham") or abbreviated ("J.
+ * Bellingham"), doesn't matter which — and it follows that player
+ * everywhere, regardless of which data source or naming convention
+ * supplied the rest of their info.
  */
 export async function getPlayerPhotoOverrides(): Promise<Map<string, string>> {
   if (!isSanityConfigured) return new Map();
   const players = await sanityFetch<Pick<SanityPlayer, "name" | "image">[]>(playerPhotoOverridesQuery);
   if (!players || players.length === 0) return new Map();
-  return new Map(players.map((player) => [slugifyPlayerName(player.name), portraitImageUrl(player.image)]));
+  const overrides = new Map<string, string>();
+  for (const player of players) {
+    const url = portraitImageUrl(player.image);
+    for (const alias of playerNameSlugAliases(player.name)) {
+      overrides.set(alias, url);
+    }
+  }
+  return overrides;
+}
+
+/** Looks up a photo override by every slug `name` could plausibly be registered under, so either naming convention matches the other. */
+export function findPhotoOverride(name: string, overrides: Map<string, string>): string | undefined {
+  for (const alias of playerNameSlugAliases(name)) {
+    const match = overrides.get(alias);
+    if (match) return match;
+  }
+  return undefined;
 }
 
 function applyPhotoOverrides(groups: SquadGroup[], overrides: Map<string, string>): SquadGroup[] {
@@ -52,7 +72,7 @@ function applyPhotoOverrides(groups: SquadGroup[], overrides: Map<string, string
   return groups.map((group) => ({
     ...group,
     players: group.players.map((player) => {
-      const override = overrides.get(slugifyPlayerName(player.name));
+      const override = findPhotoOverride(player.name, overrides);
       return override ? { ...player, image: override } : player;
     }),
   }));

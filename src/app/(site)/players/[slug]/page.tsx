@@ -8,6 +8,7 @@ import { getArticlesMentioningPlayer } from "@/lib/data/articles";
 import { getPlayerBio, getPlayerProfileBySlug } from "@/lib/data/players";
 import { getPlayerSeasonStats } from "@/lib/football/footballService";
 import { siteConfig } from "@/lib/seo/constants";
+import { countryFlag } from "@/lib/utils/countries";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -68,6 +69,7 @@ export default async function PlayerPage({ params }: Props) {
           </span>
           <h1 className="font-display text-[28px] font-bold tracking-[0.02em] text-heading sm:text-[34px]">{player.name}</h1>
           <p className="font-body text-[13px] text-muted">
+            {countryFlag(player.nationality) ? <span className="mr-1.5">{countryFlag(player.nationality)}</span> : null}
             {player.nationality ?? "Real Madrid"}
             {player.age ? ` · Age ${player.age}` : ""}
           </p>

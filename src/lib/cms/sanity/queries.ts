@@ -112,3 +112,8 @@ export const siteSettingsQuery = /* groq */ `
 export const adSlotQuery = /* groq */ `
   *[_type == "adSlot"][0] { enabled, mode, creative, linkUrl, advertiserName, adNetworkCode, width, height }
 `;
+
+/** Club crests — matched to fixtures/results/standings/transfers by name, see src/lib/data/clubs.ts. */
+export const clubsQuery = /* groq */ `
+  *[_type == "club"] { name, shortCode, logo, color }
+`;

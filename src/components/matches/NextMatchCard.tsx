@@ -1,3 +1,4 @@
+import { ClubBadge } from "@/components/ui/ClubBadge";
 import { opponentName } from "@/lib/utils/teamBadge";
 import type { Fixture } from "@/types/football";
 
@@ -13,9 +14,9 @@ export function NextMatchCard({ fixture }: { fixture: Fixture }) {
         </span>
       </div>
       <div className="flex items-center justify-around gap-4">
-        <TeamBadge label="RMA" name="Real Madrid" tone="brand" />
+        <TeamBadge name="Real Madrid" fallbackMark="RMA" />
         <span className="font-display text-xl font-bold text-muted sm:text-[26px]">VS</span>
-        <TeamBadge label="OPP" name={opponentName(fixture.opponent)} tone="neutral" />
+        <TeamBadge name={opponentName(fixture.opponent)} fallbackMark="OPP" />
       </div>
       {fixture.venue ? (
         <p className="text-center font-body text-xs text-muted">{fixture.venue}</p>
@@ -24,16 +25,10 @@ export function NextMatchCard({ fixture }: { fixture: Fixture }) {
   );
 }
 
-function TeamBadge({ label, name, tone }: { label: string; name: string; tone: "brand" | "neutral" }) {
+function TeamBadge({ name, fallbackMark }: { name: string; fallbackMark: string }) {
   return (
     <div className="flex flex-col items-center gap-2">
-      <div
-        className={`flex h-14 w-14 items-center justify-center rounded-full font-display text-[15px] font-bold tracking-[0.04em] text-white ${
-          tone === "brand" ? "bg-brand" : "bg-[#565d73]"
-        }`}
-      >
-        {label}
-      </div>
+      <ClubBadge name={name} sizePx={56} fallbackMark={fallbackMark} className="tracking-[0.04em]" />
       <span className="font-body text-[15px] font-semibold text-heading">{name}</span>
     </div>
   );

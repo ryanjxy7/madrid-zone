@@ -11,6 +11,23 @@ export function opponentName(opponent: string): string {
   return opponent.replace(/^Real Madrid vs\s+/i, "").replace(/\s+vs Real Madrid$/i, "").replace(/^vs\s+/i, "");
 }
 
+/**
+ * `MatchResult.match` is always a full scoreline sentence — "Real Madrid
+ * 3–1 Barcelona" or "Barcelona 1–1 Real Madrid" — with no separate
+ * opponent field. Strips the score and whichever side is "Real Madrid" to
+ * recover just the opponent's name, so results can show a real club badge
+ * instead of a generic "OPP" placeholder.
+ */
+export function extractOpponentFromResult(match: string): string {
+  const [teamA, teamB] = match
+    .replace(/\d+\s*[–—-]\s*\d+/, "|")
+    .split("|")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (!teamA) return "Opponent";
+  return teamA.toLowerCase() === "real madrid" ? (teamB ?? "Opponent") : teamA;
+}
+
 /** "Opponent A" -> "OPA". Used for the small grey badge next to a fixture/result. */
 export function deriveTeamBadge(name: string): string {
   const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase();

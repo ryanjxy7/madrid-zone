@@ -25,7 +25,8 @@ export const sponsor = defineType({
       name: "logo",
       title: "Logo",
       type: "image",
-      description: "Optional. If left empty, the sponsor name is styled as a text logo instead.",
+      options: { hotspot: true },
+      description: "Optional. Shown inside a wide rectangular tile — a horizontal logo with breathing room crops best. If left empty, the sponsor name is styled as a text logo instead.",
     }),
     defineField({
       name: "website",

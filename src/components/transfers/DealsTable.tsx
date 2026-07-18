@@ -1,33 +1,23 @@
 import Image from "next/image";
+import { ClubBadge } from "@/components/ui/ClubBadge";
 import { directionClasses, statusClasses } from "@/lib/utils/transferStyles";
 import type { TransferDeal } from "@/types/football";
 
-/** Real Madrid's badge is always red "RMA"; the other club's badge is gray with an editor-set short code (defaults to "CLB" for an unnamed club). Order flips so the arrow always reads left-to-right as "where the player is coming from → going to". */
-function dealBadges(deal: TransferDeal): { left: string; right: string } {
-  const rma = "RMA";
-  const counterpart = deal.counterpartMark ?? "CLB";
-  return deal.direction === "OUT" ? { left: rma, right: counterpart } : { left: counterpart, right: rma };
-}
-
-function ClubBadge({ mark, isMadrid }: { mark: string; isMadrid: boolean }) {
-  return (
-    <span
-      className={`flex h-[26px] w-[26px] flex-none items-center justify-center rounded-full font-display text-[7.5px] font-bold text-white ${
-        isMadrid ? "bg-brand" : "bg-[#565d73]"
-      }`}
-    >
-      {mark}
-    </span>
-  );
+/** Real Madrid's badge always looks up the real "Real Madrid" club entry (its own crest if uploaded, red "RMA" otherwise); the other club's badge is a generic gray mark since counterpartMark is an editor-set short code ("FA"/"CLB"/"PL"/"LOAN"), not a real club name to look up. Order flips so the arrow always reads left-to-right as "where the player is coming from → going to". */
+function dealSides(deal: TransferDeal): { leftIsMadrid: boolean; counterpartMark: string } {
+  const counterpartMark = deal.counterpartMark ?? "CLB";
+  return { leftIsMadrid: deal.direction === "OUT", counterpartMark };
 }
 
 function DirectionBadges({ deal }: { deal: TransferDeal }) {
-  const { left, right } = dealBadges(deal);
+  const { leftIsMadrid, counterpartMark } = dealSides(deal);
+  const madridBadge = <ClubBadge name="Real Madrid" sizePx={26} fallbackMark="RMA" />;
+  const counterpartBadge = <ClubBadge sizePx={26} fallbackMark={counterpartMark} fallbackColor="#565d73" />;
   return (
     <div className="flex flex-none items-center gap-2">
-      <ClubBadge mark={left} isMadrid={left === "RMA"} />
+      {leftIsMadrid ? madridBadge : counterpartBadge}
       <span className={`font-display text-sm font-bold ${directionClasses(deal.direction)}`}>→</span>
-      <ClubBadge mark={right} isMadrid={right === "RMA"} />
+      {leftIsMadrid ? counterpartBadge : madridBadge}
     </div>
   );
 }

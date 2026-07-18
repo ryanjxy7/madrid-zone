@@ -9,8 +9,7 @@ import { isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { seasonStatsQuery } from "@/lib/cms/sanity/queries";
 import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
 import { getTopAssists as getLiveTopAssists, getTopScorers as getLiveTopScorers } from "@/lib/football/footballService";
-import { getPlayerPhotoOverrides } from "@/lib/data/squad";
-import { slugifyPlayerName } from "@/lib/football/footballService";
+import { findPhotoOverride, getPlayerPhotoOverrides } from "@/lib/data/squad";
 import { placeholderImage } from "@/lib/utils/images";
 import type { AssistStat, GoalkeepingStat, HomeStatRow, ScorerStat, StatTile } from "@/types/football";
 
@@ -41,7 +40,7 @@ export async function getStatTiles(): Promise<StatTile[]> {
 function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, string>): (T & { image: string })[] {
   return entries.map((entry) => ({
     ...entry,
-    image: overrides.get(slugifyPlayerName(entry.name)) ?? entry.image ?? placeholderImage(entry.name, 80, 80),
+    image: findPhotoOverride(entry.name, overrides) ?? entry.image ?? placeholderImage(entry.name, 80, 80),
   }));
 }
 

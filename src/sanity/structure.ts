@@ -21,6 +21,7 @@ export const structure: StructureResolver = (S) =>
       S.listItem().title("✍️ Authors").child(S.documentTypeList("author").title("Authors")),
       S.divider(),
       S.listItem().title("⚽ Squad").child(S.documentTypeList("player").title("Squad")),
+      S.listItem().title("🏟️ Clubs").child(S.documentTypeList("club").title("Clubs")),
       S.divider(),
       S.listItem()
         .title("🔄 Transfer Centre")

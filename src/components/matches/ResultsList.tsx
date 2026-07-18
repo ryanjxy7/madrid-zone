@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/Card";
+import { ClubBadge } from "@/components/ui/ClubBadge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { extractOpponentFromResult } from "@/lib/utils/teamBadge";
 import type { MatchResult, MatchResultOutcome } from "@/types/football";
 
 const outcomeClasses: Record<MatchResultOutcome, string> = {
@@ -16,10 +18,8 @@ export function ResultsList({ results }: { results: MatchResult[] }) {
         <div key={result.id} className="flex items-center justify-between gap-2 border-b border-border-soft py-3 last:border-0">
           <div className="flex items-center gap-2.5">
             <div className="flex flex-none">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-brand font-display text-[7.5px] font-bold text-white">RMA</div>
-              <div className="-ml-1.5 flex h-6 w-6 items-center justify-center rounded-full border-2 border-card bg-[#565d73] font-display text-[7.5px] font-bold text-white">
-                OPP
-              </div>
+              <ClubBadge name="Real Madrid" sizePx={24} fallbackMark="RMA" />
+              <ClubBadge name={extractOpponentFromResult(result.match)} sizePx={24} className="-ml-1.5 border-2 border-card" />
             </div>
             <div className="flex flex-col gap-0.5">
               <span className="font-body text-sm font-semibold text-heading">{result.match}</span>

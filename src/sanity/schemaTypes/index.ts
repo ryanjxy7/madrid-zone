@@ -2,6 +2,7 @@ import type { SchemaTypeDefinition } from "sanity";
 import { adSlot } from "./adSlot";
 import { article } from "./article";
 import { author } from "./author";
+import { club } from "./club";
 import { fixture } from "./fixture";
 import { leagueTable } from "./leagueTable";
 import { legalPage } from "./legalPage";
@@ -18,6 +19,7 @@ import { wireItem } from "./wireItem";
 export const schemaTypes: SchemaTypeDefinition[] = [
   article,
   author,
+  club,
   player,
   transferDeal,
   rumour,

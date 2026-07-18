@@ -1,5 +1,6 @@
 import { UsersIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
+import { COUNTRIES } from "@/lib/utils/countries";
 
 export const player = defineType({
   name: "player",
@@ -44,7 +45,15 @@ export const player = defineType({
       description: "Portrait photo — crop to frame the player's face and torso.",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: "nationality", title: "Nationality", type: "string" }),
+    defineField({
+      name: "nationality",
+      title: "Nationality",
+      type: "string",
+      description: "Pick from the list — this exact name is what shows the matching flag on the player's page.",
+      options: {
+        list: COUNTRIES.map((country) => ({ title: country.name, value: country.name })),
+      },
+    }),
     defineField({
       name: "bio",
       title: "Editorial bio",
