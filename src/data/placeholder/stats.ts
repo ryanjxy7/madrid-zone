@@ -28,6 +28,31 @@ export const placeholderGoalkeeping: GoalkeepingStat[] = [
   { label: "Save percentage", value: "78%" },
 ];
 
+/** Raw name/value pairs for the Stat Leaders widget's tabs — rank, bar %, and photo are computed in lib/data/stats.ts. */
+export const placeholderAppearancesLeaders: { name: string; value: string }[] = [
+  { name: "F. Valverde", value: "52" },
+  { name: "J. Bellingham", value: "49" },
+  { name: "K. Mbappé", value: "47" },
+  { name: "Vinícius Jr", value: "46" },
+  { name: "T. Courtois", value: "45" },
+];
+
+export const placeholderMinutesLeaders: { name: string; value: string }[] = [
+  { name: "T. Courtois", value: "4,590" },
+  { name: "F. Valverde", value: "4,410" },
+  { name: "A. Rüdiger", value: "4,120" },
+  { name: "J. Bellingham", value: "3,980" },
+  { name: "K. Mbappé", value: "3,870" },
+];
+
+export const placeholderTopRatedLeaders: { name: string; value: string }[] = [
+  { name: "K. Mbappé", value: "7.9" },
+  { name: "Vinícius Jr", value: "7.7" },
+  { name: "J. Bellingham", value: "7.6" },
+  { name: "F. Valverde", value: "7.4" },
+  { name: "T. Courtois", value: "7.3" },
+];
+
 export const placeholderHomeStats: HomeStatRow[] = [
   { label: "Most assists", player: "Vinícius Jr", value: "15", barPercent: 88 },
   { label: "Clean sheets", player: "T. Courtois", value: "19", barPercent: 76 },

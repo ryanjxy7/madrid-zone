@@ -162,3 +162,18 @@ export function countryFlag(name: string | undefined | null): string | null {
         .join("");
   }
 }
+
+/**
+ * "Spain" -> a circular flag icon URL. Used on Squad cards, where a real
+ * image renders more consistently across browsers/OSes than the emoji
+ * countryFlag() returns above (emoji flag support varies, especially on
+ * Windows) — same open-source circle-flags set (HatScripts/circle-flags
+ * via jsDelivr) the design itself uses. Returns null for anything not in
+ * COUNTRIES, same graceful-no-flag-shown fallback as countryFlag().
+ */
+export function countryFlagUrl(name: string | undefined | null): string | null {
+  if (!name) return null;
+  const code = COUNTRY_CODE_BY_NAME.get(name.trim());
+  if (!code) return null;
+  return `https://cdn.jsdelivr.net/gh/HatScripts/circle-flags@2.7.0/flags/${code.toLowerCase()}.svg`;
+}

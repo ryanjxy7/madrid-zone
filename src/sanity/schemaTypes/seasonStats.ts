@@ -63,6 +63,7 @@ export const seasonStats = defineType({
     defineField({
       name: "goalkeeping",
       title: "Goalkeeping stats",
+      description: "Doubles as the \"GOALKEEPING\" tab in the Stats page's Stat Leaders widget.",
       type: "array",
       of: [
         defineArrayMember({
@@ -73,6 +74,57 @@ export const seasonStats = defineType({
             defineField({ name: "value", title: "Value", type: "string", description: "e.g. \"19\" or \"78%\"", validation: (Rule) => Rule.required() }),
           ],
           preview: { select: { title: "label", subtitle: "value" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "appearancesLeaders",
+      title: "Stat Leaders — Appearances tab",
+      type: "array",
+      description: "Ranked by appearances, highest first. Shown as the \"APPEARANCES\" tab in the Stats page's Stat Leaders widget.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "leaderEntry",
+          fields: [
+            defineField({ name: "name", title: "Player", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "value", title: "Appearances", type: "string", description: "e.g. \"52\"", validation: (Rule) => Rule.required() }),
+          ],
+          preview: { select: { title: "name", subtitle: "value" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "minutesLeaders",
+      title: "Stat Leaders — Minutes tab",
+      type: "array",
+      description: "Ranked by minutes played, highest first. Shown as the \"MINUTES\" tab in the Stats page's Stat Leaders widget.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "leaderEntry",
+          fields: [
+            defineField({ name: "name", title: "Player", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "value", title: "Minutes", type: "string", description: "e.g. \"4,590\"", validation: (Rule) => Rule.required() }),
+          ],
+          preview: { select: { title: "name", subtitle: "value" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "topRatedLeaders",
+      title: "Stat Leaders — Top Rated tab",
+      type: "array",
+      description: "Ranked by average rating, highest first. Shown as the \"TOP RATED\" tab in the Stats page's Stat Leaders widget.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "leaderEntry",
+          fields: [
+            defineField({ name: "name", title: "Player", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "value", title: "Rating", type: "string", description: "e.g. \"7.9\"", validation: (Rule) => Rule.required() }),
+          ],
+          preview: { select: { title: "name", subtitle: "value" } },
         }),
       ],
     }),

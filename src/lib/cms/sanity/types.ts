@@ -95,6 +95,9 @@ export interface SanitySeasonStats {
   topAssists?: { name: string; assists: number }[];
   goalkeeping?: { label: string; value: string }[];
   homeStats?: { label: string; player: string; value: string; barPercent: number }[];
+  appearancesLeaders?: { name: string; value: string }[];
+  minutesLeaders?: { name: string; value: string }[];
+  topRatedLeaders?: { name: string; value: string }[];
 }
 
 export interface SanityLegalPage {

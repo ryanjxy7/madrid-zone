@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AssistsList } from "@/components/stats/AssistsList";
-import { GoalkeepingCard } from "@/components/stats/GoalkeepingCard";
 import { ScorersList } from "@/components/stats/ScorersList";
+import { StatLeadersWidget } from "@/components/stats/StatLeadersWidget";
 import { StatTileCard } from "@/components/stats/StatTileCard";
-import { getAssists, getGoalkeeping, getScorers, getStatTiles } from "@/lib/data/stats";
+import { getAssists, getScorers, getStatLeaderCategories, getStatTiles } from "@/lib/data/stats";
 
 export const metadata: Metadata = {
   title: "Stats",
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function StatsPage() {
-  const [tiles, scorers, assists, goalkeeping] = await Promise.all([
+  const [tiles, scorers, assists, statLeaders] = await Promise.all([
     getStatTiles(),
     getScorers(),
     getAssists(),
-    getGoalkeeping(),
+    getStatLeaderCategories(),
   ]);
 
   return (
@@ -39,10 +39,10 @@ export default async function StatsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <ScorersList scorers={scorers} />
+        <StatLeadersWidget categories={statLeaders} />
         <div className="flex flex-col gap-5">
+          <ScorersList scorers={scorers} />
           <AssistsList assists={assists} />
-          <GoalkeepingCard stats={goalkeeping} />
         </div>
       </div>
     </div>

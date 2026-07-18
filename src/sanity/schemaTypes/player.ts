@@ -1,5 +1,6 @@
 import { UsersIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
+import { SmartImageInput } from "@/sanity/components/SmartImageInput";
 import { COUNTRIES } from "@/lib/utils/countries";
 
 export const player = defineType({
@@ -42,7 +43,9 @@ export const player = defineType({
       title: "Photo",
       type: "image",
       options: { hotspot: true },
-      description: "Portrait photo — crop to frame the player's face and torso.",
+      description:
+        "Portrait photo. The crop auto-frames the face as soon as it uploads — see the circle/card previews below the image. Drag the hotspot yourself afterward if you want to nudge it.",
+      components: { input: SmartImageInput },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

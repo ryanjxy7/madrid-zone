@@ -118,3 +118,18 @@ export interface HomeStatRow {
   value: string;
   barPercent: number;
 }
+
+/** One row in the Stats page's tabbed "Stat Leaders" widget (Appearances / Minutes / Goalkeeping / Top Rated). */
+export interface StatLeaderRow {
+  rank: number;
+  name: string;
+  value: string;
+  barPercent: number;
+  image: string;
+}
+
+export interface StatLeaderCategory {
+  key: string;
+  label: string;
+  rows: StatLeaderRow[];
+}

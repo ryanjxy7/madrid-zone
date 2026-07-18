@@ -92,7 +92,10 @@ export const leagueTableQuery = /* groq */ `
 `;
 
 export const seasonStatsQuery = /* groq */ `
-  *[_type == "seasonStats"][0] { statTiles, topScorers, topAssists, goalkeeping, homeStats }
+  *[_type == "seasonStats"][0] {
+    statTiles, topScorers, topAssists, goalkeeping, homeStats,
+    appearancesLeaders, minutesLeaders, topRatedLeaders
+  }
 `;
 
 export const legalPageQuery = /* groq */ `
