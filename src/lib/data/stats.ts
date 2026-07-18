@@ -31,23 +31,23 @@ export async function getStatTiles(): Promise<StatTile[]> {
   return placeholderStatTiles;
 }
 
-/** Editor-uploaded player photos (see squad.ts) shown next to scorer names, same as everywhere else a player appears. */
-function withScorerPhotos(scorers: ScorerStat[], overrides: Map<string, string>): ScorerStat[] {
-  if (overrides.size === 0) return scorers;
-  return scorers.map((scorer) => {
-    const image = overrides.get(slugifyPlayerName(scorer.name));
-    return image ? { ...scorer, image } : scorer;
+/** Editor-uploaded player photos (see squad.ts) shown next to leaderboard names, same as everywhere else a player appears. */
+function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, string>): T[] {
+  if (overrides.size === 0) return entries;
+  return entries.map((entry) => {
+    const image = overrides.get(slugifyPlayerName(entry.name));
+    return image ? { ...entry, image } : entry;
   });
 }
 
 export async function getScorers(): Promise<ScorerStat[]> {
   const [scorers, photoOverrides] = await Promise.all([getLiveTopScorers("laLiga"), getPlayerPhotoOverrides()]);
-  if (scorers && scorers.length > 0) return withScorerPhotos(scorers, photoOverrides);
+  if (scorers && scorers.length > 0) return withPhotos(scorers, photoOverrides);
   const stats = await getSeasonStats();
   if (stats?.topScorers?.length) {
     const sorted = [...stats.topScorers].sort((a, b) => b.goals - a.goals);
     const maxGoals = sorted[0].goals || 1;
-    return withScorerPhotos(
+    return withPhotos(
       sorted.map((entry, index) => ({
         rank: index + 1,
         name: entry.name,
@@ -57,18 +57,21 @@ export async function getScorers(): Promise<ScorerStat[]> {
       photoOverrides
     );
   }
-  return withScorerPhotos(placeholderScorers, photoOverrides);
+  return withPhotos(placeholderScorers, photoOverrides);
 }
 
 export async function getAssists(): Promise<AssistStat[]> {
-  const assists = await getLiveTopAssists("laLiga");
-  if (assists && assists.length > 0) return assists;
+  const [assists, photoOverrides] = await Promise.all([getLiveTopAssists("laLiga"), getPlayerPhotoOverrides()]);
+  if (assists && assists.length > 0) return withPhotos(assists, photoOverrides);
   const stats = await getSeasonStats();
   if (stats?.topAssists?.length) {
     const sorted = [...stats.topAssists].sort((a, b) => b.assists - a.assists);
-    return sorted.map((entry, index) => ({ rank: index + 1, name: entry.name, assists: entry.assists }));
+    return withPhotos(
+      sorted.map((entry, index) => ({ rank: index + 1, name: entry.name, assists: entry.assists })),
+      photoOverrides
+    );
   }
-  return placeholderAssists;
+  return withPhotos(placeholderAssists, photoOverrides);
 }
 
 export async function getGoalkeeping(): Promise<GoalkeepingStat[]> {

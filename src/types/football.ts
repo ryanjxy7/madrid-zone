@@ -103,6 +103,7 @@ export interface AssistStat {
   name: string;
   assists: number;
   team?: string;
+  image?: string;
 }
 
 export interface GoalkeepingStat {

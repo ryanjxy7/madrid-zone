@@ -33,7 +33,7 @@ export default async function LeadersPage() {
               <div key={scorer.rank} className="flex items-center gap-3 border-b border-border-soft py-2.5 last:border-0">
                 <span className="w-[18px] font-display text-sm font-bold text-muted">{scorer.rank}</span>
                 {scorer.image ? (
-                  <Image src={scorer.image} alt="" width={22} height={22} className="h-[22px] w-[22px] flex-none rounded-full border border-border-strong object-cover" />
+                  <Image src={scorer.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
                 ) : null}
                 <div className="flex flex-1 flex-col gap-0.5">
                   <span className="font-body text-[13.5px] font-semibold text-heading">{scorer.name}</span>
@@ -53,6 +53,9 @@ export default async function LeadersPage() {
             assists.map((assist) => (
               <div key={assist.rank} className="flex items-center gap-3 border-b border-border-soft py-2.5 last:border-0">
                 <span className="w-[18px] font-display text-sm font-bold text-muted">{assist.rank}</span>
+                {assist.image ? (
+                  <Image src={assist.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
+                ) : null}
                 <div className="flex flex-1 flex-col gap-0.5">
                   <span className="font-body text-[13.5px] font-semibold text-heading">{assist.name}</span>
                   {assist.team ? <span className="font-body text-[11px] text-muted">{assist.team}</span> : null}

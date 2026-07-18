@@ -11,7 +11,7 @@ export function ScorersList({ scorers }: { scorers: ScorerStat[] }) {
         <div key={scorer.rank} className="flex items-center gap-3.5 border-b border-border-soft py-3 last:border-0">
           <span className="w-[18px] font-display text-[15px] font-bold text-muted">{scorer.rank}</span>
           {scorer.image ? (
-            <Image src={scorer.image} alt="" width={22} height={22} className="h-[22px] w-[22px] flex-none rounded-full border border-border-strong object-cover" />
+            <Image src={scorer.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
           ) : null}
           <div className="flex flex-1 flex-col gap-1.5">
             <div className="flex justify-between">
