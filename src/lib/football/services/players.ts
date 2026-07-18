@@ -1,5 +1,5 @@
 import type { SquadGroup } from "@/types/football";
-import { apiFootballProvider as activeProvider } from "../providers/apiFootball";
+import { footballDataOrgProvider as activeProvider } from "../providers/footballDataOrg";
 import { slugifyPlayerName } from "../slug";
 import type { PlayerProfile, PlayerSeasonStats } from "../types/domain";
 

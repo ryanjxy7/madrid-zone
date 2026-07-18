@@ -96,6 +96,30 @@ export const footballConfig = {
     retries: 2,
   },
 
+  /**
+   * football-data.org — the active provider for fixtures, results, the
+   * live match centre, and standings. Chosen specifically because its
+   * free tier includes current-season data for La Liga; API-Football's
+   * free tier (kept dormant below) does not — its own API confirmed this
+   * live: "Free plans do not have access to this season, try from 2022 to
+   * 2024." Free tier is rate-limited (10 requests/minute across the whole
+   * account) and does not include match events/lineups/statistics, so the
+   * Live Match Centre shows score/status only on this provider — see
+   * providers/footballDataOrg.ts.
+   */
+  footballData: {
+    apiKey: process.env.FOOTBALL_DATA_API_KEY ?? "",
+    baseUrl: process.env.FOOTBALL_DATA_BASE_URL ?? "https://api.football-data.org/v4",
+    /** Real Madrid's football-data.org team ID. */
+    teamId: process.env.FOOTBALL_DATA_TEAM_ID ?? "86",
+    competitions: {
+      laLiga: process.env.FOOTBALL_DATA_LALIGA_CODE ?? "PD",
+      championsLeague: process.env.FOOTBALL_DATA_UCL_CODE ?? "CL",
+    },
+    timeoutMs: 8000,
+    retries: 2,
+  },
+
   /** How long each kind of data is cached before a fresh fetch is attempted. */
   cache: {
     fixtures: 6 * 60 * 60, // 6 hours

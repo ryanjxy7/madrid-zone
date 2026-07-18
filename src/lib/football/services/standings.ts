@@ -1,6 +1,6 @@
 import type { AssistStat, ScorerStat, StandingRow } from "@/types/football";
 import type { CompetitionKey } from "@/config/football";
-import { apiFootballProvider as activeProvider } from "../providers/apiFootball";
+import { footballDataOrgProvider as activeProvider } from "../providers/footballDataOrg";
 import type { RatedPlayer } from "../types/domain";
 
 export async function getStandings(competition: CompetitionKey): Promise<StandingRow[] | null> {

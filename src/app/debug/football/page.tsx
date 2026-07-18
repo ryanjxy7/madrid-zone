@@ -4,9 +4,10 @@ import {
   getLiveMatch,
   getProviderStatus,
   getRecentResults,
+  getStandings,
   getUpcomingFixtures,
 } from "@/lib/football/footballService";
-import { isApiFootballConfigured, REAL_MADRID_TEAM_ID, LALIGA_LEAGUE_ID } from "@/lib/sports-api/api-football";
+import { isFootballDataConfigured, REAL_MADRID_TEAM_ID, LALIGA_COMPETITION_CODE } from "@/lib/sports-api/football-data";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,11 @@ export const dynamic = "force-dynamic";
  * /debug/api-football.
  */
 export default async function FootballDebugPage() {
-  const [fixtures, results, liveMatch] = await Promise.all([
+  const [fixtures, results, liveMatch, standings] = await Promise.all([
     getUpcomingFixtures(1),
     getRecentResults(1),
     getLiveMatch(),
+    getStandings("laLiga"),
   ]);
 
   const status = getProviderStatus();
@@ -33,16 +35,17 @@ export default async function FootballDebugPage() {
     <main style={{ maxWidth: 980, margin: "0 auto" }}>
       <h1 style={{ fontSize: 20, marginBottom: 4 }}>/debug/football</h1>
       <p style={{ color: "#9ca3af", marginTop: 0, marginBottom: 24 }}>
-        Active provider: API-Football (official, key-based) — reactivated for fixtures, results, and the live match
-        centre only. Squad, team info, player stats, standings and leaderboards are intentionally not wired up yet
-        (a separate data-source decision, still pending) — they return null and fall back to Sanity/placeholder,
-        same as any other unsupported provider method in this app.
+        Active provider: football-data.org (official, key-based) — fixtures, results, the live match centre, and
+        standings. Chosen over API-Football specifically because its free tier includes current-season data.
+        Squad, team info, player stats and top scorers/assists are intentionally not wired up here (top
+        scorers/assists stay CMS-managed per your instruction) — they return null and fall back to
+        Sanity/placeholder, same as any other unsupported provider method in this app.
       </p>
 
       <Section title="Configuration">
-        <Row label="API key detected" value={isApiFootballConfigured ? "YES" : "NO"} tone={isApiFootballConfigured ? "ok" : "error"} />
+        <Row label="API key detected" value={isFootballDataConfigured ? "YES" : "NO"} tone={isFootballDataConfigured ? "ok" : "error"} />
         <Row label="Real Madrid team ID" value={REAL_MADRID_TEAM_ID} />
-        <Row label="La Liga league ID" value={LALIGA_LEAGUE_ID} />
+        <Row label="La Liga competition code" value={LALIGA_COMPETITION_CODE} />
         <Row label="Timezone" value={footballConfig.timezone} />
         <Row label="Server time" value={now.toISOString()} />
       </Section>
@@ -62,14 +65,19 @@ export default async function FootballDebugPage() {
           label="getLiveMatch()"
           value={liveMatch ? `LIVE — ${liveMatch.home.name} ${liveMatch.home.score} – ${liveMatch.away.score} ${liveMatch.away.name}` : "No match live right now (expected most of the time)"}
         />
+        <Row
+          label='getStandings("laLiga")'
+          value={standings && standings.length > 0 ? `OK — ${standings.length} rows, top: ${standings[0].team}` : "FAILED — see last error below"}
+          tone={standings && standings.length > 0 ? "ok" : "error"}
+        />
       </Section>
 
       <Section title="Known gaps (not bugs — deliberately deferred, see conversation history)">
         <Row label="Team info / manager" value="Not wired — Squad page manager name comes from Sanity/placeholder instead" />
         <Row label="Squad / player photos" value="Not wired — Squad page uses Sanity/placeholder" />
         <Row label="Player season statistics" value="Not wired — falls back to Sanity/placeholder" />
-        <Row label="Standings" value="Not wired — falls back to Sanity/placeholder" />
-        <Row label="Top scorers / assists" value="Not wired — falls back to Sanity/placeholder" />
+        <Row label="Top scorers / assists" value="Not wired on purpose — stays CMS-managed" />
+        <Row label="Live match events / lineups / statistics" value="Not available on football-data.org's free tier — score and status only" />
       </Section>
 
       <Section title="Last successful request">
