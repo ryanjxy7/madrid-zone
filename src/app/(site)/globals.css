@@ -78,17 +78,31 @@ html.light {
   --font-body: var(--font-source-sans);
 }
 
-body {
-  background: var(--surface);
-  color: var(--ink);
-}
+/*
+ * These bare-element resets must live inside Tailwind's own `base` layer,
+ * not as plain unlayered rules. CSS Cascade Layers give ANY unlayered
+ * style priority over ANY layered style regardless of specificity — so an
+ * unlayered `a { color: inherit }` silently wins over every `.text-*`
+ * utility applied to a Link/anchor, no matter how specific the class is.
+ * That bug was exactly why active nav links, "All stats →" links, footer
+ * links and player-mention links in articles were all rendering as the
+ * inherited body color instead of their intended accent color — putting
+ * these in `@layer base` (which Tailwind orders before `utilities`) lets
+ * utility classes override them normally, as intended.
+ */
+@layer base {
+  body {
+    background: var(--surface);
+    color: var(--ink);
+  }
 
-a {
-  color: inherit;
-}
+  a {
+    color: inherit;
+  }
 
-* {
-  border-color: var(--border);
+  * {
+    border-color: var(--border);
+  }
 }
 
 @keyframes mz-ticker {

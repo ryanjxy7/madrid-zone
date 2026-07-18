@@ -26,7 +26,7 @@ export interface ApiFootballStandingRow {
 }
 
 export interface ApiFootballTopScorer {
-  player: { name: string };
+  player: { name: string; photo?: string };
   statistics: Array<{ goals: { total: number | null; assists: number | null } }>;
 }
 

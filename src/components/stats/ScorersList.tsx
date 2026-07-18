@@ -10,9 +10,7 @@ export function ScorersList({ scorers }: { scorers: ScorerStat[] }) {
       {scorers.map((scorer) => (
         <div key={scorer.rank} className="flex items-center gap-3.5 border-b border-border-soft py-3 last:border-0">
           <span className="w-[18px] font-display text-[15px] font-bold text-muted">{scorer.rank}</span>
-          {scorer.image ? (
-            <Image src={scorer.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
-          ) : null}
+          <Image src={scorer.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
           <div className="flex flex-1 flex-col gap-1.5">
             <div className="flex justify-between">
               <span className="font-body text-[13.5px] font-semibold text-heading">{scorer.name}</span>

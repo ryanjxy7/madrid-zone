@@ -14,9 +14,7 @@ export async function TopGoalscorersWidget() {
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="font-display text-xs font-bold text-muted">{scorer.rank}</span>
-              {scorer.image ? (
-                <Image src={scorer.image} alt="" width={24} height={24} className="h-[24px] w-[24px] flex-none rounded-full border border-border-strong object-cover" />
-              ) : null}
+              <Image src={scorer.image} alt="" width={24} height={24} className="h-[24px] w-[24px] flex-none rounded-full border border-border-strong object-cover" />
               <span className="font-body text-[13px] font-semibold text-heading">{scorer.name}</span>
             </div>
             <span className="font-display text-sm font-bold text-accent">{scorer.goals}</span>

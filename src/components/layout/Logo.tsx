@@ -1,24 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function Logo({ size = "default" }: { size?: "default" | "small" }) {
-  const isSmall = size === "small";
+export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label="Madrid Zone — home">
+    <Link href="/" className="flex min-w-0 flex-1 items-center gap-2 sm:flex-none sm:gap-2.5" aria-label="Madrid Zone — home">
       <Image
         src="/logo.png"
         alt="Madrid Zone"
         width={48}
         height={48}
-        className={isSmall ? "h-9 w-auto" : "h-12 w-auto"}
+        className="h-8 w-auto flex-none sm:h-12"
         style={{ filter: "var(--logo-filter)" }}
         priority
       />
-      <span className="flex flex-col">
-        <span className={`font-display font-bold tracking-[0.05em] text-heading ${isSmall ? "text-[17px]" : "text-xl"}`}>
+      <span className="flex min-w-0 flex-col">
+        <span className="truncate font-display text-[15px] font-bold tracking-[0.04em] text-heading sm:text-xl sm:tracking-[0.05em]">
           MADRID ZONE
         </span>
-        <span className="font-body text-[9px] font-medium tracking-[0.14em] text-muted sm:text-[10px]">
+        <span className="truncate font-body text-[7.5px] font-medium tracking-[0.12em] text-muted sm:text-[10px] sm:tracking-[0.14em]">
           YOUR HUB FOR EVERYTHING
         </span>
       </span>

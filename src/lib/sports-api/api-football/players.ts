@@ -1,4 +1,5 @@
 import type { AssistStat, Player, PlayerPosition, ScorerStat, SquadGroup } from "@/types/football";
+import { placeholderImage } from "@/lib/utils/images";
 import { apiFootballFetch, REAL_MADRID_TEAM_ID, REVALIDATE } from "./client";
 import type { ApiFootballSquadPlayer, ApiFootballTopScorer } from "./types";
 
@@ -16,6 +17,7 @@ export async function fetchTopScorers(season: number): Promise<ScorerStat[] | nu
     name: entry.player.name,
     goals: entry.statistics[0]?.goals.total ?? 0,
     barPercent: Math.round(((entry.statistics[0]?.goals.total ?? 0) / top) * 100),
+    image: entry.player.photo ?? placeholderImage(entry.player.name, 80, 80),
   }));
 }
 
@@ -31,6 +33,7 @@ export async function fetchTopAssists(season: number): Promise<AssistStat[] | nu
     rank: index + 1,
     name: entry.player.name,
     assists: entry.statistics[0]?.goals.assists ?? 0,
+    image: entry.player.photo ?? placeholderImage(entry.player.name, 80, 80),
   }));
 }
 

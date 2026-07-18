@@ -11,6 +11,7 @@ import type { SanitySeasonStats } from "@/lib/cms/sanity/types";
 import { getTopAssists as getLiveTopAssists, getTopScorers as getLiveTopScorers } from "@/lib/football/footballService";
 import { getPlayerPhotoOverrides } from "@/lib/data/squad";
 import { slugifyPlayerName } from "@/lib/football/footballService";
+import { placeholderImage } from "@/lib/utils/images";
 import type { AssistStat, GoalkeepingStat, HomeStatRow, ScorerStat, StatTile } from "@/types/football";
 
 async function getSeasonStats(): Promise<SanitySeasonStats | null> {
@@ -31,13 +32,17 @@ export async function getStatTiles(): Promise<StatTile[]> {
   return placeholderStatTiles;
 }
 
-/** Editor-uploaded player photos (see squad.ts) shown next to leaderboard names, same as everywhere else a player appears. */
-function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, string>): T[] {
-  if (overrides.size === 0) return entries;
-  return entries.map((entry) => {
-    const image = overrides.get(slugifyPlayerName(entry.name));
-    return image ? { ...entry, image } : entry;
-  });
+/**
+ * Every leaderboard row always gets a photo — an editor-uploaded one (see
+ * squad.ts) if there is one, otherwise a deterministic placeholder, same
+ * as the design always shows one. Never conditional: a scorer/assist row
+ * with no photo at all doesn't match the design and shouldn't happen.
+ */
+function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, string>): (T & { image: string })[] {
+  return entries.map((entry) => ({
+    ...entry,
+    image: overrides.get(slugifyPlayerName(entry.name)) ?? entry.image ?? placeholderImage(entry.name, 80, 80),
+  }));
 }
 
 export async function getScorers(): Promise<ScorerStat[]> {

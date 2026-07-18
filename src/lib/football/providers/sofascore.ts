@@ -1,5 +1,6 @@
 import { footballConfig, type CompetitionKey } from "@/config/football";
 import type { AssistStat, Fixture, MatchResult, ScorerStat, SquadGroup, StandingRow, Player, PlayerPosition } from "@/types/football";
+import { placeholderImage } from "@/lib/utils/images";
 import { withCache } from "../cache/cache";
 import type {
   LiveMatchDetail,
@@ -412,6 +413,7 @@ export const sofascoreProvider: FootballProvider = {
             goals: entry.statistics?.goals ?? 0,
             barPercent: Math.round(((entry.statistics?.goals ?? 0) / top) * 100),
             team: entry.team?.name,
+            image: placeholderImage(entry.player?.name as string, 80, 80),
           }));
       },
       { ttlSeconds: footballConfig.cache.fixtures }
@@ -435,6 +437,7 @@ export const sofascoreProvider: FootballProvider = {
             name: entry.player?.name as string,
             assists: entry.statistics?.goalAssist ?? 0,
             team: entry.team?.name,
+            image: placeholderImage(entry.player?.name as string, 80, 80),
           }));
       },
       { ttlSeconds: footballConfig.cache.fixtures }

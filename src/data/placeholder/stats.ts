@@ -1,3 +1,4 @@
+import { placeholderImage } from "@/lib/utils/images";
 import type { AssistStat, GoalkeepingStat, HomeStatRow, ScorerStat, StatTile } from "@/types/football";
 
 export const placeholderStatTiles: StatTile[] = [
@@ -8,18 +9,18 @@ export const placeholderStatTiles: StatTile[] = [
 ];
 
 export const placeholderScorers: ScorerStat[] = [
-  { rank: 1, name: "K. Mbappé", goals: 38, barPercent: 100 },
-  { rank: 2, name: "Vinícius Jr", goals: 24, barPercent: 63 },
-  { rank: 3, name: "J. Bellingham", goals: 17, barPercent: 45 },
-  { rank: 4, name: "Rodrygo", goals: 13, barPercent: 34 },
-  { rank: 5, name: "F. Valverde", goals: 8, barPercent: 21 },
+  { rank: 1, name: "K. Mbappé", goals: 38, barPercent: 100, image: placeholderImage("K. Mbappé", 80, 80) },
+  { rank: 2, name: "Vinícius Jr", goals: 24, barPercent: 63, image: placeholderImage("Vinícius Jr", 80, 80) },
+  { rank: 3, name: "J. Bellingham", goals: 17, barPercent: 45, image: placeholderImage("J. Bellingham", 80, 80) },
+  { rank: 4, name: "Rodrygo", goals: 13, barPercent: 34, image: placeholderImage("Rodrygo", 80, 80) },
+  { rank: 5, name: "F. Valverde", goals: 8, barPercent: 21, image: placeholderImage("F. Valverde", 80, 80) },
 ];
 
 export const placeholderAssists: AssistStat[] = [
-  { rank: 1, name: "Vinícius Jr", assists: 15 },
-  { rank: 2, name: "J. Bellingham", assists: 12 },
-  { rank: 3, name: "K. Mbappé", assists: 10 },
-  { rank: 4, name: "A. Güler", assists: 9 },
+  { rank: 1, name: "Vinícius Jr", assists: 15, image: placeholderImage("Vinícius Jr", 80, 80) },
+  { rank: 2, name: "J. Bellingham", assists: 12, image: placeholderImage("J. Bellingham", 80, 80) },
+  { rank: 3, name: "K. Mbappé", assists: 10, image: placeholderImage("K. Mbappé", 80, 80) },
+  { rank: 4, name: "A. Güler", assists: 9, image: placeholderImage("A. Güler", 80, 80) },
 ];
 
 export const placeholderGoalkeeping: GoalkeepingStat[] = [
