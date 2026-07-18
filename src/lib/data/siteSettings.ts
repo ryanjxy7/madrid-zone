@@ -18,6 +18,10 @@ export interface SiteSettings {
   monthlyReach: string;
   tickerEnabled: boolean;
   transferWindowClosesText: string;
+  transferTotalSpent: string;
+  transferSpentNote: string;
+  transferTotalSales: string;
+  transferSalesNote: string;
   editorialEmail: string;
   partnersEmail: string;
   pressEmail: string;
@@ -56,6 +60,10 @@ const defaults: Omit<SiteSettings, "transferWindowClosesText"> = {
   followerCount: "2.1M",
   monthlyReach: "40M+",
   tickerEnabled: true,
+  transferTotalSpent: "€126m",
+  transferSpentNote: "3 signings this window",
+  transferTotalSales: "€80m",
+  transferSalesNote: "2 departures, 1 loan out",
   editorialEmail: siteConfig.emails.editorial,
   partnersEmail: siteConfig.emails.partners,
   pressEmail: siteConfig.emails.press,
@@ -80,6 +88,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         monthlyReach: result.monthlyReach ?? defaults.monthlyReach,
         tickerEnabled: result.tickerEnabled ?? defaults.tickerEnabled,
         transferWindowClosesText: formatWindowCountdown(result.transferWindowClosesDate ?? DEFAULT_TRANSFER_WINDOW_CLOSES_DATE),
+        transferTotalSpent: result.transferTotalSpent ?? defaults.transferTotalSpent,
+        transferSpentNote: result.transferSpentNote ?? defaults.transferSpentNote,
+        transferTotalSales: result.transferTotalSales ?? defaults.transferTotalSales,
+        transferSalesNote: result.transferSalesNote ?? defaults.transferSalesNote,
         editorialEmail: result.editorialEmail ?? defaults.editorialEmail,
         partnersEmail: result.partnersEmail ?? defaults.partnersEmail,
         pressEmail: result.pressEmail ?? defaults.pressEmail,

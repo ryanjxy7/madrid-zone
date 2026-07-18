@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DealsTable } from "@/components/transfers/DealsTable";
 import { RumourCard } from "@/components/transfers/RumourCard";
+import { TransferSummaryCards } from "@/components/transfers/TransferSummaryCards";
 import { getDeals, getRumours } from "@/lib/data/transfers";
 import { getSiteSettings } from "@/lib/data/siteSettings";
 
@@ -26,6 +27,13 @@ export default async function TransfersPage() {
           <span className="text-muted">Window closes in</span> <span className="text-accent">{settings.transferWindowClosesText}</span>
         </div>
       </div>
+
+      <TransferSummaryCards
+        totalSpent={settings.transferTotalSpent}
+        spentNote={settings.transferSpentNote}
+        totalSales={settings.transferTotalSales}
+        salesNote={settings.transferSalesNote}
+      />
 
       <DealsTable deals={deals} />
 

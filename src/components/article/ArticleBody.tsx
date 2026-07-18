@@ -25,7 +25,7 @@ function linkifyChildren(children: ReactNode, players: PlayerLink[]): ReactNode 
         <Link
           key={`${childIndex}-${segmentIndex}`}
           href={`/players/${segment.slug}`}
-          className="font-semibold text-negative underline decoration-negative/40 underline-offset-2 hover:decoration-negative"
+          className="font-semibold text-accent"
         >
           {segment.text}
         </Link>

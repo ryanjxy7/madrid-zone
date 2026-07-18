@@ -34,6 +34,7 @@ export type TransferStatus =
 export interface TransferDeal {
   id: string;
   player: string;
+  photo: string;
   position: string;
   direction: TransferDirection;
   status: TransferStatus;

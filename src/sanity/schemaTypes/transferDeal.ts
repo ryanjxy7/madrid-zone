@@ -15,6 +15,13 @@ export const transferDeal = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "photo",
+      title: "Photo",
+      type: "image",
+      options: { hotspot: true },
+      description: "Optional — shown as a small circle next to the player's name. Leave blank for an unconfirmed/anonymous target; a neutral placeholder is used instead.",
+    }),
+    defineField({
       name: "position",
       title: "Position",
       type: "string",

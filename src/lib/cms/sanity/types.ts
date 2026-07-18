@@ -44,6 +44,7 @@ export interface SanityPlayer {
 export interface SanityTransferDeal {
   id: string;
   player: string;
+  photo?: SanityImageWithAlt;
   position: string;
   direction: TransferDirection;
   status: TransferStatus;
@@ -107,6 +108,10 @@ export interface SanitySiteSettings {
   monthlyReach?: string;
   tickerEnabled?: boolean;
   transferWindowClosesDate?: string;
+  transferTotalSpent?: string;
+  transferSpentNote?: string;
+  transferTotalSales?: string;
+  transferSalesNote?: string;
   editorialEmail?: string;
   partnersEmail?: string;
   pressEmail?: string;

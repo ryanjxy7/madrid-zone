@@ -65,7 +65,7 @@ export const playerPhotoOverridesQuery = /* groq */ `
 
 export const transferDealsQuery = /* groq */ `
   *[_type == "transferDeal"] | order(order asc) {
-    "id": _id, player, position, direction, status, fee, latest, counterpartMark
+    "id": _id, player, photo, position, direction, status, fee, latest, counterpartMark
   }
 `;
 
@@ -102,6 +102,7 @@ export const legalPageQuery = /* groq */ `
 export const siteSettingsQuery = /* groq */ `
   *[_type == "siteSettings"][0] {
     followerCount, monthlyReach, tickerEnabled, transferWindowClosesDate,
+    transferTotalSpent, transferSpentNote, transferTotalSales, transferSalesNote,
     editorialEmail, partnersEmail, pressEmail,
     socialPlatforms[]{ key, name, mark, color, handle, followers, url },
     newsletterHeading, newsletterBody, managerName
