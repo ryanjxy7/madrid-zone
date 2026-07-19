@@ -20,11 +20,11 @@ function singleton(S: Parameters<StructureResolver>[0], typeName: string, title:
  * ready-made list item itself (not something to wrap in .child()).
  */
 export const structure: StructureResolver = (S, context) => {
-  const squadPositions: { position: string; title: string }[] = [
-    { position: "Forward", title: "Forwards" },
-    { position: "Midfielder", title: "Midfielders" },
-    { position: "Defender", title: "Defenders" },
-    { position: "Goalkeeper", title: "Goalkeepers" },
+  const squadPositions: { position: string; title: string; id: string }[] = [
+    { position: "Forward", title: "Forwards", id: "orderable-player-forward" },
+    { position: "Midfielder", title: "Midfielders", id: "orderable-player-midfielder" },
+    { position: "Defender", title: "Defenders", id: "orderable-player-defender" },
+    { position: "Goalkeeper", title: "Goalkeepers", id: "orderable-player-goalkeeper" },
   ];
 
   return S.list()
@@ -39,9 +39,10 @@ export const structure: StructureResolver = (S, context) => {
           S.list()
             .title("Squad")
             .items(
-              squadPositions.map(({ position, title }) =>
+              squadPositions.map(({ position, title, id }) =>
                 orderableDocumentListDeskItem({
                   type: "player",
+                  id,
                   title,
                   filter: `_type == "player" && position == $position`,
                   params: { position },
