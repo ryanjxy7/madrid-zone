@@ -169,6 +169,16 @@ Midfielders / Defenders / Goalkeepers, matching how the site groups them),
 and just drag each row by its handle into the order you want. It saves
 automatically — no separate publish step for the order itself.
 
+**"N/N documents have no order" message?** This shows up once, the first
+time you open a list that has existing documents from before drag-and-drop
+ordering existed — they don't have an order value yet, so the list locks
+itself until they get one. Either click **Reset Order** from the **⋯** menu
+at the top of that list (repeat per list: each Squad position, Deals,
+Sponsors), or run `node --env-file=.env.local scripts/backfill-order-rank.mjs`
+from the project folder once (needs a `SANITY_API_TOKEN` in `.env.local`
+with Editor permission — create one at sanity.io/manage under your
+project's API > Tokens) to fix every list in one go.
+
 ### Deleting an item
 
 Open the item, click the **⋯** menu in the top-right corner of its editor,
