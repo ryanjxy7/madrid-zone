@@ -11,7 +11,7 @@ export function LeagueTable({ standings, title }: { standings: StandingRow[]; ti
       {standings.map((row) => (
         <div key={row.position} className="flex items-center gap-3 border-b border-border-soft py-2.5 last:border-0">
           <span className="w-4 font-body text-[11px] font-semibold text-muted">{row.position}</span>
-          <ClubBadge name={row.team} sizePx={22} />
+          <ClubBadge name={row.team} sizePx={26} mobileSizePx={24} />
           <span className={`flex-1 font-body text-[13.5px] font-semibold ${row.isHighlighted ? "text-heading" : "text-subtle"}`}>
             {row.team}
           </span>

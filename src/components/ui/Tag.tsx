@@ -1,7 +1,7 @@
 export function Tag({ children, variant = "solid" }: { children: React.ReactNode; variant?: "solid" | "soft" }) {
   if (variant === "soft") {
     return (
-      <span className="w-fit rounded-[3px] bg-brand/15 px-2 py-[3px] font-display text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
+      <span className="w-fit rounded-[3px] bg-accent-soft px-2 py-[3px] font-display text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
         {children}
       </span>
     );

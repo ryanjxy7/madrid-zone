@@ -69,10 +69,17 @@ export const transferDeal = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "counterpartClub",
+      title: "Other club",
+      type: "reference",
+      to: [{ type: "club" }],
+      description: "Pick the other side of the deal from Clubs — shows their real crest, same as everywhere else on the site. Leave blank for a free agent, loan-only move, or a club not worth adding (the badge text below is used instead).",
+    }),
+    defineField({
       name: "counterpartMark",
-      title: "Other club's badge text",
+      title: "Other club's badge text (fallback)",
       type: "string",
-      description: "Short code shown in the badge for the other side of the deal, e.g. \"PL\" (Premier League club), \"FA\" (free agent), \"CLB\" (unnamed club). Real Madrid's own badge always reads \"RMA\" automatically.",
+      description: "Only shown when no club is picked above, e.g. \"PL\" (Premier League club), \"FA\" (free agent), \"CLB\" (unnamed club). Real Madrid's own badge always reads \"RMA\" automatically.",
       initialValue: "CLB",
     }),
     defineField({

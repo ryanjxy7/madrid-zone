@@ -4,16 +4,17 @@ import { photoObjectPosition } from "@/lib/utils/images";
 import { directionClasses, statusClasses } from "@/lib/utils/transferStyles";
 import type { TransferDeal } from "@/types/football";
 
-/** Real Madrid's badge always looks up the real "Real Madrid" club entry (its own crest if uploaded, red "RMA" otherwise); the other club's badge is a generic gray mark since counterpartMark is an editor-set short code ("FA"/"CLB"/"PL"/"LOAN"), not a real club name to look up. Order flips so the arrow always reads left-to-right as "where the player is coming from → going to". */
-function dealSides(deal: TransferDeal): { leftIsMadrid: boolean; counterpartMark: string } {
-  const counterpartMark = deal.counterpartMark ?? "CLB";
-  return { leftIsMadrid: deal.direction === "OUT", counterpartMark };
+/** Real Madrid's badge always looks up the real "Real Madrid" club entry (its own crest if uploaded, red "RMA" otherwise). The other side shows a real crest too when the editor picked a club (counterpartClub); otherwise it's a generic gray mark from the editor-set short code ("FA"/"CLB"/"PL"/"LOAN"). Order flips so the arrow always reads left-to-right as "where the player is coming from → going to". */
+function dealSides(deal: TransferDeal): { leftIsMadrid: boolean } {
+  return { leftIsMadrid: deal.direction === "OUT" };
 }
 
 function DirectionBadges({ deal }: { deal: TransferDeal }) {
-  const { leftIsMadrid, counterpartMark } = dealSides(deal);
-  const madridBadge = <ClubBadge name="Real Madrid" sizePx={26} fallbackMark="RMA" />;
-  const counterpartBadge = <ClubBadge sizePx={26} fallbackMark={counterpartMark} fallbackColor="#565d73" />;
+  const { leftIsMadrid } = dealSides(deal);
+  const madridBadge = <ClubBadge name="Real Madrid" sizePx={26} mobileSizePx={24} fallbackMark="RMA" />;
+  const counterpartBadge = (
+    <ClubBadge name={deal.counterpartClub} sizePx={26} mobileSizePx={24} fallbackMark={deal.counterpartMark ?? "CLB"} fallbackColor="#565d73" />
+  );
   return (
     <div className="flex flex-none items-center gap-2">
       {leftIsMadrid ? madridBadge : counterpartBadge}

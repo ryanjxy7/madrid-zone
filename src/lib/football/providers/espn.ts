@@ -367,10 +367,10 @@ export const espnProvider: FootballProvider = {
           }));
 
         const groups: { position: PlayerPosition; label: string }[] = [
-          { position: "Goalkeeper", label: "GOALKEEPERS" },
-          { position: "Defender", label: "DEFENDERS" },
-          { position: "Midfielder", label: "MIDFIELDERS" },
           { position: "Forward", label: "FORWARDS" },
+          { position: "Midfielder", label: "MIDFIELDERS" },
+          { position: "Defender", label: "DEFENDERS" },
+          { position: "Goalkeeper", label: "GOALKEEPERS" },
         ];
 
         return groups

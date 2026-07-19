@@ -17,9 +17,9 @@ export function ResultsList({ results }: { results: MatchResult[] }) {
       {results.map((result) => (
         <div key={result.id} className="flex items-center justify-between gap-2 border-b border-border-soft py-3 last:border-0">
           <div className="flex items-center gap-2.5">
-            <div className="flex flex-none">
-              <ClubBadge name="Real Madrid" sizePx={24} fallbackMark="RMA" />
-              <ClubBadge name={extractOpponentFromResult(result.match)} sizePx={24} className="-ml-1.5 border-2 border-card" />
+            <div className="flex flex-none items-center gap-1">
+              <ClubBadge name="Real Madrid" sizePx={26} mobileSizePx={24} fallbackMark="RMA" />
+              <ClubBadge name={extractOpponentFromResult(result.match)} sizePx={26} mobileSizePx={24} />
             </div>
             <div className="flex flex-col gap-0.5">
               <span className="font-body text-sm font-semibold text-heading">{result.match}</span>

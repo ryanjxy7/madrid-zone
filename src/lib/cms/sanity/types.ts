@@ -51,6 +51,7 @@ export interface SanityTransferDeal {
   fee: string;
   latest: string;
   counterpartMark?: string;
+  counterpartClub?: string;
 }
 
 export interface SanityRumour {

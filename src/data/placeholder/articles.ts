@@ -306,5 +306,5 @@ export const placeholderSchedule = [
   { time: "2:00 PM", text: "US tour squad list announced" },
   { time: "3:00 PM", text: "Castilla friendly kick-off" },
   { time: "6:00 PM", text: "Matchday live blog opens" },
-  { time: "9:00 PM", text: "Kick-off · Real Madrid vs Opponent A" },
+  { time: "9:00 PM", text: "Kick-off · Real Madrid vs Real Betis" },
 ];

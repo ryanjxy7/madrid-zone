@@ -65,7 +65,8 @@ export const playerPhotoOverridesQuery = /* groq */ `
 
 export const transferDealsQuery = /* groq */ `
   *[_type == "transferDeal"] | order(order asc) {
-    "id": _id, player, photo, position, direction, status, fee, latest, counterpartMark
+    "id": _id, player, photo, position, direction, status, fee, latest, counterpartMark,
+    "counterpartClub": counterpartClub->name
   }
 `;
 

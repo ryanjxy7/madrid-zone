@@ -28,6 +28,9 @@
   --warning: #e9c258;
   --negative: #ff4d64;
   --neutral: #9aa5cc;
+  /* Soft-tint pills (category tags, TIER badges) and the theme-toggle border — kept as their own tokens rather than an opacity modifier on --brand, since dark and light use different opacity levels, not just different base colors. */
+  --accent-soft: rgba(224, 36, 62, 0.16);
+  --accent-border: rgba(224, 36, 62, 0.45);
 
   /* Logo mark is a single-color PNG; this filter recolors it to match the theme. */
   --logo-filter: brightness(0) invert(1);
@@ -48,6 +51,8 @@ html.light {
      to the same blue (unlike dark mode, which keeps two distinct reds). */
   --accent: #2028b4;
   --brand: #2028b4;
+  --accent-soft: rgba(32, 40, 180, 0.12);
+  --accent-border: rgba(32, 40, 180, 0.5);
   --track: rgba(12, 16, 30, 0.08);
   --shadow-card: 0 4px 14px rgba(15, 20, 40, 0.08);
   --shadow-card-hover: 0 14px 30px rgba(15, 20, 40, 0.16);
@@ -75,6 +80,8 @@ html.light {
   --color-warning: var(--warning);
   --color-negative: var(--negative);
   --color-neutral: var(--neutral);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-border: var(--accent-border);
 
   --shadow-card: var(--shadow-card);
   --shadow-card-hover: var(--shadow-card-hover);
@@ -116,5 +123,25 @@ html.light {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+/*
+ * Club crest/badge sizing — mobile size by default, desktop size from
+ * 640px up. Set via inline --badge-mobile/--badge-desktop custom
+ * properties (see ClubBadge.tsx) rather than Tailwind's arbitrary-value
+ * classes, since those sizes are computed per call site at runtime and
+ * Tailwind can only generate utilities for class names that appear
+ * literally in source.
+ */
+.club-badge-box {
+  width: var(--badge-mobile);
+  height: var(--badge-mobile);
+}
+
+@media (min-width: 640px) {
+  .club-badge-box {
+    width: var(--badge-desktop);
+    height: var(--badge-desktop);
   }
 }

@@ -44,8 +44,10 @@ export interface TransferDeal {
   status: TransferStatus;
   fee: string;
   latest: string;
-  /** Short badge for the other club involved, e.g. "PL", "FA", "CLB" — Real Madrid's own badge is always shown as "RMA" and doesn't need a field. */
+  /** Short badge for the other club involved, e.g. "PL", "FA", "CLB" — only used when counterpartClub isn't set. Real Madrid's own badge is always shown as "RMA" and doesn't need a field. */
   counterpartMark?: string;
+  /** The other club's real name, when the editor picked one from Clubs — drives a real crest lookup instead of the generic counterpartMark badge. */
+  counterpartClub?: string;
 }
 
 export type RumourTier = "TIER 1" | "TIER 2" | "TIER 3";
