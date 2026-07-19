@@ -1,5 +1,10 @@
 import { DocumentTextIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { HeroPhotoInput } from "@/sanity/components/SmartImageInput";
+import { apiVersion } from "@/sanity/env";
+
+/** The byline every new article defaults to — see the author field's initialValue below. Create one Author document with exactly this name and every article picks it up automatically from then on. */
+const DEFAULT_AUTHOR_NAME = "Editorial Team";
 
 const CATEGORIES = [
   "News",
@@ -39,8 +44,8 @@ export const article = defineType({
       title: "Summary",
       type: "text",
       rows: 2,
-      description: "One or two sentences shown under the headline in story lists.",
-      validation: (Rule) => Rule.required().max(220),
+      description: "Optional — one or two sentences shown under the headline in story lists. Leave blank to show none.",
+      validation: (Rule) => Rule.max(220),
     }),
     defineField({
       name: "category",
@@ -69,7 +74,8 @@ export const article = defineType({
       title: "Cover photo",
       type: "image",
       options: { hotspot: true },
-      description: "Drag a photo here. Use the crop tool to choose the focal point — the site resizes it automatically for every screen size.",
+      description: "Drag a photo here — the crop auto-frames the subject as soon as it uploads, and resizes automatically for every screen size. Drag the hotspot yourself afterward if you want to nudge it.",
+      components: { input: HeroPhotoInput },
       fields: [
         defineField({
           name: "alt",
@@ -86,6 +92,15 @@ export const article = defineType({
       title: "Author",
       type: "reference",
       to: [{ type: "author" }],
+      description: `Defaults to "${DEFAULT_AUTHOR_NAME}" — change it only when a specific writer should be credited instead. (Create one Author document named exactly "${DEFAULT_AUTHOR_NAME}" once; every new article picks it automatically from then on.)`,
+      initialValue: async (_params, context) => {
+        const client = context.getClient({ apiVersion });
+        const id = await client.fetch<string | null>(`*[_type == "author" && name == $name][0]._id`, { name: DEFAULT_AUTHOR_NAME });
+        // No "Editorial Team" author created yet — nothing to default to. Sanity
+        // treats an undefined resolved value as "no initial value" at runtime,
+        // even though the resolver's declared return type doesn't spell out that case.
+        return (id ? { _ref: id } : undefined) as { _ref: string };
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -146,6 +161,7 @@ export const article = defineType({
           type: "image",
           title: "Image",
           options: { hotspot: true },
+          components: { input: HeroPhotoInput },
           fields: [
             defineField({ name: "alt", title: "Alt text", type: "string", validation: (Rule) => Rule.required() }),
           ],

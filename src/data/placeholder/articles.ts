@@ -21,7 +21,7 @@ export const placeholderArticles: Article[] = [
       width: 1200,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-10T21:05:00.000Z",
     readingTime: "6 min read",
     body: [
@@ -52,7 +52,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-10T15:00:00.000Z",
     readingTime: "4 min read",
     body: [
@@ -79,7 +79,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-10T14:00:00.000Z",
     readingTime: "5 min read",
     body: [
@@ -103,7 +103,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-10T09:00:00.000Z",
     readingTime: "7 min read",
     body: [
@@ -125,7 +125,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-09T18:00:00.000Z",
     readingTime: "8 min read",
     body: [
@@ -147,7 +147,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-09T12:00:00.000Z",
     readingTime: "3 min read",
     body: [
@@ -168,7 +168,7 @@ export const placeholderArticles: Article[] = [
       width: 900,
       height: 630,
     },
-    author: { name: "Editorial Desk", slug: "editorial-desk" },
+    author: { name: "Editorial Team", slug: "editorial-team" },
     publishedAt: "2026-07-09T08:00:00.000Z",
     readingTime: "4 min read",
     body: [

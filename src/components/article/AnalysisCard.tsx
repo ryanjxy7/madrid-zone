@@ -17,7 +17,7 @@ export function AnalysisCard({ article }: { article: Article }) {
           {article.category}
         </span>
         <h3 className="font-body text-base font-semibold leading-snug text-heading">{article.title}</h3>
-        <p className="font-body text-[12.5px] leading-relaxed text-subtle">{article.dek}</p>
+        {article.dek ? <p className="font-body text-[12.5px] leading-relaxed text-subtle">{article.dek}</p> : null}
         <span className="font-body text-[10.5px] text-muted">
           {formatRelativeTime(article.publishedAt)} · {article.readingTime}
         </span>

@@ -110,18 +110,28 @@ editing, not by technical names:
 1. Click **📰 Articles → + (New article)**.
 2. Fill in the **Headline**, then click **Generate** next to **URL** — it
    fills itself in from the headline.
-3. Write a one-sentence **Summary** (this shows in story lists).
+3. Optionally write a one-sentence **Summary** (shows in story lists) —
+   leave it blank and the site just shows the headline with no summary
+   line underneath.
 4. Pick a **Category** from the dropdown.
-5. Drag a photo into **Cover photo**. Click the image to open the crop
-   tool and drag the circle onto the most important part of the photo —
-   the website automatically creates the right size for every screen
-   (phone, tablet, desktop) from that one photo. You never resize
-   anything yourself. Fill in the **Alt text** field — a short description
-   for accessibility and search engines.
-6. Pick an **Author**, or add a new one first via ✍️ Authors.
+5. Drag a photo into **Cover photo**. It auto-frames the subject the
+   moment it finishes uploading, and shows a live preview of exactly how
+   it'll look on the site right below the image — no more upload, check
+   the site, re-upload. If it doesn't pick the right spot, drag the
+   circle yourself or click **Re-detect crop**. The website automatically
+   creates the right size for every screen (phone, tablet, desktop) from
+   that one photo — you never resize anything yourself. Fill in the
+   **Alt text** field — a short description for accessibility and search
+   engines.
+6. **Author** already defaults to "Editorial Team" — only change it if a
+   specific writer should be credited instead. (First time only: add an
+   Author named exactly "Editorial Team" via ✍️ Authors so this default
+   has something to point to — every article after that picks it up
+   automatically.)
 7. Write the **Story** in the big text box like you would in Word:
    select text and use the toolbar to make it **bold**, *italic*, a
-   heading, a bulleted list, a quote, or a link.
+   heading, a bulleted list, a quote, or a link. Inline images you add
+   get the same auto-crop and live preview as the cover photo.
 8. Click **Publish** (top right). That's it — no deploy, no code.
 
 ### Editing the ad slot
@@ -173,6 +183,8 @@ publish to reorder.
   (Ctrl/Cmd+Shift+R).
 - **"I can't log in"** — you need to be invited as a project member first
   (Part 1, step 4); ask whoever administers the Sanity project.
-- **Photos look stretched or oddly cropped** — reopen the image and drag
-  the hotspot circle onto the subject; every card on the site respects
-  that same focal point.
+- **Photos look stretched or oddly cropped** — reopen the image; if the
+  auto-crop preview underneath it looks wrong, click **Re-detect crop**,
+  or drag the hotspot circle onto the subject yourself. Every card on the
+  site respects that same focal point — the preview shown in Studio is
+  the same crop that ships, not an approximation of it.

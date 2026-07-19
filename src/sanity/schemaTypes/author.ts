@@ -1,5 +1,6 @@
 import { UserIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
+import { CirclePhotoInput } from "@/sanity/components/SmartImageInput";
 
 export const author = defineType({
   name: "author",
@@ -20,6 +21,8 @@ export const author = defineType({
       title: "Photo",
       type: "image",
       options: { hotspot: true },
+      description: "Shown as a small circle next to their byline. The crop auto-frames the face on upload — see the preview below the image.",
+      components: { input: CirclePhotoInput },
     }),
     defineField({ name: "bio", title: "Bio", type: "text", rows: 3 }),
   ],

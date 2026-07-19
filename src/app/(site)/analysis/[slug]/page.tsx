@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${siteConfig.url}/analysis/${article.slug}`;
   return {
     title: article.title,
-    description: article.dek,
+    description: article.dek || article.title,
     alternates: { canonical: `/analysis/${article.slug}` },
     openGraph: {
       type: "article",
       title: article.title,
-      description: article.dek,
+      description: article.dek || article.title,
       url,
       publishedTime: article.publishedAt,
       tags: article.tags,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description: article.dek,
+      description: article.dek || article.title,
       images: [article.image.url],
     },
   };

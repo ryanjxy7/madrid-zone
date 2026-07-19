@@ -28,7 +28,7 @@ export function HeroCard({ article }: { article: Article }) {
         <h1 className="text-pretty font-display text-2xl font-bold leading-tight text-heading sm:text-[28px]">
           {article.title.toUpperCase()}
         </h1>
-        <p className="font-body text-[13.5px] leading-relaxed text-subtle">{article.dek}</p>
+        {article.dek ? <p className="font-body text-[13.5px] leading-relaxed text-subtle">{article.dek}</p> : null}
         <span className="font-body text-[11px] font-medium text-muted">
           By {article.author.name} · {formatRelativeTime(article.publishedAt)} · {article.readingTime}
         </span>

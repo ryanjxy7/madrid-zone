@@ -6,7 +6,7 @@ export function articleJsonLd(article: Article, path: string) {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: article.title,
-    description: article.dek,
+    description: article.dek || article.title,
     image: [article.image.url],
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,

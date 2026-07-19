@@ -1,6 +1,6 @@
 import { TransferIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
-import { SmartImageInput } from "@/sanity/components/SmartImageInput";
+import { CirclePhotoInput } from "@/sanity/components/SmartImageInput";
 
 export const transferDeal = defineType({
   name: "transferDeal",
@@ -22,7 +22,7 @@ export const transferDeal = defineType({
       options: { hotspot: true },
       description:
         "Optional — shown as a small circle next to the player's name. The crop auto-frames the face on upload — see the preview below the image. Leave blank for an unconfirmed/anonymous target; a neutral placeholder is used instead.",
-      components: { input: SmartImageInput },
+      components: { input: CirclePhotoInput },
     }),
     defineField({
       name: "position",

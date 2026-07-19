@@ -7,7 +7,7 @@ export type SanityImageWithAlt = SanityImageSource & { alt?: string; hotspot?: {
 export interface SanityArticle {
   slug: string;
   title: string;
-  dek: string;
+  dek?: string;
   category: ArticleCategory;
   tags?: string[];
   isExclusive?: boolean;

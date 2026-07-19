@@ -33,7 +33,7 @@ function mapArticle(doc: SanityArticle): Article {
   return {
     slug: doc.slug,
     title: doc.title,
-    dek: doc.dek,
+    dek: doc.dek ?? "",
     category: doc.category,
     tags: doc.tags ?? [],
     isExclusive: doc.isExclusive,
