@@ -1,4 +1,5 @@
 import { TransferIcon } from "@sanity/icons";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 import { CirclePhotoInput } from "@/sanity/components/SmartImageInput";
 
@@ -89,17 +90,9 @@ export const transferDeal = defineType({
       rows: 2,
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "order",
-      title: "Display order",
-      type: "number",
-      description: "Lower numbers show first on the Transfer Centre table.",
-      initialValue: 0,
-    }),
+    orderRankField({ type: "transferDeal" }),
   ],
-  orderings: [
-    { title: "Display order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
-  ],
+  orderings: [orderRankOrdering],
   preview: {
     select: { title: "player", subtitle: "status" },
   },

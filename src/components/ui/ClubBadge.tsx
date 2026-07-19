@@ -1,4 +1,4 @@
-import { getClubBadges } from "@/lib/data/clubs";
+import { findClubBadge, getClubBadges } from "@/lib/data/clubs";
 import { localCrestUrl } from "@/lib/utils/clubCrests";
 import { deriveTeamBadge } from "@/lib/utils/teamBadge";
 
@@ -32,7 +32,7 @@ export async function ClubBadge({
   className?: string;
 }) {
   const clubs = await getClubBadges();
-  const entry = name ? clubs.get(name.toLowerCase()) : undefined;
+  const entry = name ? findClubBadge(name, clubs) : undefined;
   const crestUrl = entry?.logoUrl ?? (name ? localCrestUrl(name) : undefined);
 
   const sizeVars = {

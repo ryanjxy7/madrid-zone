@@ -1,4 +1,5 @@
 import { UsersIcon } from "@sanity/icons";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 import { SquadPhotoInput } from "@/sanity/components/SmartImageInput";
 import { COUNTRIES } from "@/lib/utils/countries";
@@ -65,17 +66,9 @@ export const player = defineType({
       description:
         "Optional editorial write-up shown on the player's page (/players/player-name) alongside live stats. Leave blank to show stats only.",
     }),
-    defineField({
-      name: "order",
-      title: "Display order",
-      type: "number",
-      description: "Lower numbers show first within the position group.",
-      initialValue: 0,
-    }),
+    orderRankField({ type: "player" }),
   ],
-  orderings: [
-    { title: "Display order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
-  ],
+  orderings: [orderRankOrdering],
   preview: {
     select: { title: "name", number: "number", role: "role", media: "photo" },
     prepare({ title, number, role, media }) {

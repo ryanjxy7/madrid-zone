@@ -162,9 +162,40 @@ can't accidentally create a duplicate or delete them.
 
 ### Reordering lists
 
-Sponsors, Transfer Deals and Squad players each have a **Display order**
-number field — the lowest number shows first. Change the number and
-publish to reorder.
+Sponsors, Transfer Deals and Squad players are now **drag-and-drop** lists
+— no more typing a number and guessing. Open **🤝 Sponsors**, **🔄 Transfer
+Centre → Deals**, or **⚽ Squad** (which is split into Forwards /
+Midfielders / Defenders / Goalkeepers, matching how the site groups them),
+and just drag each row by its handle into the order you want. It saves
+automatically — no separate publish step for the order itself.
+
+### Deleting an item
+
+Open the item, click the **⋯** menu in the top-right corner of its editor,
+and choose **Delete**. This works for every list-type item — squad
+players, transfer deals, sponsors, articles, fixtures, results, and so on.
+(The five singletons above don't offer Delete since there must always be
+exactly one of them — see "Editing things that only have one instance.")
+
+### Showing the other club's real crest in Transfer Deals
+
+Every deal in **🔄 Transfer Centre → Deals** has an **Other club** field —
+a dropdown of every club you've added under **🏟️ Clubs**, rather than a
+free-text field. Pick the club there and its real crest (whatever logo you
+uploaded on that Club document) appears on the live site automatically.
+
+So for a deal like "Nico Paz to Como for €60m": first open **🏟️ Clubs**,
+add a new club named "Como" with its badge image uploaded to **Logo**,
+then open the transfer deal and set **Other club** to Como. The frontend
+will show Real Madrid's crest on one side and Como's real crest on the
+other — no manual badge text needed. If a deal's other club hasn't been
+added to **🏟️ Clubs** yet, it falls back to the plain **Other club's badge
+text** field (a short 2-4 letter placeholder) until you do.
+
+Club names don't have to match character-for-character between sections —
+"Real Sociedad" and "Real Sociedad de Fútbol" (or "Real Madrid" vs "Real
+Madrid CF") are recognised as the same club, so slightly different naming
+in a fixture, result or transfer deal still finds the right crest.
 
 ### How fast do changes appear?
 

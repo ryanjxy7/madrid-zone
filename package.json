@@ -13,6 +13,7 @@
     "@portabletext/react": "^6.2.0",
     "@portabletext/types": "^4.0.2",
     "@sanity/image-url": "^2.1.1",
+    "@sanity/orderable-document-list": "^2.0.14",
     "next": "15.5.20",
     "next-sanity": "^11.6.13",
     "react": "^19.0.0",

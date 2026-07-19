@@ -1,4 +1,5 @@
 import { StarIcon } from "@sanity/icons";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 export const sponsor = defineType({
@@ -34,17 +35,9 @@ export const sponsor = defineType({
       type: "url",
       description: "Optional — makes the sponsor tile clickable.",
     }),
-    defineField({
-      name: "order",
-      title: "Display order",
-      type: "number",
-      description: "Lower numbers show first.",
-      initialValue: 0,
-    }),
+    orderRankField({ type: "sponsor" }),
   ],
-  orderings: [
-    { title: "Display order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
-  ],
+  orderings: [orderRankOrdering],
   preview: {
     select: { title: "name", subtitle: "tag", media: "logo" },
   },

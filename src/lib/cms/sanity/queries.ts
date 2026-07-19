@@ -41,7 +41,7 @@ export const relatedArticlesQuery = /* groq */ `
 `;
 
 export const sponsorsQuery = /* groq */ `
-  *[_type == "sponsor"] | order(order asc) { name, tag, logo, website }
+  *[_type == "sponsor"] | order(orderRank asc) { name, tag, logo, website }
 `;
 
 export const wireItemsQuery = /* groq */ `
@@ -49,7 +49,7 @@ export const wireItemsQuery = /* groq */ `
 `;
 
 export const squadQuery = /* groq */ `
-  *[_type == "player"] | order(position asc, order asc) {
+  *[_type == "player"] | order(orderRank asc) {
     "id": _id, name, number, role, position, "image": photo, nationality
   }
 `;
@@ -64,7 +64,7 @@ export const playerPhotoOverridesQuery = /* groq */ `
 `;
 
 export const transferDealsQuery = /* groq */ `
-  *[_type == "transferDeal"] | order(order asc) {
+  *[_type == "transferDeal"] | order(orderRank asc) {
     "id": _id, player, photo, position, direction, status, fee, latest, counterpartMark,
     "counterpartClub": counterpartClub->name
   }

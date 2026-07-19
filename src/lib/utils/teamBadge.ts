@@ -1,5 +1,7 @@
 /** Opponent-name helpers for match/standings rows — real crest lookup lives in clubCrests.ts and src/lib/data/clubs.ts; this file is just string parsing. */
 
+import { isRealMadrid } from "@/lib/utils/clubNames";
+
 /**
  * `Fixture.opponent` is meant to be just the opponent's name ("Barcelona"),
  * but older/free-text Sanity content or a provider that hasn't been
@@ -25,7 +27,12 @@ export function extractOpponentFromResult(match: string): string {
     .map((part) => part.trim())
     .filter(Boolean);
   if (!teamA) return "Opponent";
-  return teamA.toLowerCase() === "real madrid" ? (teamB ?? "Opponent") : teamA;
+  // isRealMadrid (not a strict "=== 'real madrid'" check) so a result written as
+  // "Real Madrid CF 3-1 ..." or any other suffix variant still gets recognised as
+  // our own side — getting this wrong used to show Real Madrid's own crest in the
+  // *opponent* slot too (the misidentified "opponent" name still fuzzy-matched
+  // Real Madrid's crest), i.e. Real Madrid's badge twice with no opponent badge.
+  return isRealMadrid(teamA) ? (teamB ?? "Opponent") : teamA;
 }
 
 /** "Opponent A" -> "OPA". Used for the small grey badge next to a fixture/result when there's no crest image (real or bundled) for a club. */

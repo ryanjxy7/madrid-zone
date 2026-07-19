@@ -16,7 +16,7 @@ export function TransferSummaryCards({
           TOTAL SPENT<span className="hidden sm:inline"> · THIS WINDOW</span>
         </span>
         <div className="flex items-baseline gap-1.5 sm:gap-2.5">
-          <span className="font-display text-[25px] font-bold text-accent sm:text-[34px]">{totalSpent}</span>
+          <span className="font-display text-[25px] font-bold text-negative sm:text-[34px]">{totalSpent}</span>
           <span className="font-body text-[10px] font-semibold text-negative sm:text-xs">↓ money out</span>
         </div>
         <span className="hidden font-body text-xs text-muted sm:block">{spentNote}</span>

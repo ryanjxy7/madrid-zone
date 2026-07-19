@@ -13,7 +13,7 @@ export const club = defineType({
       name: "name",
       title: "Club name",
       type: "string",
-      description: "Must exactly match how the name appears elsewhere on the site (e.g. \"Barcelona\", \"Atlético Madrid\") for the logo to link up automatically.",
+      description: "Should closely match how the name appears elsewhere on the site (e.g. \"Barcelona\", \"Atlético Madrid\") — minor variants like \"Real Sociedad\" vs \"Real Sociedad de Fútbol\" are still recognised as the same club, but keep it recognisably close.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
