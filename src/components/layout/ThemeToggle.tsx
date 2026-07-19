@@ -28,7 +28,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       title={light ? "Switch to night mode" : "Switch to day mode"}
-      className="flex w-[50px] flex-none cursor-pointer items-center justify-center gap-1 whitespace-nowrap rounded-full border-[1.5px] border-negative/45 py-1.5 font-display text-[8.5px] font-bold tracking-wide text-accent transition-colors hover:border-brand hover:bg-brand/10 sm:w-[90px] sm:gap-1.5 sm:py-2 sm:text-[11px]"
+      className="flex w-[50px] flex-none cursor-pointer items-center justify-center gap-1 whitespace-nowrap rounded-full border-[1.5px] border-brand/45 py-1.5 font-display text-[8.5px] font-bold tracking-wide text-accent transition-colors hover:border-brand hover:bg-brand/10 sm:w-[90px] sm:gap-1.5 sm:py-2 sm:text-[11px]"
     >
       {light ? <MoonIcon /> : <SunIcon />}
       <span className="sm:hidden">{light ? "NIGHT" : "DAY"}</span>

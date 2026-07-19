@@ -1,5 +1,5 @@
 import { placeholderSquad } from "@/data/placeholder/squad";
-import { avatarSourceImageUrl, isSanityConfigured, portraitImageUrl, sanityFetch, squadQuery } from "@/lib/cms/sanity";
+import { avatarSourceImageUrl, isSanityConfigured, sanityFetch, squadQuery } from "@/lib/cms/sanity";
 import { playerPhotoOverridesQuery } from "@/lib/cms/sanity/queries";
 import type { SanityPlayer } from "@/lib/cms/sanity/types";
 import { getSquad as getLiveSquad } from "@/lib/football/footballService";
@@ -8,22 +8,21 @@ import { normalizedPhotoUrl } from "@/lib/utils/images";
 import type { Player, PlayerPosition, SquadGroup } from "@/types/football";
 
 /**
- * A photo override, always normalised to a clean backdrop. `circleUrl` is
- * a pre-cropped 3:4 portrait with an opaque white background baked in
- * (safe for the small, roughly-square photo circles used in
- * scorer/assist/stat-leader rows and the player profile page); `avatarUrl`
- * is the same source with no forced crop at all, and its flat background
- * keyed to *transparent* rather than opaque white, for Squad cards — which
- * do their own CSS crop driven by `focus` (see PlayerCard.tsx) and render
- * the photo over a big number watermark that's meant to show through the
- * cutout's negative space, with the card's own white backdrop behind that.
- * Baking a fixed crop AND letting CSS crop again (to a differently-shaped
- * container) is what caused photos to get cut off there, so avatar
- * consumers get exactly one crop, not two.
+ * A photo override — always the *uncropped* source (no forced aspect
+ * baked in server-side) plus the editor's hotspot focal point, so every
+ * consumer does exactly one crop, in CSS, driven by the real focal point:
+ * a plain Sanity-side crop followed by a second CSS crop into a
+ * differently-shaped box (a 3:4 portrait squeezed into a 1:1 circle, say)
+ * is what was cutting heads off in the small photo circles — two crops
+ * compounding whatever margin the first one left. `whiteUrl` has an
+ * opaque white backdrop (circles and anything else with nothing behind
+ * the photo); `transparentUrl` keys the same flat backdrop to transparent
+ * instead, for Squad cards, which render over a big number watermark
+ * meant to show through the cutout's negative space.
  */
 export interface PhotoOverride {
-  circleUrl: string;
-  avatarUrl: string;
+  whiteUrl: string;
+  transparentUrl: string;
   focus?: { x: number; y: number };
 }
 
@@ -73,8 +72,8 @@ export async function getPlayerPhotoOverrides(): Promise<Map<string, PhotoOverri
   const overrides = new Map<string, PhotoOverride>();
   for (const player of players) {
     const entry: PhotoOverride = {
-      circleUrl: normalizedPhotoUrl(portraitImageUrl(player.image)),
-      avatarUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image), "transparent"),
+      whiteUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image), "white"),
+      transparentUrl: normalizedPhotoUrl(avatarSourceImageUrl(player.image), "transparent"),
       focus: player.image?.hotspot,
     };
     for (const alias of playerNameSlugAliases(player.name)) {
@@ -84,20 +83,20 @@ export async function getPlayerPhotoOverrides(): Promise<Map<string, PhotoOverri
   return overrides;
 }
 
-/** Looks up a photo override's pre-cropped circle URL by every slug `name` could plausibly be registered under — for scorer/assist/stat-leader rows and the player profile page. */
-export function findPhotoOverride(name: string, overrides: Map<string, PhotoOverride>): string | undefined {
+/** Alias-aware lookup: the uncropped source (white backdrop) + focal point, for photo circles — scorer/assist/stat-leader rows, transfer deals, the player profile page. */
+export function findPhotoOverride(name: string, overrides: Map<string, PhotoOverride>): { url: string; focus?: { x: number; y: number } } | undefined {
   for (const alias of playerNameSlugAliases(name)) {
     const match = overrides.get(alias);
-    if (match) return match.circleUrl;
+    if (match) return { url: match.whiteUrl, focus: match.focus };
   }
   return undefined;
 }
 
-/** Same alias-aware lookup, but the uncropped avatar source + focal point for Squad cards' own CSS crop. */
+/** Same alias-aware lookup, but the transparent-backdrop variant for Squad cards' own CSS crop (see PhotoOverride). */
 export function findPhotoAvatarOverride(name: string, overrides: Map<string, PhotoOverride>): { url: string; focus?: { x: number; y: number } } | undefined {
   for (const alias of playerNameSlugAliases(name)) {
     const match = overrides.get(alias);
-    if (match) return { url: match.avatarUrl, focus: match.focus };
+    if (match) return { url: match.transparentUrl, focus: match.focus };
   }
   return undefined;
 }

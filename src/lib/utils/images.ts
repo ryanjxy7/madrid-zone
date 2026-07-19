@@ -43,3 +43,19 @@ export function normalizedPhotoUrl(url: string, mode: "white" | "transparent" = 
   const modeParam = mode === "transparent" ? "&mode=transparent" : "";
   return `/api/photo/normalize?src=${encodeURIComponent(url)}${modeParam}`;
 }
+
+/**
+ * CSS object-position for a player photo, given an optional editor-set
+ * crop focal point (0-1 fractions). Every player photo on the site is now
+ * served uncropped (see avatarSourceImageUrl) so this is the *only* crop
+ * that happens — with no focal point set yet, biasing toward the top
+ * rather than dead-center is deliberate: portrait photos overwhelmingly
+ * frame the face in the upper portion of the shot, so a plain center crop
+ * systematically clips the top of the head once that source gets cropped
+ * down into a small square/circle. Once a hotspot is set (manually, or
+ * automatically via Studio's auto-crop), that real focal point always
+ * wins over this default.
+ */
+export function photoObjectPosition(focus?: { x: number; y: number }): string {
+  return focus ? `${focus.x * 100}% ${focus.y * 100}%` : "50% 20%";
+}

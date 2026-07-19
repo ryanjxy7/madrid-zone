@@ -68,6 +68,7 @@ export interface PlayerProfile {
   nationality?: string;
   age?: number;
   photo?: string;
+  photoFocus?: { x: number; y: number };
 }
 
 export interface PlayerSeasonStats {

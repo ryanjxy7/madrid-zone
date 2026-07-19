@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { photoObjectPosition } from "@/lib/utils/images";
 import type { StatLeaderCategory } from "@/types/football";
 
 /** Short mobile-only labels so all four tabs fit on one line on narrow screens — desktop keeps the full label (see the sm:hidden/hidden sm:inline split below). */
@@ -44,7 +45,14 @@ export function StatLeadersWidget({ categories }: { categories: StatLeaderCatego
       {active?.rows.map((row) => (
         <div key={row.rank} className="flex items-center gap-2.5 border-b border-border-soft py-2.5 last:border-0">
           <span className="w-3.5 font-display text-[13px] font-bold text-muted">{row.rank}</span>
-          <Image src={row.image} alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover" />
+          <Image
+            src={row.image}
+            alt=""
+            width={26}
+            height={26}
+            className="h-[26px] w-[26px] flex-none rounded-full border-[1.5px] border-border-strong object-cover"
+            style={{ objectPosition: photoObjectPosition(row.imageFocus) }}
+          />
           <div className="flex flex-1 flex-col gap-1">
             <div className="flex items-center justify-between">
               <span className="font-body text-[13px] font-semibold text-heading">{row.name}</span>

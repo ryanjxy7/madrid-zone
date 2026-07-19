@@ -1,5 +1,5 @@
 import { placeholderDeals, placeholderRumours } from "@/data/placeholder/transfers";
-import { isSanityConfigured, portraitImageUrl, sanityFetch } from "@/lib/cms/sanity";
+import { avatarSourceImageUrl, isSanityConfigured, sanityFetch } from "@/lib/cms/sanity";
 import { transferDealsQuery, rumoursQuery } from "@/lib/cms/sanity/queries";
 import type { SanityRumour, SanityTransferDeal } from "@/lib/cms/sanity/types";
 import { formatRelativeTime } from "@/lib/utils/format";
@@ -10,7 +10,11 @@ import type { Rumour, TransferDeal } from "@/types/football";
  * Transfer-market data is editorial (verified by the newsroom, not an
  * API), so it comes from Sanity rather than API-Football. A deal's photo
  * is optional in Studio (many targets are unconfirmed/anonymous) — falls
- * back to a deterministic placeholder so the layout never has a gap.
+ * back to a deterministic placeholder so the layout never has a gap. The
+ * photo is left uncropped (avatarSourceImageUrl) with its focal point
+ * carried alongside it (photoFocus) so DealsTable's circle crops around
+ * the actual face via CSS instead of a plain center crop baked in
+ * server-side, which tended to clip the top of the head.
  */
 export async function getDeals(): Promise<TransferDeal[]> {
   if (isSanityConfigured) {
@@ -18,7 +22,8 @@ export async function getDeals(): Promise<TransferDeal[]> {
     if (result && result.length > 0) {
       return result.map((deal) => ({
         ...deal,
-        photo: deal.photo ? normalizedPhotoUrl(portraitImageUrl(deal.photo, 100)) : placeholderImage(deal.id, 100, 100),
+        photo: deal.photo ? normalizedPhotoUrl(avatarSourceImageUrl(deal.photo)) : placeholderImage(deal.id, 100, 100),
+        photoFocus: deal.photo?.hotspot,
       }));
     }
   }

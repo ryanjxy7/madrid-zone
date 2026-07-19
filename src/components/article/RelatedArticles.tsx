@@ -24,7 +24,7 @@ export function RelatedArticles({ articles }: { articles: Article[] }) {
             <span className="font-body text-[13.5px] font-semibold leading-snug text-heading">{article.title}</span>
             <div className="flex items-center gap-2">
               <span
-                className="w-fit flex-none whitespace-nowrap rounded-[3px] bg-negative/[0.16] px-[7px] py-[2px] font-display font-bold uppercase tracking-[0.08em] text-accent"
+                className="w-fit flex-none whitespace-nowrap rounded-[3px] bg-brand/15 px-[7px] py-[2px] font-display font-bold uppercase tracking-[0.08em] text-accent"
                 style={{ fontSize: tagFontSize(article.category) }}
               >
                 {article.category}

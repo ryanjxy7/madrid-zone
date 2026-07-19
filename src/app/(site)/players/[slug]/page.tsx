@@ -9,6 +9,7 @@ import { getPlayerBio, getPlayerProfileBySlug } from "@/lib/data/players";
 import { getPlayerSeasonStats } from "@/lib/football/footballService";
 import { siteConfig } from "@/lib/seo/constants";
 import { countryFlag } from "@/lib/utils/countries";
+import { photoObjectPosition } from "@/lib/utils/images";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -60,7 +61,14 @@ export default async function PlayerPage({ params }: Props) {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-[200px_1fr]">
         {player.photo ? (
           <div className="relative aspect-[3/4] w-full max-w-[200px] overflow-hidden rounded-lg border border-border bg-card">
-            <Image src={player.photo} alt={player.name} fill sizes="200px" className="object-cover" />
+            <Image
+              src={player.photo}
+              alt={player.name}
+              fill
+              sizes="200px"
+              className="object-cover"
+              style={{ objectPosition: photoObjectPosition(player.photoFocus) }}
+            />
           </div>
         ) : null}
         <div className="flex flex-col justify-end gap-1">

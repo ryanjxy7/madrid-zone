@@ -37,6 +37,8 @@ export interface TransferDeal {
   id: string;
   player: string;
   photo: string;
+  /** Focal point (0-1 fractions) from the editor's Sanity hotspot — see Player.imageFocus. */
+  photoFocus?: { x: number; y: number };
   position: string;
   direction: TransferDirection;
   status: TransferStatus;
@@ -99,6 +101,7 @@ export interface ScorerStat {
   barPercent: number;
   team?: string;
   image: string;
+  imageFocus?: { x: number; y: number };
 }
 
 export interface AssistStat {
@@ -107,6 +110,7 @@ export interface AssistStat {
   assists: number;
   team?: string;
   image: string;
+  imageFocus?: { x: number; y: number };
 }
 
 export interface GoalkeepingStat {
@@ -128,6 +132,7 @@ export interface StatLeaderRow {
   value: string;
   barPercent: number;
   image: string;
+  imageFocus?: { x: number; y: number };
 }
 
 export interface StatLeaderCategory {

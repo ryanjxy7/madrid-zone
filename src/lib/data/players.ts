@@ -47,7 +47,8 @@ export async function getAllPlayerLinks(): Promise<PlayerLink[]> {
 export async function getPlayerProfileBySlug(slug: string): Promise<PlayerProfile | null> {
   const [live, photoOverrides] = await Promise.all([getLivePlayerProfileBySlug(slug), getPlayerPhotoOverrides()]);
   if (live) {
-    return { ...live, photo: findPhotoOverride(live.name, photoOverrides) ?? live.photo };
+    const override = findPhotoOverride(live.name, photoOverrides);
+    return { ...live, photo: override?.url ?? live.photo, photoFocus: override?.focus };
   }
 
   // getSquad() already merges in the same photo overrides, so no extra work needed on this branch.
@@ -63,6 +64,7 @@ export async function getPlayerProfileBySlug(slug: string): Promise<PlayerProfil
           number: player.number,
           nationality: player.nationality,
           photo: player.image,
+          photoFocus: player.imageFocus,
         };
       }
     }

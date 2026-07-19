@@ -13,7 +13,7 @@ export function AnalysisCard({ article }: { article: Article }) {
         <Image src={article.image.url} alt={article.image.alt} fill sizes="(min-width: 1024px) 420px, 100vw" className="object-cover" />
       </div>
       <div className="flex flex-col gap-2 p-4">
-        <span className="w-fit rounded-[3px] bg-negative/[0.14] px-2.5 py-[3px] font-display text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
+        <span className="w-fit rounded-[3px] bg-brand/15 px-2.5 py-[3px] font-display text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
           {article.category}
         </span>
         <h3 className="font-body text-base font-semibold leading-snug text-heading">{article.title}</h3>

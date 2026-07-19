@@ -44,11 +44,16 @@ html.light {
   --muted: #666c7c;
   --subtle: #494f60;
   --body-text: #31364a;
-  --accent: #c8102e;
+  /* Day mode's brand accent is blue, not red — brand and accent collapse
+     to the same blue (unlike dark mode, which keeps two distinct reds). */
+  --accent: #2028b4;
+  --brand: #2028b4;
   --track: rgba(12, 16, 30, 0.08);
   --shadow-card: 0 4px 14px rgba(15, 20, 40, 0.08);
   --shadow-card-hover: 0 14px 30px rgba(15, 20, 40, 0.16);
-  --logo-filter: brightness(0);
+  /* Recolors the single-color logo mark to match the blue accent (it's a
+     flat black/white PNG, not something we can just re-tint directly). */
+  --logo-filter: brightness(0) saturate(100%) invert(13%) sepia(72%) saturate(4900%) hue-rotate(238deg) brightness(92%);
 }
 
 @theme inline {

@@ -22,8 +22,8 @@ const EVENT_ICON: Record<MatchEvent["type"], string> = {
 function StatusBadge({ status, minute }: { status: LiveMatchDetail["status"]; minute: number | null }) {
   if (status === "live") {
     return (
-      <span className="flex items-center gap-1.5 rounded-full bg-negative/10 px-2.5 py-1 font-display text-xs font-bold tracking-[0.08em] text-negative">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-negative" />
+      <span className="flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-1 font-display text-xs font-bold tracking-[0.08em] text-brand">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
         LIVE {minute !== null ? `${minute}'` : ""}
       </span>
     );

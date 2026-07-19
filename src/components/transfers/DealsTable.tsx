@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ClubBadge } from "@/components/ui/ClubBadge";
+import { photoObjectPosition } from "@/lib/utils/images";
 import { directionClasses, statusClasses } from "@/lib/utils/transferStyles";
 import type { TransferDeal } from "@/types/football";
 
@@ -37,7 +38,14 @@ export function DealsTable({ deals }: { deals: TransferDeal[] }) {
           {/* Desktop row */}
           <div className="hidden grid-cols-[2.2fr_1.4fr_1.2fr_1fr] items-center gap-3 border-b border-border-soft px-[22px] py-3.5 last:border-0 md:grid">
             <div className="flex items-center gap-[11px]">
-              <Image src={deal.photo} alt="" width={38} height={38} className="h-[38px] w-[38px] flex-none rounded-full border-2 border-border-strong object-cover" />
+              <Image
+                src={deal.photo}
+                alt=""
+                width={38}
+                height={38}
+                className="h-[38px] w-[38px] flex-none rounded-full border-2 border-border-strong object-cover"
+                style={{ objectPosition: photoObjectPosition(deal.photoFocus) }}
+              />
               <div className="flex flex-col gap-0.5">
                 <span className="font-body text-[14.5px] font-semibold text-heading">{deal.player}</span>
                 <span className="font-body text-[11px] font-medium text-muted">{deal.position}</span>
@@ -56,7 +64,14 @@ export function DealsTable({ deals }: { deals: TransferDeal[] }) {
           <div className="flex flex-col gap-2.5 border-b border-border-soft p-4 last:border-0 md:hidden">
             <div className="flex items-center justify-between gap-2.5">
               <div className="flex min-w-0 items-center gap-2.5">
-                <Image src={deal.photo} alt="" width={38} height={38} className="h-[38px] w-[38px] flex-none rounded-full border-2 border-border-strong object-cover" />
+                <Image
+                src={deal.photo}
+                alt=""
+                width={38}
+                height={38}
+                className="h-[38px] w-[38px] flex-none rounded-full border-2 border-border-strong object-cover"
+                style={{ objectPosition: photoObjectPosition(deal.photoFocus) }}
+              />
                 <div className="flex min-w-0 flex-col gap-1">
                   <span className="font-body text-[14.5px] font-semibold text-heading">{deal.player}</span>
                   <span className={`w-fit rounded-[3px] px-1.5 py-0.5 font-display text-[9px] font-bold tracking-[0.08em] ${statusClasses(deal.status)}`}>

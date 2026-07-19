@@ -20,7 +20,7 @@ export function StoryCard({ article }: { article: Article }) {
         <h3 className="font-body text-[15px] font-semibold leading-snug text-heading">{article.title}</h3>
         <div className="flex items-center gap-2">
           <span
-            className="w-fit flex-none whitespace-nowrap rounded-[3px] bg-negative/[0.16] px-2 py-[3px] font-display font-bold uppercase tracking-[0.08em] text-accent"
+            className="w-fit flex-none whitespace-nowrap rounded-[3px] bg-brand/15 px-2 py-[3px] font-display font-bold uppercase tracking-[0.08em] text-accent"
             style={{ fontSize: tagFontSize(article.category) }}
           >
             {article.category}

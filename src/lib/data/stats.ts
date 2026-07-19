@@ -39,12 +39,22 @@ export async function getStatTiles(): Promise<StatTile[]> {
  * squad.ts) if there is one, otherwise a deterministic placeholder, same
  * as the design always shows one. Never conditional: a scorer/assist row
  * with no photo at all doesn't match the design and shouldn't happen.
+ * Also threads through the editor's crop focal point, so these small
+ * photo circles crop around the actual face instead of a plain center
+ * crop that tends to clip the top of the head.
  */
-function withPhotos<T extends { name: string; image?: string }>(entries: T[], overrides: Map<string, PhotoOverride>): (T & { image: string })[] {
-  return entries.map((entry) => ({
-    ...entry,
-    image: findPhotoOverride(entry.name, overrides) ?? entry.image ?? placeholderImage(entry.name, 80, 80),
-  }));
+function withPhotos<T extends { name: string; image?: string }>(
+  entries: T[],
+  overrides: Map<string, PhotoOverride>
+): (T & { image: string; imageFocus?: { x: number; y: number } })[] {
+  return entries.map((entry) => {
+    const override = findPhotoOverride(entry.name, overrides);
+    return {
+      ...entry,
+      image: override?.url ?? entry.image ?? placeholderImage(entry.name, 80, 80),
+      imageFocus: override?.focus,
+    };
+  });
 }
 
 export async function getScorers(): Promise<ScorerStat[]> {
@@ -103,13 +113,17 @@ function buildLeaderRows(
   photoNameFor: (name: string) => string = (name) => name
 ): StatLeaderRow[] {
   const max = Math.max(...entries.map((entry) => toNumericValue(entry.value)), 1);
-  return entries.map((entry, index) => ({
-    rank: index + 1,
-    name: entry.name,
-    value: entry.value,
-    barPercent: Math.round((toNumericValue(entry.value) / max) * 100),
-    image: findPhotoOverride(photoNameFor(entry.name), overrides) ?? placeholderImage(entry.name, 80, 80),
-  }));
+  return entries.map((entry, index) => {
+    const override = findPhotoOverride(photoNameFor(entry.name), overrides);
+    return {
+      rank: index + 1,
+      name: entry.name,
+      value: entry.value,
+      barPercent: Math.round((toNumericValue(entry.value) / max) * 100),
+      image: override?.url ?? placeholderImage(entry.name, 80, 80),
+      imageFocus: override?.focus,
+    };
+  });
 }
 
 /**

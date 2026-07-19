@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { isSanityConfigured, portraitImageUrl, sanityFetch } from "@/lib/cms/sanity";
+import { isSanityConfigured, logoImageUrl, sanityFetch } from "@/lib/cms/sanity";
 import { clubsQuery } from "@/lib/cms/sanity/queries";
 import type { SanityClub } from "@/lib/cms/sanity/types";
 
@@ -24,7 +24,7 @@ export const getClubBadges = cache(async (): Promise<Map<string, ClubBadgeInfo>>
       club.name.toLowerCase(),
       {
         shortCode: club.shortCode,
-        logoUrl: club.logo ? portraitImageUrl(club.logo, 200) : undefined,
+        logoUrl: club.logo ? logoImageUrl(club.logo, 200) : undefined,
         color: club.color,
       },
     ])
